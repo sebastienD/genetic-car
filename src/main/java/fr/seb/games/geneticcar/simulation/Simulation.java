@@ -3,6 +3,9 @@ package fr.seb.games.geneticcar.simulation;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by sebastien on 12/01/2015.
  */
@@ -13,13 +16,17 @@ public class Simulation {
     private int box2dfps = 60;
     private int screenfps = 60;
 
-    private int generationSize = 20;
+    private static int generationSize = 20;
 
     private Vec2 gravity = new Vec2(0.0F, -9.81F);
 
     private int zoom = 70;
 
     private World world;
+
+    private List<CarDefinition> allCarDefinitions = new ArrayList<>(generationSize);
+    private int deadCars = 0;
+    private Position leaderPosition = new Position();
 
     public Simulation() {
 
@@ -30,33 +37,43 @@ public class Simulation {
         ground.createFloor();
 
         generationZero();
-//        cw_runningInterval = setInterval(simulationStep, Math.round(1000/box2dfps));
+        while (true) {
+            simulationStepAndReturnDistanceOfLeader();
+            if (deadCars == generationSize) {
+                break;
+            }
+        }
 
     }
 
     private void generationZero() {
         for(int k = 0; k < generationSize; k++) {
-            var car_def = Car.createRandomCar();
-            car_def.index = k;
-            cw_carGeneration.push(car_def);
+            CarDefinition car_Definition_def = CarDefinition.createRandomCar();
+            car_Definition_def.index = k;
+            allCarDefinitions.add(car_Definition_def);
         }
-        gen_counter = 0;
-        cw_deadCars = 0;
-        leaderPosition = new Object();
+
+        deadCars = 0;
+        leaderPosition = new Position();
         leaderPosition.x = 0;
         leaderPosition.y = 0;
         cw_materializeGeneration();
     }
 
+    private void cw_materializeGeneration() {
+        cw_carArray = new Array();
+        for(var k = 0; k < generationSize; k++) {
+            cw_carArray.push(new cw_Car(allCarDefinitions.get(k)));
+        }
+    }
 
-
-    private void simulationStep() {
-        world.Step(1/box2dfps, 20, 20);
+    private int simulationStepAndReturnDistanceOfLeader() {
+        world.step(1 / box2dfps, 20, 20);
         for(int k = 0; k < generationSize; k++) {
             if(!cw_carArray[k].alive) {
                 continue;
             }
-            ghost_add_replay_frame(cw_carArray[k].replay, cw_carArray[k]);
+
             cw_carArray[k].frames++;
             position = cw_carArray[k].getPosition();
 
@@ -78,7 +95,12 @@ public class Simulation {
                 leaderPosition.leader = k;
             }
         }
-        showDistance(Math.round(leaderPosition.x*100)/100, Math.round(leaderPosition.y*100)/100);
+        return (Math.round(leaderPosition.x*100)/100);
+    }
+
+    public static class Position {
+        public int x;
+        public int y;
     }
 }
 
