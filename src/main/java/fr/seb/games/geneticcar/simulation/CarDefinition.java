@@ -13,21 +13,21 @@ import java.util.stream.Stream;
  */
 public class CarDefinition {
 
-    public static float MOTOR_SPEED = 20;
+    public static final float MOTOR_SPEED = 20;
 
-    private static float chassisMinAxis = 0.1F;
+    private static final float chassisMinAxis = 0.1F;
 
-    private static float chassisMaxAxis = 1.1F;
-    private static float chassisMinDensity = 30;
+    private static final float chassisMaxAxis = 1.1F;
+    private static final float chassisMinDensity = 30;
 
-    private static float chassisMaxDensity = 300;
-    private static float wheelMaxRadius = 0.5F;
-    private static float wheelMinRadius = 0.2F;
-    private static float wheelMaxDensity = 100;
+    private static final float chassisMaxDensity = 300;
+    private static final float wheelMaxRadius = 0.5F;
+    private static final float wheelMinRadius = 0.2F;
+    private static final float wheelMaxDensity = 100;
 
-    private static float wheelMinDensity = 40;
+    private static final float wheelMinDensity = 40;
 
-    private static int wheelCount = 2;
+    private static final int wheelCount = 2;
 
     public List<WheelDefinition> wheelDefinitions = new ArrayList<>();
     public float chassisDensity;
