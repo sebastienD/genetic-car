@@ -1,5 +1,6 @@
 package fr.seb.games.geneticcar;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -13,6 +14,7 @@ import java.net.Socket;
 public class Client {
 
     @Test
+    @Ignore
     public void should_connect() throws Exception {
         Socket socket = new Socket("localhost", 9090);
         BufferedReader in = new BufferedReader(

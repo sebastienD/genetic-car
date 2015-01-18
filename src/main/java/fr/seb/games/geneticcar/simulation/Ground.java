@@ -31,7 +31,8 @@ public class Ground {
 //        Math.seedrandom(floorseed);
         for(int k = 0; k < maxFloorTiles; k++) {
 
-            lastTile = createFloorTile(tilePosition, new Float((Math.random() * 3 - 1.5) * 1.5 * k / maxFloorTiles));
+
+            lastTile = createFloorTile(tilePosition, (Random.next(-1.5F, 3F) * 1.5F * k / maxFloorTiles));
 
             floorTiles.add(lastTile);
             //Fixture last_fixture = lastTile.getFixtureList();

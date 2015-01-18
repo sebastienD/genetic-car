@@ -1,3 +1,6 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,11 +11,13 @@ import java.net.Socket;
 /**
  * Created by sebastien on 10/01/2015.
  */
-public class Server {
+public class ServeurSocket {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServeurSocket.class);
+    
       public static void main (String[] args) throws Exception {
             ServerSocket listener = new ServerSocket(9090);
-            System.out.println("Server is Running");
+           LOGGER.info("ServeurSocket is Running");
             try {
                   while (true) {
                         new Player(listener.accept(), "red").start();
@@ -23,7 +28,7 @@ public class Server {
                   }
             } finally {
                   listener.close();
-                  System.out.println("Server is closed");
+                  LOGGER.info("ServeurSocket is closed");
             }
       }
 
@@ -47,9 +52,9 @@ public class Server {
                         out.println("Hello, you're the "+ color + "team.");
 
                         while (true) {
-                              System.out.println("Attente d'une demande cliente");
+                              LOGGER.info("Attente d'une demande cliente");
                               String input = in.readLine();
-                              System.out.println("Le client indique "+ input);
+                              LOGGER.info("Le client indique "+ input);
                               if (input == null || input.equals(".")) {
                                     break;
                               }
@@ -57,14 +62,14 @@ public class Server {
                         }
 
                   } catch (IOException e) {
-                        System.out.println("Error handling player " + color + ": " + e);
+                        LOGGER.info("Error handling player " + color + ": " + e);
                   } finally {
                         try {
                               socket.close();
                         } catch (IOException e) {
-                              System.out.println("Couldn't close a socket, what's going on?");
+                              LOGGER.info("Couldn't close a socket, what's going on?");
                         }
-                        System.out.println("Connection with player " + color + " closed");
+                        LOGGER.info("Connection with player " + color + " closed");
                   }
             }
       }

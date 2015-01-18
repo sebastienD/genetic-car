@@ -2,8 +2,11 @@ package fr.seb.games.geneticcar.simulation;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -11,96 +14,108 @@ import java.util.List;
  */
 public class Simulation {
 
-    private float timeStep = 1.0F / 60.0F;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Simulation.class);
 
-    private int box2dfps = 60;
-    private int screenfps = 60;
+    public static final int BOX2D_FPS = 60;
 
-    private static int generationSize = 20;
+    private static float TIME_STEP = 1.0F / BOX2D_FPS;
+    private static int SCREEN_FPS = 60;
 
-    private Vec2 gravity = new Vec2(0.0F, -9.81F);
+    private static int GENERATION_SIZE = 20;
+
+    public static final Vec2 GRAVITY = new Vec2(0.0F, -9.81F);
 
     private int zoom = 70;
 
     private World world;
 
-    private List<CarDefinition> allCarDefinitions = new ArrayList<>(generationSize);
+    private List<CarDefinition> allCarDefinitions = new ArrayList<>(GENERATION_SIZE);
     private int deadCars = 0;
-    private Position leaderPosition = new Position();
+    private Leader leader = new Leader();
+
+    private List<Car> allCars = new ArrayList<>(GENERATION_SIZE);
 
     public Simulation() {
 
-//        floorseed = Math.seedrandom();
-        World world = new World(gravity);
+        // floorseed = Math.seedrandom();
+        world = new World(GRAVITY);
 
         Ground ground = new Ground(world);
         ground.createFloor();
 
-        generationZero();
+    }
+
+    public void runSimulation() {
+        int temp = 0;
         while (true) {
-            simulationStepAndReturnDistanceOfLeader();
-            if (deadCars == generationSize) {
+            simulationStep();
+            if (deadCars == GENERATION_SIZE) {
+                break;
+            }
+            if (temp++ == 10) {
                 break;
             }
         }
-
     }
 
-    private void generationZero() {
-        for(int k = 0; k < generationSize; k++) {
+    public void showAllScores() {
+        allCars.stream().forEach(car -> LOGGER.info("score car {} : {}", car, car.getScore()));
+    }
+
+    public void buildGenerationZero() {
+        for(int k = 0; k < GENERATION_SIZE; k++) {
             CarDefinition car_Definition_def = CarDefinition.createRandomCar();
-            car_Definition_def.index = k;
+            //car_Definition_def.index = k;
             allCarDefinitions.add(car_Definition_def);
         }
 
         deadCars = 0;
-        leaderPosition = new Position();
-        leaderPosition.x = 0;
-        leaderPosition.y = 0;
-        cw_materializeGeneration();
+        leader = new Leader();
+        materializeGeneration();
     }
 
-    private void cw_materializeGeneration() {
-        cw_carArray = new Array();
-        for(var k = 0; k < generationSize; k++) {
-            cw_carArray.push(new cw_Car(allCarDefinitions.get(k)));
-        }
+    private void materializeGeneration() {
+        allCars = new ArrayList<>(GENERATION_SIZE);
+        allCarDefinitions.stream().forEach(cardef -> allCars.add(new Car(cardef, world)));
     }
 
-    private int simulationStepAndReturnDistanceOfLeader() {
-        world.step(1 / box2dfps, 20, 20);
-        for(int k = 0; k < generationSize; k++) {
-            if(!cw_carArray[k].alive) {
-                continue;
-            }
+    private void simulationStep() {
+        LOGGER.debug("run simulation step");
+        world.step(TIME_STEP, 20, 20);
 
-            cw_carArray[k].frames++;
-            position = cw_carArray[k].getPosition();
+        allCars.stream().filter(car -> car.alive).forEach(car -> {
+            car.frames++;
 
-            if(cw_carArray[k].checkDeath()) {
-                cw_carArray[k].kill();
-                cw_deadCars++;
+            if (car.checkDeath()) {
+                car.kill();
+                deadCars ++;
 
-                if(cw_deadCars >= generationSize) {
-                    cw_newRound();
+                if (leader.car == car) {
+                    Car leaderCar = findLeader();
+                    leader.car = leaderCar;
+                    leader.position = new Vec2(leaderCar.getPosition());
                 }
-                if(leaderPosition.leader == k) {
-                    // leader is dead, find new leader
-                    cw_findLeader();
-                }
-                continue;
+
+            } else if (car.getPosition().x > leader.position.x) {
+                leader.car = car;
+                leader.position = new Vec2(car.getPosition());
             }
-            if(position.x > leaderPosition.x) {
-                leaderPosition = position;
-                leaderPosition.leader = k;
-            }
-        }
-        return (Math.round(leaderPosition.x*100)/100);
+
+            LOGGER.debug("car {} updated", car);
+        });
+
     }
 
-    public static class Position {
-        public int x;
-        public int y;
+    private Car findLeader() {
+        return allCars.stream().filter(car -> car.alive).max(Comparator.comparing(car -> car.getPosition().x)).get();
     }
+
+    private static class Leader {
+
+        private Car car;
+        private Vec2 position = new Vec2();
+
+    }
+
 }
 
