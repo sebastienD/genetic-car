@@ -1,3 +1,5 @@
+package fr.seb.games.geneticcar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,9 +17,9 @@ public class ServeurSocket {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServeurSocket.class);
     
-      public static void main (String[] args) throws Exception {
+      public static void mainMethod (String[] args) throws Exception {
             ServerSocket listener = new ServerSocket(9090);
-           LOGGER.info("ServeurSocket is Running");
+           LOGGER.info("fr.seb.games.geneticcar.ServeurSocket is Running");
             try {
                   while (true) {
                         new Player(listener.accept(), "red").start();
@@ -28,7 +30,7 @@ public class ServeurSocket {
                   }
             } finally {
                   listener.close();
-                  LOGGER.info("ServeurSocket is closed");
+                  LOGGER.info("fr.seb.games.geneticcar.ServeurSocket is closed");
             }
       }
 
