@@ -15,22 +15,22 @@ import java.util.List;
 @RestController
 public class SimulationController {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/simulation/teams", method = RequestMethod.GET)
     List<String> teams() {
         return null;
     }
 
-    @RequestMapping(value="/evaluate/{teamId}", method = RequestMethod.POST)
+    @RequestMapping(value="/simulation/evaluate/{teamId}", method = RequestMethod.POST)
     List<Car> evaluatePopulation(List<CarDefinition> defintions, @PathVariable("teamId") String teamId) {
         return null;
     }
 
-    @RequestMapping(value="/champions", method = RequestMethod.GET)
+    @RequestMapping(value="/simulation/champions", method = RequestMethod.GET)
     List<Car> getChampions() {
         return null;
     }
 
-    @RequestMapping(value="/champions/{teamId}", method = RequestMethod.GET)
+    @RequestMapping(value="/simulation/champions/{teamId}", method = RequestMethod.GET)
     Car getChampion(@PathVariable("teamId") String teamId) {
         return null;
     }
