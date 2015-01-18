@@ -31,6 +31,7 @@
             <groupId>com.mangofactory</groupId>
             <artifactId>swagger-springmvc</artifactId>
             <version>0.9.4</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
