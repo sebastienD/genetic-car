@@ -1,5 +1,6 @@
 package fr.seb.games.geneticcar.simulation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
@@ -31,9 +32,13 @@ public class Car {
     private float maxPosition = 0F;
     private float maxPositiony = 0F;
     private float minPositiony = 0F;
+
+    @JsonIgnore
     public int frames = 0;
+    @JsonIgnore
     public boolean alive = true;
-    private CarDefinition carDefinition;
+
+    public CarDefinition carDefinition;
 
     public Car(CarDefinition carDefinition, World world) {
         this.world = world;

@@ -31,9 +31,9 @@ public class Simulation {
 
     private List<CarDefinition> allCarDefinitions = new ArrayList<>(GENERATION_SIZE);
     private int deadCars = 0;
-    private Leader leader = new Leader();
+    public Leader leader = new Leader();
 
-    private List<Car> allCars = new ArrayList<>(GENERATION_SIZE);
+    public List<Car> allCars = new ArrayList<>(GENERATION_SIZE);
 
     public Simulation() {
 
@@ -110,9 +110,9 @@ public class Simulation {
         return allCars.stream().filter(car -> car.alive).max(Comparator.comparing(car -> car.getPosition().x)).get();
     }
 
-    private static class Leader {
+    public static class Leader {
 
-        private Car car;
+        public Car car;
         private Vec2 position = new Vec2();
 
     }

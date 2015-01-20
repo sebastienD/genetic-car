@@ -1,9 +1,9 @@
 package fr.seb.games.geneticcar.web.dto;
 
-import fr.seb.games.geneticcar.simulation.CarDefinition;
+import fr.seb.games.geneticcar.simulation.Car;
+import fr.seb.games.geneticcar.simulation.Simulation;
 import fr.seb.games.geneticcar.simulation.Team;
 
-import javax.smartcardio.Card;
 import java.util.List;
 
 /**
@@ -11,18 +11,31 @@ import java.util.List;
  */
 public class CarDto {
 
-    public float score;
-    public List<Float> defintion;
     public Team team;
+    public Chassi chassi;
+    public Wheel wheel1;
+    public Wheel wheel2;
+    public float score;
 
     public CarDto() {
 
     }
 
-    public static CarDto create(Team team, float score) {
-        CarDto car = new CarDto();
-        car.score = score;
-        car.team = team;
-        return car;
+    public static CarDto create(Team team, Car car) {
+        CarDto carDto = new CarDto();
+        carDto.score = car.getScore();
+        carDto.team = team;
+        return carDto;
+    }
+
+    public static class Chassi {
+        public List<Float> vecteurs;
+        public int densite;
+    }
+
+    public static class Wheel {
+        public float rayon;
+        public int densite;
+        public int sommet;
     }
 }
