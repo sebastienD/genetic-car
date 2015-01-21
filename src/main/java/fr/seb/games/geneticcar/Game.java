@@ -28,16 +28,14 @@ public class Game {
         Arrays.asList(Team.values()).stream()
                 .forEach(team -> {
                     Simulation simulation = new Simulation();
-                    simulation.buildGenerationZero();
-                    simulation.runSimulation();
+                    simulation.runSimulation(simulation.buildGenerationZero());
                     players.put(team, simulation);
                 });
     }
 
     public static void createSimulation(Team team) {
         Simulation simulation = new Simulation();
-        simulation.buildGenerationZero();
-        simulation.runSimulation();
+        simulation.runSimulation(simulation.buildGenerationZero());
         players.put(team, simulation);
     }
 
