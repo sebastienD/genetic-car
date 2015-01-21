@@ -27,15 +27,13 @@ public class Car {
     private Body wheel1;
     private Body wheel2;
 
-    private int velocityIndex = 0;
     private int health = MAX_CAR_HEALTH;
     private float maxPosition = 0F;
     private float maxPositiony = 0F;
     private float minPositiony = 0F;
 
-    @JsonIgnore
     public int frames = 0;
-    @JsonIgnore
+
     public boolean alive = true;
 
     public CarDefinition carDefinition;
@@ -45,21 +43,20 @@ public class Car {
         this.carDefinition = carDefinition;
 
         this.chassis = createChassis(carDefinition.vertexList, carDefinition.chassisDensity);
-        this.wheel1 = createWheel(carDefinition.wheel1());
-        this.wheel2 = createWheel(carDefinition.wheel2());
-
+        this.wheel1 = createWheel(carDefinition.wheelDefinition1);
+        this.wheel2 = createWheel(carDefinition.wheelDefinition2);
 
         float carMass = this.chassis.getMass();
         carMass += wheel1.getMass();
         carMass += wheel2.getMass();
 
-        float torqueWheel1 = carMass * (-Simulation.GRAVITY.y / carDefinition.wheel1().radius);
-        float torqueWheel2 = carMass * (-Simulation.GRAVITY.y / carDefinition.wheel2().radius);
+        float torqueWheel1 = carMass * (-Simulation.GRAVITY.y / carDefinition.wheelDefinition1.radius);
+        float torqueWheel2 = carMass * (-Simulation.GRAVITY.y / carDefinition.wheelDefinition2.radius);
 
         RevoluteJointDef jointDefinition = new RevoluteJointDef();
 
-        createJointForWheel(jointDefinition, wheel1, carDefinition.wheel1(), torqueWheel1);
-        createJointForWheel(jointDefinition, wheel2, carDefinition.wheel2(), torqueWheel2);
+        createJointForWheel(jointDefinition, wheel1, carDefinition.wheelDefinition1, torqueWheel1);
+        createJointForWheel(jointDefinition, wheel2, carDefinition.wheelDefinition2, torqueWheel2);
     }
 
     private void createJointForWheel(RevoluteJointDef jointDefinition, Body wheel, CarDefinition.WheelDefinition wheelDefinition, float torqueWheel) {

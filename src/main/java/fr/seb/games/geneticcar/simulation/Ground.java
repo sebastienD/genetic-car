@@ -70,9 +70,6 @@ public class Ground {
         return body;
     }
 
-
-
-
     private List<Vec2> cw_rotateFloorTile(Vec2[] coords, Vec2 center, float angle) {
         List<Vec2> newcoords = new ArrayList<>();
         for(int k = 0; k < coords.length; k++) {
@@ -83,7 +80,5 @@ public class Ground {
         }
         return newcoords;
     }
-
-
 
 }

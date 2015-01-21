@@ -17,23 +17,16 @@ public class Simulation {
     private static final Logger LOGGER = LoggerFactory.getLogger(Simulation.class);
 
     public static final int BOX2D_FPS = 60;
-
-    private static float TIME_STEP = 1.0F / BOX2D_FPS;
-    private static int SCREEN_FPS = 60;
-
-    private static int GENERATION_SIZE = 20;
-
     public static final Vec2 GRAVITY = new Vec2(0.0F, -9.81F);
+    private static final  float TIME_STEP = 1.0F / BOX2D_FPS;
+    private static final int DEFAULT_GENERATION_SIZE = 20;
 
-    private int zoom = 70;
+    public List<Car> allCars = new ArrayList<>(DEFAULT_GENERATION_SIZE);
 
     private World world;
-
-    private List<CarDefinition> allCarDefinitions = new ArrayList<>(GENERATION_SIZE);
     private int deadCars = 0;
-    public Leader leader = new Leader();
 
-    public List<Car> allCars = new ArrayList<>(GENERATION_SIZE);
+    public Leader leader = new Leader();
 
     public Simulation() {
 
@@ -45,11 +38,15 @@ public class Simulation {
 
     }
 
-    public void runSimulation() {
+    public void runSimulation(List<CarDefinition> carDefinitions) {
+        deadCars = 0;
+        leader = new Leader();
+        materializeGeneration(carDefinitions);
+
         int temp = 0;
         while (true) {
             simulationStep();
-            if (deadCars == GENERATION_SIZE) {
+            if (deadCars == allCars.size()) {
                 break;
             }
             if (temp++ == 10) {
@@ -62,21 +59,19 @@ public class Simulation {
         allCars.stream().forEach(car -> LOGGER.info("score car {} : {}", car, car.getScore()));
     }
 
-    public void buildGenerationZero() {
-        for(int k = 0; k < GENERATION_SIZE; k++) {
+    public List<CarDefinition> buildGenerationZero() {
+        List<CarDefinition> carDefintions = new ArrayList<>();
+        for(int k = 0; k < DEFAULT_GENERATION_SIZE; k++) {
             CarDefinition car_Definition_def = CarDefinition.createRandomCar();
             //car_Definition_def.index = k;
-            allCarDefinitions.add(car_Definition_def);
+            carDefintions.add(car_Definition_def);
         }
-
-        deadCars = 0;
-        leader = new Leader();
-        materializeGeneration();
+        return carDefintions;
     }
 
-    private void materializeGeneration() {
-        allCars = new ArrayList<>(GENERATION_SIZE);
-        allCarDefinitions.stream().forEach(cardef -> allCars.add(new Car(cardef, world)));
+    private void materializeGeneration(List<CarDefinition> carDefinitions) {
+        allCars = new ArrayList<>(carDefinitions.size());
+        carDefinitions.stream().forEach(cardef -> allCars.add(new Car(cardef, world)));
     }
 
     private void simulationStep() {

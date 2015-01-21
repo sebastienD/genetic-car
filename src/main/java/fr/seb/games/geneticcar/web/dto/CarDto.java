@@ -1,6 +1,7 @@
 package fr.seb.games.geneticcar.web.dto;
 
 import fr.seb.games.geneticcar.simulation.Car;
+import fr.seb.games.geneticcar.simulation.CarDefinition;
 import fr.seb.games.geneticcar.simulation.Simulation;
 import fr.seb.games.geneticcar.simulation.Team;
 
@@ -25,7 +26,19 @@ public class CarDto {
         CarDto carDto = new CarDto();
         carDto.score = car.getScore();
         carDto.team = team;
+        carDto.chassi = new Chassi();
+        carDto.wheel1 = new Wheel();
+        carDto.wheel2 = new Wheel();
         return carDto;
+    }
+
+    public CarDefinition toCarDefintion() {
+        CarDefinition carDefinition = new CarDefinition();
+        carDefinition.wheelDefinition1 = null;
+        carDefinition.wheelDefinition2 = null;
+        carDefinition.chassisDensity = chassi.densite;
+        carDefinition.vertexList = null;
+        return carDefinition;
     }
 
     public static class Chassi {
