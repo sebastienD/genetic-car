@@ -18,12 +18,12 @@ public class GameController {
         return Team.values();
     }
 
-    @RequestMapping(value="/game/reset/{team}", method = RequestMethod.POST)
+    @RequestMapping(value="/game/clear/{team}", method = RequestMethod.POST)
     void resetPopulationForTeam(@PathVariable("team") Team team) {
         Game.clear(team);
     }
 
-    @RequestMapping(value="/game/reset", method = RequestMethod.POST)
+    @RequestMapping(value="/game/clear", method = RequestMethod.POST)
     void resetAllPopulation() {
         Game.clearAll();
     }
