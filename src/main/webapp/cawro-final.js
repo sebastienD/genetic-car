@@ -675,14 +675,37 @@ function cw_drawCars() {
     }
     
     var densitycolor = Math.round(100 - (70 * ((myCar.car_def.chassis_density - chassisMinDensity) / chassisMaxDensity))).toString() + "%";
+
+      if (myCar.car_def.team == "BLUE") {
+          //ctx.strokeStyle = "#06B";
+          ctx.fillStyle = "hsl(207,90%,"+densitycolor+")";
+      } else if (myCar.car_def.team == "RED") {
+          //ctx.strokeStyle = "#D11";
+          ctx.fillStyle = "hsl(0,90%,"+densitycolor+")";
+      } else if (myCar.car_def.team == "GREEN") {
+          //ctx.strokeStyle = "#392";
+          ctx.fillStyle = "hsl(111,90%,"+densitycolor+")";
+      } else if (myCar.car_def.team == "PINK") {
+          //ctx.strokeStyle = "#F6A";
+          ctx.fillStyle = "hsl(330,100%,"+densitycolor+")";
+      } else if (myCar.car_def.team == "YELLOW") {
+          //ctx.strokeStyle = "#DF0";
+          ctx.fillStyle = "hsl(68,95%,"+densitycolor+")";
+      } else {
+
+          if(myCar.is_elite) {
+              ctx.fillStyle = "hsl(240,50%,"+densitycolor+")";
+          } else {
+              ctx.fillStyle = "hsl(0,50%,"+densitycolor+")";
+          }
+      }
+
     if(myCar.is_elite) {
-      ctx.strokeStyle = "#44c";
-      //ctx.fillStyle = "#ddf";
-      ctx.fillStyle = "hsl(240,50%,"+densitycolor+")";
+        ctx.strokeStyle = "#44c";
+        //ctx.fillStyle = "hsl(240,50%,"+densitycolor+")";
     } else {
-      ctx.strokeStyle = "#c44";
-      //ctx.fillStyle = "#fdd";
-      ctx.fillStyle = "hsl(0,50%,"+densitycolor+")";
+        ctx.strokeStyle = "#c44";
+        //ctx.fillStyle = "hsl(0,50%,"+densitycolor+")";
     }
     ctx.beginPath();
     var b = myCar.chassis;
@@ -1064,20 +1087,11 @@ call_champions(function(champions) {
     generationSize = champions.length;
 
     for (var loop = 0; loop < generationSize; loop++) {
-        //car_definitions[loop] = cw_createRandomCar();
         car_definitions[loop] = createChampionsCar_def(champions[loop]);
     }
 
     cw_init();
 });
-/*
- "[{"team":"RED"
- ,"chassi":{"vecteurs":[1.0309937,0.0,1.0549239,0.965715,0.0,0.59764344,-0.63786215,0.4753855,-0.41854113,0.0,-0.41795543,-0.49031073,0.0,-0.22864348,0.9261116,-0.2600464]
-            ,"densite":142.7438}
- ,"wheel1":{"radius":0.5593908,"density":43.53401,"vertex":4}
- ,"wheel2":{"radius":0.30186015,"density":77.83326,"vertex":0},"score":3.0}
- ,{"team":"GREEN","chassi":{"vecteurs":[1.0360084,0.0,0.8483915,0.49813455,0.0,0.42984566,-0.39473602,0.19498608,-0.19235593,0.0,-0.43747228,-0.42240056,0.0,-0.8161341,1.0147359,-0.3229154],"densite":149.89072},"wheel1":{"radius":0.6317277,"density":73.22809,"vertex":3},"wheel2":{"radius":0.34582037,"density":64.06088,"vertex":4},"score":3.0},{"team":"PINK","chassi":{"vecteurs":[1.1178977,0.0,0.6237314,0.61951673,0.0,0.7676512,-0.18647462,0.93329716,-0.12824951,0.0,-0.65837246,-1.1141585,0.0,-0.22432226,1.125377,-0.7796581],"densite":163.3972},"wheel1":{"radius":0.6162837,"density":40.610023,"vertex":2},"wheel2":{"radius":0.63835675,"density":83.33795,"vertex":1},"score":2.0},{"team":"YELLOW","chassi":{"vecteurs":[0.94041735,0.0,0.77419996,1.1755078,0.0,1.1131545,-1.0420119,0.8588528,-0.3567468,0.0,-0.17522874,-0.25892085,0.0,-0.72410905,1.0715116,-0.9821756],"densite":54.37899},"wheel1":{"radius":0.63569915,"density":120.925125,"vertex":1},"wheel2":{"radius":0.41652918,"density":103.984535,"vertex":2},"score":2.0},{"team":"BLUE","chassi":{"vecteurs":[1.1461437,0.0,0.56651455,0.5842403,0.0,1.0892097,-0.16163193,0.30903402,-0.44034147,0.0,-0.63730943,-0.17318666,0.0,-0.112168886,0.7209592,-1.0908277],"densite":204.51271},"wheel1":{"radius":0.34220737,"density":120.43059,"vertex":6},"wheel2":{"radius":0.54998547,"density":78.37802,"vertex":1},"score":3.0}]"
- */
 
 function createChampionsCar_def(champion) {
     var car_def = new Object();
@@ -1093,7 +1107,7 @@ function createChampionsCar_def(champion) {
     car_def.wheel_density[0] = champion.wheel1.density;
     car_def.wheel_vertex[0] = champion.wheel1.vertex;
     car_def.wheel_radius[1] = champion.wheel2.radius;
-    car_def.wheel_radius[1] = champion.wheel2.density;
+    car_def.wheel_density[1] = champion.wheel2.density;
     car_def.wheel_vertex[1] = champion.wheel2.vertex;
 
     car_def.chassis_density = champion.chassi.densite;
@@ -1106,7 +1120,7 @@ function createChampionsCar_def(champion) {
     car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[8],0));
     car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[10],champion.chassi.vecteurs[11]));
     car_def.vertex_list.push(new b2Vec2(0,champion.chassi.vecteurs[13]));
-    car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[16],champion.chassi.vecteurs[16]));
+    car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[14],champion.chassi.vecteurs[15]));
 
     return car_def;
 }
