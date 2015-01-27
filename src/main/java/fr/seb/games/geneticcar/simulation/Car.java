@@ -43,12 +43,13 @@ public class Car {
         this.carDefinition = carDefinition;
 
         this.chassis = createChassis(carDefinition.vertexList, carDefinition.chassisDensity);
+
         this.wheel1 = createWheel(carDefinition.wheelDefinition1);
         this.wheel2 = createWheel(carDefinition.wheelDefinition2);
 
         float carMass = this.chassis.getMass();
-        carMass += wheel1.getMass();
-        carMass += wheel2.getMass();
+        carMass = carMass + wheel1.getMass();
+        carMass = carMass + wheel2.getMass();
 
         float torqueWheel1 = carMass * (-Simulation.GRAVITY.y / carDefinition.wheelDefinition1.radius);
         float torqueWheel2 = carMass * (-Simulation.GRAVITY.y / carDefinition.wheelDefinition2.radius);
@@ -57,6 +58,7 @@ public class Car {
 
         createJointForWheel(jointDefinition, wheel1, carDefinition.wheelDefinition1, torqueWheel1);
         createJointForWheel(jointDefinition, wheel2, carDefinition.wheelDefinition2, torqueWheel2);
+
     }
 
     private void createJointForWheel(RevoluteJointDef jointDefinition, Body wheel, CarDefinition.WheelDefinition wheelDefinition, float torqueWheel) {
@@ -82,8 +84,9 @@ public class Car {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = new CircleShape();
+        fixtureDef.shape.setRadius(wheelDefinition.radius);
         fixtureDef.density = wheelDefinition.density;
-        fixtureDef.friction = 1;
+        fixtureDef.friction = 1F;
         fixtureDef.restitution = 0.2F;
         fixtureDef.filter.groupIndex = -1;
 
@@ -122,7 +125,7 @@ public class Car {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = new PolygonShape();
         fixtureDef.density = density;
-        fixtureDef.friction = 10;
+        fixtureDef.friction = 10F;
         fixtureDef.restitution = 0.2F;
         fixtureDef.filter.groupIndex = -1;
         ((PolygonShape)fixtureDef.shape).set(listOfVertex.toArray(new Vec2[0]), 3);
@@ -152,7 +155,7 @@ public class Car {
             if (position.x > this.maxPosition) {
                 this.maxPosition = position.x;
             }
-            if (Math.abs(this.chassis.getLinearVelocity().x) < 0.001) {
+            if (Math.abs(this.chassis.getLinearVelocity().x) < 0.001F) {
                 this.health -= 5;
             }
             this.health --;

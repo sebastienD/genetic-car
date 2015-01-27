@@ -40,7 +40,6 @@ function cw_createFloorTile(position, angle) {
   var center = new b2Vec2(0,0);
 
   var newcoords = cw_rotateFloorTile(coords, center, angle);
-
   fix_def.shape.SetAsArray(newcoords);
 
   body.CreateFixture(fix_def);

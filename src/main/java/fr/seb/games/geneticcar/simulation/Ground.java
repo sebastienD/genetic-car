@@ -3,6 +3,8 @@ package fr.seb.games.geneticcar.simulation;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,12 +14,16 @@ import java.util.List;
  */
 public class Ground {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Ground.class);
+
     private float groundPieceWidth = 1.5F;
     private float groundPieceHeight = 0.15F;
 
-    private int maxFloorTiles = 200;
+    private float maxFloorTiles = 200;
 
     private World world;
+
+    private List<Vec2> newcoords;
 
     public Ground(World world) {
         this.world = world;
@@ -25,22 +31,12 @@ public class Ground {
 
     public  void createFloor() {
         Body lastTile;
-        Vec2 tilePosition = new Vec2(-5,0);
-        List<Body> floorTiles = new ArrayList<>();
-
-//        Math.seedrandom(floorseed);
+        Vec2 tilePosition = new Vec2(-5F,0F);
         for(int k = 0; k < maxFloorTiles; k++) {
-
-
             lastTile = createFloorTile(tilePosition, (Random.next(-1.5F, 3F) * 1.5F * k / maxFloorTiles));
-
-            floorTiles.add(lastTile);
-            //Fixture last_fixture = lastTile.getFixtureList();
-            //tilePosition = lastTile.getWorldPoint(last_fixture.getShape().m_vertices[3]);
+            tilePosition = lastTile.getWorldPoint(newcoords.get(3));
         }
     }
-
-
 
     private Body createFloorTile(Vec2 position, float angle) {
         BodyDef bodyDef = new BodyDef();
@@ -56,10 +52,10 @@ public class Ground {
 
         Vec2 center = new Vec2(0,0);
 
-        List<Vec2> newcoords = cw_rotateFloorTile(coords, center, angle);
+        newcoords = cw_rotateFloorTile(coords, center, angle);
 
         PolygonShape shape = new PolygonShape();
-        shape.set(newcoords.toArray(new Vec2[0]), coords.length);
+        shape.set(newcoords.toArray(new Vec2[0]), newcoords.size());
 
         FixtureDef fix_def = new FixtureDef();
         fix_def.friction = 0.5F;

@@ -1,4 +1,4 @@
-package fr.seb.games.geneticcar;
+package fr.seb.games.geneticcar.game;
 
 import fr.seb.games.geneticcar.simulation.Simulation;
 import fr.seb.games.geneticcar.simulation.Team;

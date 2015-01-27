@@ -1,16 +1,14 @@
 package fr.seb.games.geneticcar.web;
 
-import fr.seb.games.geneticcar.Game;
+import fr.seb.games.geneticcar.game.Game;
 import fr.seb.games.geneticcar.simulation.Car;
 import fr.seb.games.geneticcar.simulation.CarDefinition;
 import fr.seb.games.geneticcar.simulation.Simulation;
 import fr.seb.games.geneticcar.simulation.Team;
 import fr.seb.games.geneticcar.web.dto.CarDto;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +19,7 @@ import java.util.stream.Collectors;
 public class SimulationController {
 
     @RequestMapping(value="/simulation/evaluate/{team}", method = RequestMethod.POST)
-    List<CarDto> evaluatePopulation(List<CarDto> carsDto, @PathVariable("team") Team team) {
+    List<CarDto> evaluatePopulation(@RequestBody ArrayList<CarDto> carsDto, @PathVariable("team") Team team) {
         List<CarDefinition> definitions = carsDto.stream()
                 .map(carDto -> carDto.toCarDefintion())
                 .collect(Collectors.toList());

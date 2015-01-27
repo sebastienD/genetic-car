@@ -62,16 +62,19 @@ public class CarDto {
 
         public List<Vec2> toVecteurs() {
             List<Vec2> vec2liste = new ArrayList<>(vecteurs.size()/2);
-            Vec2 vec = new Vec2();
+
+            int loop = 0;
             boolean isAbscisse = true;
-            for (Float vecteur : vecteurs) {
+            for (Float coord : vecteurs) {
                 if (isAbscisse) {
-                    vec = new Vec2();
-                    vec.x = vecteur;
+                    Vec2 vec2 = new Vec2();
+                    vec2.x = coord;
+                    vec2liste.add(vec2);
                     isAbscisse = false;
                 } else {
-                    vec.y = vecteur;
-                    vec2liste.add(vec);
+                    vec2liste.get(loop).y = coord;
+                    loop++;
+                    isAbscisse = true;
                 }
             }
             return vec2liste;

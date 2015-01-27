@@ -804,6 +804,7 @@ function cw_drawMiniMap() {
 /* ==== END Drawing ======================================================== */
 /* ========================================================================= */
 
+var debugLoop = 0;
 
 function simulationStep() {
   world.Step(1/box2dfps, 20, 20);

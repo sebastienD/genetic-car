@@ -12,19 +12,19 @@ import java.util.stream.Stream;
  */
 public class CarDefinition {
 
-    public static final float MOTOR_SPEED = 20;
+    public static final float MOTOR_SPEED = 20F;
 
     private static final float CHASSIS_MIN_AXIS = 0.1F;
 
     private static final float CHASSIS_MAX_AXIS = 1.1F;
-    private static final float CHASSIS_MIN_DENSITY = 30;
+    private static final float CHASSIS_MIN_DENSITY = 30F;
 
-    private static final float CHASSIS_MAX_DENSITY = 300;
+    private static final float CHASSIS_MAX_DENSITY = 300F;
     private static final float WHEEL_MAX_RADIUS = 0.5F;
     private static final float WHEEL_MIN_RADIUS = 0.2F;
     private static final float WHEEL_MAX_DENSITY = 100;
 
-    private static final float WHEEL_MIN_DENSITY = 40;
+    private static final float WHEEL_MIN_DENSITY = 40F;
 
     public WheelDefinition wheelDefinition1 = new WheelDefinition();
     public WheelDefinition wheelDefinition2 = new WheelDefinition();
@@ -54,6 +54,31 @@ public class CarDefinition {
 
         createWheelDefinition(carDefinition.wheelDefinition1, left);
         createWheelDefinition(carDefinition.wheelDefinition2, left);
+
+        return carDefinition;
+    }
+
+    public static CarDefinition createMyBestCar() {
+        CarDefinition carDefinition = new CarDefinition();
+
+        carDefinition.chassisDensity = 200F;
+
+        carDefinition.vertexList = new ArrayList<>(8);
+        carDefinition.vertexList.add(new Vec2(1F, 0F));
+        carDefinition.vertexList.add(new Vec2(1F, 0.1F));
+        carDefinition.vertexList.add(new Vec2(0F, 0.1F));
+        carDefinition.vertexList.add(new Vec2(-1F, 0.1F));
+        carDefinition.vertexList.add(new Vec2(-1F, 0F));
+        carDefinition.vertexList.add(new Vec2(-1F, -0.1F));
+        carDefinition.vertexList.add(new Vec2(0F, -0.1F));
+        carDefinition.vertexList.add(new Vec2(1F, -0.1F));
+
+        carDefinition.wheelDefinition1.vertex = 0;
+        carDefinition.wheelDefinition1.radius = 0.8F;
+        carDefinition.wheelDefinition1.density = 60F;
+        carDefinition.wheelDefinition2.vertex = 4;
+        carDefinition.wheelDefinition2.radius = 0.8F;
+        carDefinition.wheelDefinition2.density = 60F;
 
         return carDefinition;
     }

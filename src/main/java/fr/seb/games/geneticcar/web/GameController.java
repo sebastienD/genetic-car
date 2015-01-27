@@ -1,6 +1,6 @@
 package fr.seb.games.geneticcar.web;
 
-import fr.seb.games.geneticcar.Game;
+import fr.seb.games.geneticcar.game.Game;
 import fr.seb.games.geneticcar.simulation.Team;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

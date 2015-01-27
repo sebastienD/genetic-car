@@ -18,7 +18,8 @@ public class Simulation {
 
     public static final int BOX2D_FPS = 60;
     public static final Vec2 GRAVITY = new Vec2(0.0F, -9.81F);
-    private static final  float TIME_STEP = 1.0F / BOX2D_FPS;
+    private static final float TIME_STEP = 1F / BOX2D_FPS;
+
     private static final int DEFAULT_GENERATION_SIZE = 20;
 
     public List<Car> allCars = new ArrayList<>(DEFAULT_GENERATION_SIZE);
@@ -29,13 +30,21 @@ public class Simulation {
     public Leader leader = new Leader();
 
     public Simulation() {
-
-        // floorseed = Math.seedrandom();
         world = new World(GRAVITY);
-
         Ground ground = new Ground(world);
         ground.createFloor();
+    }
 
+    public Simulation(World world) {
+        this.world = world;
+        Ground ground = new Ground(world);
+        ground.createFloor();
+    }
+
+    public void runSimulationForTest(List<CarDefinition> carDefinitions) {
+        deadCars = 0;
+        leader = new Leader();
+        materializeGeneration(carDefinitions);
     }
 
     public void runSimulation(List<CarDefinition> carDefinitions) {
@@ -43,27 +52,31 @@ public class Simulation {
         leader = new Leader();
         materializeGeneration(carDefinitions);
 
-        int temp = 0;
         while (true) {
             simulationStep();
             if (deadCars == allCars.size()) {
-                break;
-            }
-            if (temp++ == 10) {
                 break;
             }
         }
     }
 
     public void showAllScores() {
-        allCars.stream().forEach(car -> LOGGER.info("score car {} : {}", car, car.getScore()));
+        allCars.stream().forEach(car -> LOGGER.info("score car {} : {}", car.getScore(), car));
     }
 
     public List<CarDefinition> buildGenerationZero() {
         List<CarDefinition> carDefintions = new ArrayList<>();
         for(int k = 0; k < DEFAULT_GENERATION_SIZE; k++) {
             CarDefinition car_Definition_def = CarDefinition.createRandomCar();
-            //car_Definition_def.index = k;
+            carDefintions.add(car_Definition_def);
+        }
+        return carDefintions;
+    }
+
+    public List<CarDefinition> buildBestGenerationZero() {
+        List<CarDefinition> carDefintions = new ArrayList<>();
+        for(int k = 0; k < DEFAULT_GENERATION_SIZE; k++) {
+            CarDefinition car_Definition_def = CarDefinition.createMyBestCar();
             carDefintions.add(car_Definition_def);
         }
         return carDefintions;
@@ -80,13 +93,12 @@ public class Simulation {
 
         allCars.stream().filter(car -> car.alive).forEach(car -> {
             car.frames++;
-
             if (car.checkDeath()) {
                 car.kill();
                 deadCars ++;
 
                 if (leader.car == car) {
-                    Car leaderCar = findLeader();
+                    Car leaderCar = findLeader(car);
                     leader.car = leaderCar;
                     leader.position = new Vec2(leaderCar.getPosition());
                 }
@@ -96,20 +108,20 @@ public class Simulation {
                 leader.position = new Vec2(car.getPosition());
             }
 
-            LOGGER.debug("car {} updated", car);
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("car position {} with score {}", car.getPosition(), car.getScore());
+            }
         });
 
     }
 
-    private Car findLeader() {
-        return allCars.stream().filter(car -> car.alive).max(Comparator.comparing(car -> car.getPosition().x)).get();
+    private Car findLeader(Car leaderCar) {
+        return allCars.stream().filter(car -> car.alive).max(Comparator.comparing(car -> car.getPosition().x)).orElse(leaderCar);
     }
 
     public static class Leader {
-
         public Car car;
         private Vec2 position = new Vec2();
-
     }
 
 }
