@@ -20,7 +20,7 @@ public class Random {
     }
 
     public static float next(float minValue, float maxValue) {
-        return (new SecureRandom().nextFloat() * maxValue) + minValue;
+        return (new SecureRandom().nextFloat() * (maxValue - minValue)) + minValue;
     }
 
     public static int nextInt(int maxValue) {
