@@ -178,6 +178,7 @@ public class Car {
         float avgSpead = (this.maxPosition / this.frames) * BOX2D_FPS;
         float position = maxPosition;
 
+        // TODO score flottant
         return (Math.round(position * 100)/100) + (Math.round(avgSpead * 100)/100);
     }
 
