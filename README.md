@@ -1,4 +1,4 @@
-# genetic-car
+# genetic-car [![Build Status](https://travis-ci.org/sebastienD/genetic-car.svg?branch=master)](https://travis-ci.org/sebastienD/genetic-car)
 
 Ce projet est est un exercice permettant de se falimiariser avec les algorithmes génétiques de manière ludique.
 
