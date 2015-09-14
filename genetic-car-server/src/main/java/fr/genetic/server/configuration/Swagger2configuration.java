@@ -30,6 +30,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 
 /**
  * {@see http://springfox.github.io/springfox/docs/snapshot/ }
+ * {@see http://www.hascode.com/2015/07/integrating-swagger-into-a-spring-boot-restful-webservice-with-springfox/}
  *
  */
 @Configuration
