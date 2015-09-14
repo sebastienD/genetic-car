@@ -1,4 +1,4 @@
-package fr.genetic.server.web;
+package fr.genetic.server.web.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;

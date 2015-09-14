@@ -1,4 +1,4 @@
-package fr.genetic.server.web;
+package fr.genetic.server.web.controller;
 
 import fr.genetic.server.game.Game;
 import fr.genetic.server.simulation.Car;
@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by sebastien on 18/01/2015.
- */
 @RestController
 public class SimulationController {
 

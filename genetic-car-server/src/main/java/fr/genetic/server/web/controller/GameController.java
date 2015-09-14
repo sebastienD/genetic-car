@@ -1,4 +1,4 @@
-package fr.genetic.server.web;
+package fr.genetic.server.web.controller;
 
 import fr.genetic.server.game.Game;
 import fr.genetic.server.simulation.Team;
@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by sebastien on 20/01/2015.
- */
 @RestController
 public class GameController {
 
