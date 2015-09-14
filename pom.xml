@@ -17,7 +17,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/sebastienD/genetic-car.git</url>
+        <url>https://github.com/sebastienD/genetic-car</url>
+        <connection>scm:git:git://github.com/sebastienD/genetic-car.git</connection>
+        <developerConnection>scm:git:git@github.com:sebastienD/genetic-car.git</developerConnection>
     </scm>
 
     <modules>
