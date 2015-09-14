@@ -2,8 +2,6 @@
 
 Ce projet est est un exercice permettant de se falimiariser avec les algorithmes génétiques de manière ludique.
 
-C'est un fork de ...
-
 Il est composé de deux parties :
 * le server: qui contient l'api
 * les starters: qui contienent les clients permettant d'accéder à l'api.
