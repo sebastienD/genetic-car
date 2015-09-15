@@ -37,16 +37,18 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 @EnableSwagger2
 public class Swagger2Configuration {
 
+    @Autowired
+    private TypeResolver typeResolver;
+
     @Bean
-    public Docket petApi() {
+    public Docket geneticApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
                 .pathMapping("/")
-                .directModelSubstitute(LocalDate.class,
-                        String.class)
+                .directModelSubstitute(LocalDate.class, String.class)
                 .genericModelSubstitutes(ResponseEntity.class)
                 .alternateTypeRules(
                         newRule(typeResolver.resolve(DeferredResult.class,
@@ -65,8 +67,19 @@ public class Swagger2Configuration {
                 ;
     }
 
-    @Autowired
-    private TypeResolver typeResolver;
+    @Bean
+    public SecurityConfiguration security() {
+        return new SecurityConfiguration(
+                "test-app-client-id",
+                "test-app-realm",
+                "test-app",
+                "apiKey");
+    }
+
+    @Bean
+    public UiConfiguration uiConfig() {
+        return new UiConfiguration("validatorUrl");
+    }
 
     private ApiKey apiKey() {
         return new ApiKey("mykey", "api_key", "header");
@@ -79,27 +92,12 @@ public class Swagger2Configuration {
                 .build();
     }
 
-    List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope
-                = new AuthorizationScope("global", "accessEverything");
+    private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
         return newArrayList(
                 new SecurityReference("mykey", authorizationScopes));
-    }
-
-    @Bean
-    SecurityConfiguration security() {
-        return new SecurityConfiguration(
-                "test-app-client-id",
-                "test-app-realm",
-                "test-app",
-                "apiKey");
-    }
-
-    @Bean
-    UiConfiguration uiConfig() {
-        return new UiConfiguration("validatorUrl");
     }
 
 }
