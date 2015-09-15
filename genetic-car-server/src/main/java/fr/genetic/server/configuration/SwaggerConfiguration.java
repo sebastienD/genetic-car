@@ -35,7 +35,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
  */
 @Configuration
 @EnableSwagger2
-public class Swagger2Configuration {
+public class SwaggerConfiguration {
 
     @Autowired
     private TypeResolver typeResolver;
