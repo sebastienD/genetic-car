@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Is the build is broken ?
+grunt test
