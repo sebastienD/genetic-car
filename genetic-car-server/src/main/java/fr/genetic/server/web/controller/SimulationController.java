@@ -6,6 +6,8 @@ import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.simulation.Simulation;
 import fr.genetic.server.simulation.Team;
 import fr.genetic.server.web.dto.CarDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -15,8 +17,11 @@ import java.util.stream.Collectors;
 @RestController
 public class SimulationController {
 
+    @Autowired
+    private SimpMessagingTemplate template;
+
     @RequestMapping(value="/simulation/evaluate/{team}", method = RequestMethod.POST)
-    List<CarDto> evaluatePopulation(@RequestBody ArrayList<CarDto> carsDto, @PathVariable("team") Team team) {
+    public List<CarDto> evaluatePopulation(@RequestBody ArrayList<CarDto> carsDto, @PathVariable("team") Team team) {
         validate(carsDto, team);
 
         List<CarDefinition> definitions = carsDto.stream()
@@ -26,20 +31,26 @@ public class SimulationController {
         Simulation simulation = Game.getSimulation(team);
         simulation.runSimulation(definitions);
 
+        sendChampion(team, simulation);
+
         return simulation.allCars.stream()
                 .map(car -> CarDto.create(team, car))
                 .collect(Collectors.toList());
     }
 
+    private void sendChampion(Team team, Simulation simulation) {
+        template.convertAndSend("/topic/champions", CarDto.create(team, simulation.leader.car));
+    }
+
     @RequestMapping(value="/simulation/champions", method = RequestMethod.GET)
-    List<CarDto> getChampions() {
+    public List<CarDto> getChampions() {
         return Game.players().entrySet().stream()
                 .map(entry -> CarDto.create(entry.getKey(), entry.getValue().leader.car))
                 .collect(Collectors.toList());
     }
 
     @RequestMapping(value="/simulation/champions/{team}", method = RequestMethod.GET)
-    CarDto getChampion(@PathVariable("team") Team team) {
+    public CarDto getChampion(@PathVariable("team") Team team) {
         Car car = Game.getSimulation(team).leader.car;
         return CarDto.create(team, car);
     }
@@ -55,6 +66,8 @@ public class SimulationController {
     }
 
     // TODO ajouter le controle sur la taille des listes
+    // TODO controle des team dans chaque dto
+    // TODO valider les valeurs de chaque coordonnées
     private void validate(CarDto.Chassi chassi, Team team) {
         if (chassi.vecteurs.size() != 16) {
             throw new RuntimeException(team+" - le nombre de coordonnées est incorrect (!= de 16) : "+ chassi.vecteurs.size());
@@ -109,7 +122,7 @@ public class SimulationController {
 
     private void mustBeZero(Float coord, Team team) {
         if (coord != 0) {
-            throw new RuntimeException(team+" - la coordonnee doit valeur 0 : "+ coord);
+            throw new RuntimeException(team+" - la coordonnee doit avoir la valeur 0 : "+ coord);
         }
     }
 

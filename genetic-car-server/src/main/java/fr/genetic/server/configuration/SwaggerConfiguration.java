@@ -41,7 +41,7 @@ public class SwaggerConfiguration {
     private TypeResolver typeResolver;
 
     @Bean
-    public Docket geneticApi() {
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())

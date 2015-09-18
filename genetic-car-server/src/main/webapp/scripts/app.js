@@ -2,13 +2,13 @@
     'use strict';
     angular.module('gen', [
         // gen's specifics module
-        'gen.config', 'gen.home',
+        'gen.config', 'gen.resources', 'gen.home',
         // Third party's modules
         'ui.router', 'ngSanitize'
     ])
 
-        .config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
-            function ($stateProvider, $urlRouterProvider, $httpProvider) {
+        .config(['$stateProvider', '$urlRouterProvider',
+            function ($stateProvider, $urlRouterProvider) {
                 //
                 // For any unmatched url, redirect to home
                 $urlRouterProvider.otherwise('home');

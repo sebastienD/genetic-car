@@ -1,1 +1,21 @@
-coucou
+
+<div class="head">
+    <h1>Wall des champions</h1>
+    <div class="right">
+        <button type="button" ng-click="connect()"><span class="icon icon-enter"></span></button>
+        <button type="button" ng-click="disconnect()"><span class="icon icon-exit"></span></button>
+    </div>
+</div>
+
+<div class="container-result">
+    <div class="champion" ng-repeat="champion in champions">
+        <canvas width="350" height="250" car car-def="champion"></canvas>
+        <div class="stat">
+            <div><span class="icon icon-profile"></span>{{ champion.team }}</div>
+            <div><span class="icon icon-checkmark2"></span>{{ champion.score }}</div>
+            <div><span class="icon icon-stack"></span>nbSoumission</div>
+        </div>
+    </div>
+</div>
+
+

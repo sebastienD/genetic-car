@@ -28,7 +28,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['<%= app_files.js %>'],
-                tasks: ['karmaconfig', 'karma', 'index:dev', 'newer:jshint:all']
+                tasks: [/*'karmaconfig', 'karma',*/ 'index:dev', 'newer:jshint:all']
             },
             index: {
                 files: ['<%= app_files.index %>'],
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
             },
             jsTest: {
                 files: ['<%= app_files.jsunit %>'],
-                tasks: ['karmaconfig', 'karma', 'index:dev', 'newer:jshint:test']
+                tasks: [/*'karmaconfig', 'karma',*/ 'index:dev', 'newer:jshint:test']
             },
             styles: {
                 files: ['<%= app_src_path %>/styles/{,*/}*.css'],
@@ -394,8 +394,8 @@ module.exports = function (grunt) {
         // Test settings
         karma: {
             continuous: {
-                configFile: '<%= tmp_dir %>/test/karma.conf.js',
-                singleRun: true
+                configFile: '<%= tmp_dir %>/test/karma.conf.js'
+                //singleRun: true // me
             }
         },
         less: {
@@ -517,7 +517,7 @@ module.exports = function (grunt) {
                 'concat:vendor_css',
                 'copy:vendor_assets',
                 'copy:app_assets',
-                'karmaconfig',
+                //'karmaconfig',
                 //'karma', // me
                 'concurrent:server',
                 'autoprefixer',
@@ -533,7 +533,7 @@ module.exports = function (grunt) {
         'less',
         'concat:vendor_css',
         'connect:test',
-        'karmaconfig',
+        //'karmaconfig',
         //'karma' //me
     ]);
 
@@ -542,7 +542,7 @@ module.exports = function (grunt) {
         //'wiredep',
         'less',
         'concat',
-        'karmaconfig',
+        //'karmaconfig',
         //'karma', // me
         'autoprefixer',
         'copy:vendor_assets',
