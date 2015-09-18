@@ -1,5 +1,5 @@
 angular.module("gen.home.service", [])
-    .service("ChampionsService", [ '$q', function($q) {
+    .service("ChampionsService", [ '$q', '$log', function($q, $log) {
 
     var service = {};
     var listener = $q.defer();
@@ -30,13 +30,13 @@ angular.module("gen.home.service", [])
     };
 
     var onClose = function() {
-        console.log("close websocket");
+        $log.info("close websocket");
     };
 
     var getMessage = function(data) {
-        var car = JSON.parse(data);
+        var champion = JSON.parse(data);
         var message = {
-            car: car
+            champion: champion
         };
         if (_.some(messageIds, message.id)) {
             message.self = true;
@@ -46,9 +46,7 @@ angular.module("gen.home.service", [])
     };
 
     var startListener = function(frame) {
-        console.log('Connected, start listener ', frame);
         socket.stomp.subscribe(service.CHAMPIONS_TOPIC, function(data) {
-            console.log('Data received', data);
             listener.notify(getMessage(data.body));
         });
     };
@@ -63,14 +61,12 @@ angular.module("gen.home.service", [])
     };
 
     service.disconnect = function() {
-        console.log("call disconnect");
         if (socket.stomp) {
             socket.stomp.disconnect();
             socket = {
                 client: null,
                 stomp: null
             };
-            console.log("end disconnect");
         }
     };
 

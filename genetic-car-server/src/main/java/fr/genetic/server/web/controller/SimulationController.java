@@ -6,6 +6,7 @@ import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.simulation.Simulation;
 import fr.genetic.server.simulation.Team;
 import fr.genetic.server.web.dto.CarDto;
+import fr.genetic.server.web.dto.ChampionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class SimulationController {
     }
 
     private void sendChampion(Team team, Simulation simulation) {
-        template.convertAndSend("/topic/champions", CarDto.create(team, simulation.leader.car));
+        template.convertAndSend("/topic/champions", new ChampionDto(team, simulation));
     }
 
     @RequestMapping(value="/simulation/champions", method = RequestMethod.GET)

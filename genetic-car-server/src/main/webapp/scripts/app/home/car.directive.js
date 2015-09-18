@@ -172,27 +172,22 @@ angular.module('gen.car.directives', ['gen.car.service', 'gen.floor.service'])
             'carDef': '=carDef'
         },
         link: function (scope, element) {
-
-
             var carDef = CarService.createCarDef(scope.carDef);
-            console.log(scope.carDef, carDef);
+            var simuCtx = createSimulation(carDef);
 
-             var simuCtx = createSimulation(carDef);
+            var runningInterval = $interval(
+                function() {
+                    simulationStep(simuCtx);
+                },
+                Math.round(1000/box2dfps)
+            );
 
-             var runningInterval = $interval(
-                 function() {
-                     simulationStep(simuCtx);
-                 },
-                 Math.round(1000/box2dfps)
-             );
-
-             var drawInterval = $interval(
-                 function() {
-                     var canvas = element[0];
-                     cw_drawScreen(simuCtx, canvas);
-                 },
-                 Math.round(1000/screenfps)
-             );
+            var drawInterval = $interval(
+                function() {
+                    cw_drawScreen(simuCtx, element[0]);
+                },
+                Math.round(1000/screenfps)
+            );
 
             element.on('$destroy', function() {
                 $interval.cancel(runningInterval);

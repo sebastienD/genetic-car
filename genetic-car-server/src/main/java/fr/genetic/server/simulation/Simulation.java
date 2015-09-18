@@ -18,16 +18,16 @@ public class Simulation {
 
     public static final int BOX2D_FPS = 60;
     public static final Vec2 GRAVITY = new Vec2(0.0F, -9.81F);
-    private static final float TIME_STEP = 1F / BOX2D_FPS;
 
+    private static final float TIME_STEP = 1F / BOX2D_FPS;
     private static final int DEFAULT_GENERATION_SIZE = 20;
 
     public List<Car> allCars = new ArrayList<>(DEFAULT_GENERATION_SIZE);
+    public Leader leader = new Leader();
+    public int nbRunSimulation = 0;
 
     private World world;
     private int deadCars = 0;
-
-    public Leader leader = new Leader();
 
     public Simulation() {
         world = new World(GRAVITY);
@@ -50,6 +50,7 @@ public class Simulation {
     public void runSimulation(List<CarDefinition> carDefinitions) {
         deadCars = 0;
         leader = new Leader();
+        nbRunSimulation++;
         materializeGeneration(carDefinitions);
 
         while (true) {

@@ -9,11 +9,11 @@
 
 <div class="container-result">
     <div class="champion" ng-repeat="champion in champions">
-        <canvas width="350" height="250" car car-def="champion"></canvas>
+        <canvas width="350" height="250" car car-def="champion.car"></canvas>
         <div class="stat">
-            <div><span class="icon icon-profile"></span>{{ champion.team }}</div>
-            <div><span class="icon icon-checkmark2"></span>{{ champion.score }}</div>
-            <div><span class="icon icon-stack"></span>nbSoumission</div>
+            <div><span class="icon icon-profile"></span>{{ champion.car.team }}</div>
+            <div><span class="icon icon-checkmark2"></span>{{ champion.car.score }}</div>
+            <div><span class="icon icon-stack"></span>{{ champion.statistic.nbRunSimulation }}</div>
         </div>
     </div>
 </div>

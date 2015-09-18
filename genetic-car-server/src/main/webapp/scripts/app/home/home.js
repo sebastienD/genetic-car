@@ -29,11 +29,10 @@ angular.module('gen.home', ['ui.router', 'gen.home.service', 'gen.car.directives
 
         ChampionsService.receive().then(null, null,
             function(message) {
-                console.log('notify', message);
                 _.remove($scope.champions, function(champion) {
-                    return champion.team == message.car.team;
+                    return champion.car.team == message.champion.car.team;
                 });
-                $scope.champions.push(message.car);
+                $scope.champions.push(message.champion);
         });
 
         $scope.$on("$destroy", function(){

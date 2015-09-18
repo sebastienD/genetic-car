@@ -8,9 +8,6 @@ import org.jbox2d.common.Vec2;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sebastien on 18/01/2015.
- */
 public class CarDto {
 
     public Team team;
