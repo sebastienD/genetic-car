@@ -30,7 +30,7 @@ angular.module('gen.home', ['ui.router', 'gen.home.service', 'gen.car.directives
         ChampionsService.receive().then(null, null,
             function(message) {
                 _.remove($scope.champions, function(champion) {
-                    return champion.car.team == message.champion.car.team;
+                    return champion.statistic.team == message.champion.statistic.team;
                 });
                 $scope.champions.push(message.champion);
         });

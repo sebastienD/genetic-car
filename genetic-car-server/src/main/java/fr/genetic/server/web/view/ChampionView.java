@@ -5,11 +5,11 @@ import fr.genetic.server.simulation.Team;
 
 public class ChampionView {
 
-    public CarView car;
+    public CarScoreView carScore;
     public Statistic statistic;
 
     public ChampionView(Team team, Simulation simulation) {
-        this.car = CarView.create(simulation.leader.car);
+        this.carScore = CarScoreView.create(simulation.leader.car);
         this.statistic = new Statistic(team, simulation.nbRunSimulation);
     }
 

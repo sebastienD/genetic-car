@@ -43,6 +43,7 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     void handleBadRequests(HttpServletResponse response, IllegalArgumentException e) throws IOException {
         LOGGER.error("IllegalArgumentException", e);
+        // TODO a revoir
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }
 

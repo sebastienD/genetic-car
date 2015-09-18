@@ -5,6 +5,7 @@ import fr.genetic.server.simulation.Car;
 import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.simulation.Simulation;
 import fr.genetic.server.simulation.Team;
+import fr.genetic.server.web.view.CarScoreView;
 import fr.genetic.server.web.view.CarView;
 import fr.genetic.server.web.view.ChampionView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class SimulationController {
     private SimpMessagingTemplate template;
 
     @RequestMapping(value="/simulation/evaluate/{team}", method = RequestMethod.POST)
-    public List<CarView> evaluatePopulation(@RequestBody List<CarView> carViews, @PathVariable("team") Team team) {
+    public List<CarScoreView> evaluatePopulation(@RequestBody List<CarView> carViews, @PathVariable("team") Team team) {
         validate(carViews, team);
 
         List<CarDefinition> definitions = carViews.stream()
@@ -35,7 +36,7 @@ public class SimulationController {
         sendChampion(team, simulation);
 
         return simulation.allCars.stream()
-                .map(car -> CarView.create(car))
+                .map(car -> CarScoreView.create(car))
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +67,6 @@ public class SimulationController {
     }
 
     // TODO ajouter le controle sur la taille des listes
-    // TODO controle des team dans chaque view
     // TODO valider les valeurs de chaque coordonnées
     private void validate(CarView.Chassi chassi, Team team) {
         if (chassi.vecteurs.size() != 16) {

@@ -7,10 +7,10 @@ angular.module("gen.car.service", [])
 
         var service = {};
 
-        service.createCarDef = function (car) {
+        service.createCarDef = function (car, team) {
             var car_def = {};
 
-            car_def.team = car.team;
+            car_def.team = team;
             car_def.wheelCount = 2;
 
             car_def.wheel_radius = [];

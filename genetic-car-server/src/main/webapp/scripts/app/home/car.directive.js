@@ -30,9 +30,7 @@ angular.module('gen.car.directives', ['gen.car.service', 'gen.floor.service'])
              camera_y: 0,
              camera_x: 0,
              last_drawn_tile: 0,
-             floorTiles: floorTiles,
-             runningInterval: null,
-             drawInterval: null
+             floorTiles: floorTiles
         }
     }
 
@@ -45,12 +43,13 @@ angular.module('gen.car.directives', ['gen.car.service', 'gen.floor.service'])
     function simulationStep(simuCtx) {
         simuCtx.world.Step(1/box2dfps, 20, 20);
         simuCtx.carFilled.frames++;
-        /*
+
         if(simuCtx.carFilled.checkDeath()) {
-            simuCtx.carFilled.kill();
-            reset(simuCtx);
+            //simuCtx.carFilled.kill();
+            //reset(simuCtx);
+            return 'stop';
         }
-        */
+
     }
 
     function cw_drawScreen(simuCtx, canvas) {
@@ -140,7 +139,11 @@ angular.module('gen.car.directives', ['gen.car.service', 'gen.floor.service'])
 
         ctx.strokeStyle = "#c44";
         //ctx.fillStyle = "#fdd";
-        ctx.fillStyle = "hsl(0,50%,"+densitycolor+")";
+        //ctx.fillStyle = "hsl(0,50%,"+densitycolor+")";
+
+        //override fillStyle
+        var team = simuCtx.carFilled.car_def.team;
+        ctx.fillStyle = chooseColorCar(team, densitycolor);
 
         ctx.beginPath();
         var b = simuCtx.carFilled.chassis;
@@ -150,7 +153,28 @@ angular.module('gen.car.directives', ['gen.car.service', 'gen.floor.service'])
         }
         ctx.fill();
         ctx.stroke();
-    }
+    };
+
+    // http://hslpicker.com/#ffec3d
+    function chooseColorCar(team, densitycolor) {
+        var hslColor;
+        if (team == "BLUE") {
+            hslColor = "hsl(207,90%,"+densitycolor+")";
+        } else if (team == "RED") {
+            hslColor = "hsl(4,90%,"+densitycolor+")";
+        } else if (team == "GREEN") {
+            hslColor = "hsl(122,39%,"+densitycolor+")";
+        } else if (team == "ORANGE") {
+            hslColor = "hsl(36,100%,"+densitycolor+")";
+        } else if (team == "YELLOW") {
+            hslColor = "hsl(54,100%,"+densitycolor+")";
+        } else if (team == "PURPLE") {
+            hslColor = "hsl(291,64%,"+densitycolor+")";
+        } else {
+            hslColor = "hsl(0,50%,"+densitycolor+")";
+        }
+        return hslColor;
+    };
 
     function cw_drawCircle(body, center, radius, angle, color, ctx) {
         var p = body.GetWorldPoint(center);
@@ -169,15 +193,18 @@ angular.module('gen.car.directives', ['gen.car.service', 'gen.floor.service'])
     return {
         restrict: 'A',
         scope: {
-            'carDef': '=carDef'
+            'champion': '=champion'
         },
         link: function (scope, element) {
-            var carDef = CarService.createCarDef(scope.carDef);
+            var carDef = CarService.createCarDef(scope.champion.carScore.car, scope.champion.statistic.team);
             var simuCtx = createSimulation(carDef);
 
             var runningInterval = $interval(
                 function() {
-                    simulationStep(simuCtx);
+                    var ret = simulationStep(simuCtx);
+                    if (ret === 'stop') {
+                        scope.stop = true;
+                    }
                 },
                 Math.round(1000/box2dfps)
             );
@@ -188,6 +215,13 @@ angular.module('gen.car.directives', ['gen.car.service', 'gen.floor.service'])
                 },
                 Math.round(1000/screenfps)
             );
+
+            scope.$watch('stop', function(newValue, oldValue) {
+                if (newValue) {
+                    $interval.cancel(runningInterval);
+                    $interval.cancel(drawInterval);
+                }
+            });
 
             element.on('$destroy', function() {
                 $interval.cancel(runningInterval);

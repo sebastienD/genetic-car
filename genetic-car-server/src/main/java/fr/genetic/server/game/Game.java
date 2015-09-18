@@ -23,12 +23,8 @@ public class Game {
     }
 
     public static void createAllSimulation() {
-        Arrays.asList(Team.values()).stream()
-                .forEach(team -> {
-                    Simulation simulation = new Simulation();
-                    simulation.runSimulation(simulation.buildGenerationZero());
-                    players.put(team, simulation);
-                });
+        Arrays.stream(Team.values())
+                .forEach(Game::createSimulation);
     }
 
     public static void createSimulation(Team team) {

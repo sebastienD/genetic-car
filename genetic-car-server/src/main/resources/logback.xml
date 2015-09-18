@@ -9,9 +9,9 @@
             <OnMismatch>DENY</OnMismatch>
             <OnMatch>NEUTRAL</OnMatch>
         </filter>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>%d{HH:mm:ss.SSS} %logger{10} - %msg%n</Pattern>
-        </layout>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %logger{10} - %msg%n</pattern>
+        </encoder>
     </appender>
 
     <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
@@ -19,15 +19,16 @@
             <level>WARN</level>
         </filter>
         <target>System.err</target>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>[%d{HH:mm:ss.SSS}][%-5p][%c{1},%L] [%thread] %-58m %ex{full} %n</Pattern>
-        </layout>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%-5p][%c{1},%L] [%thread] %-58m %ex{full} %n</pattern>
+        </encoder>
     </appender>
 
     <logger name="fr" level="INFO" />
 
     <root level="WARN">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDERR" />
     </root>
 
 </configuration>

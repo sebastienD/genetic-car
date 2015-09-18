@@ -2,7 +2,6 @@ package fr.genetic.server.web.view;
 
 import fr.genetic.server.simulation.Car;
 import fr.genetic.server.simulation.CarDefinition;
-import fr.genetic.server.simulation.Team;
 import org.jbox2d.common.Vec2;
 
 import java.util.ArrayList;
@@ -13,11 +12,9 @@ public class CarView {
     public Chassi chassi;
     public CarDefinition.WheelDefinition wheel1;
     public CarDefinition.WheelDefinition wheel2;
-    public float score;
 
     public static CarView create(Car car) {
         CarView carView = new CarView();
-        carView.score = car.getScore();
         carView.chassi = Chassi.createFromDefinition(car.carDefinition);
         carView.wheel1 = car.carDefinition.wheelDefinition1;
         carView.wheel2 = car.carDefinition.wheelDefinition2;
