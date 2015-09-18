@@ -1,0 +1,77 @@
+// http://www.google.fr/design/spec/style/color.html#color-color-palette
+// 500
+@colorGreen:     #4CAF50;
+@colorRed:       #F44336;
+@colorGrayLight: #e4e6e6;
+@colorGrayDark:  #313131;
+
+body {
+  background-color: @colorGrayLight;
+}
+
+.icon {
+  font-size: 2em;
+}
+
+.icon-enter {
+  color: @colorGreen;
+}
+.icon-exit {
+  color: @colorRed;
+}
+.icon-profile {
+  color: #4527A0;
+}
+.icon-checkmark2 {
+  color: #2E7D32;
+}
+.icon-stack {
+  color: #FF6D00;
+}
+
+.stat {
+  margin-top: 10px;
+  div {
+    height: 25px;
+    line-height: 25px;
+    vertical-align: middle;
+    margin-left: 40px;
+    .icon {
+      font-size: 1em;
+      margin-right: 10px;
+    }
+  }
+}
+
+button {
+  border: 0;
+  background-color: initial;
+  cursor: pointer;
+}
+
+.right {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.head {
+  text-align: center;
+  h1{
+    color: @colorGrayDark;
+    font-family: "Eau Naturelle", "Helvetica", "Arial", "Lucida Grande", "Gill Sans", "Verdana", sans-serif;
+    font-weight: 500;
+  }
+}
+
+.champion {
+  width: 350px;
+  height: 320px;
+  float: left;
+  margin: 20px;
+  canvas {
+    background-color: white;
+    border-bottom: 2px solid rgba(0,0,0,0.3);
+    box-shadow: 0 9px 20px -5px rgba(0,0,0,0.8);
+  }
+}

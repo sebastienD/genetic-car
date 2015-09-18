@@ -2,7 +2,7 @@
 
 Ce projet est est un exercice permettant de se falimiariser avec les algorithmes génétiques de manière ludique.
 
-C'est un fork de ...
+C'est un fork de ... https://github.com/red42/HTML5_Genetic_Cars 
 
 Il est composé de deux parties :
 * le server: qui contient l'api
