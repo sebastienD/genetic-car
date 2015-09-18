@@ -5,8 +5,8 @@ import fr.genetic.server.simulation.Car;
 import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.simulation.Simulation;
 import fr.genetic.server.simulation.Team;
-import fr.genetic.server.web.dto.CarDto;
-import fr.genetic.server.web.dto.ChampionDto;
+import fr.genetic.server.web.view.CarView;
+import fr.genetic.server.web.view.ChampionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +22,10 @@ public class SimulationController {
     private SimpMessagingTemplate template;
 
     @RequestMapping(value="/simulation/evaluate/{team}", method = RequestMethod.POST)
-    public List<CarDto> evaluatePopulation(@RequestBody ArrayList<CarDto> carsDto, @PathVariable("team") Team team) {
-        validate(carsDto, team);
+    public List<CarView> evaluatePopulation(@RequestBody List<CarView> carViews, @PathVariable("team") Team team) {
+        validate(carViews, team);
 
-        List<CarDefinition> definitions = carsDto.stream()
+        List<CarDefinition> definitions = carViews.stream()
                 .map(carDto -> carDto.toCarDefintion())
                 .collect(Collectors.toList());
 
@@ -35,41 +35,40 @@ public class SimulationController {
         sendChampion(team, simulation);
 
         return simulation.allCars.stream()
-                .map(car -> CarDto.create(team, car))
+                .map(car -> CarView.create(car))
                 .collect(Collectors.toList());
     }
 
     private void sendChampion(Team team, Simulation simulation) {
-        template.convertAndSend("/topic/champions", new ChampionDto(team, simulation));
+        template.convertAndSend("/topic/champions", new ChampionView(team, simulation));
     }
 
     @RequestMapping(value="/simulation/champions", method = RequestMethod.GET)
-    public List<CarDto> getChampions() {
+    public List<ChampionView> getChampions() {
         return Game.players().entrySet().stream()
-                .map(entry -> CarDto.create(entry.getKey(), entry.getValue().leader.car))
+                .map(entry -> new ChampionView(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
     }
 
     @RequestMapping(value="/simulation/champions/{team}", method = RequestMethod.GET)
-    public CarDto getChampion(@PathVariable("team") Team team) {
-        Car car = Game.getSimulation(team).leader.car;
-        return CarDto.create(team, car);
+    public ChampionView getChampion(@PathVariable("team") Team team) {
+        return new ChampionView(team, Game.getSimulation(team));
     }
 
-    private void validate(ArrayList<CarDto> carsDto, Team team) {
+    private void validate(List<CarView> carsDto, Team team) {
         carsDto.forEach(carDto -> validate(carDto, team));
     }
 
-    private void validate(CarDto carDto, Team team) {
-        validate(carDto.wheel2, team);
-        validate(carDto.wheel1, team);
-        validate(carDto.chassi, team);
+    private void validate(CarView carView, Team team) {
+        validate(carView.wheel2, team);
+        validate(carView.wheel1, team);
+        validate(carView.chassi, team);
     }
 
     // TODO ajouter le controle sur la taille des listes
-    // TODO controle des team dans chaque dto
+    // TODO controle des team dans chaque view
     // TODO valider les valeurs de chaque coordonnées
-    private void validate(CarDto.Chassi chassi, Team team) {
+    private void validate(CarView.Chassi chassi, Team team) {
         if (chassi.vecteurs.size() != 16) {
             throw new RuntimeException(team+" - le nombre de coordonnées est incorrect (!= de 16) : "+ chassi.vecteurs.size());
         }

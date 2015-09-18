@@ -1,4 +1,4 @@
-package fr.genetic.server.web.dto;
+package fr.genetic.server.web.view;
 
 import fr.genetic.server.simulation.Car;
 import fr.genetic.server.simulation.CarDefinition;
@@ -8,26 +8,20 @@ import org.jbox2d.common.Vec2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarDto {
+public class CarView {
 
-    public Team team;
     public Chassi chassi;
     public CarDefinition.WheelDefinition wheel1;
     public CarDefinition.WheelDefinition wheel2;
     public float score;
 
-    public CarDto() {
-
-    }
-
-    public static CarDto create(Team team, Car car) {
-        CarDto carDto = new CarDto();
-        carDto.score = car.getScore();
-        carDto.team = team;
-        carDto.chassi = Chassi.createFromDefinition(car.carDefinition);
-        carDto.wheel1 = car.carDefinition.wheelDefinition1;
-        carDto.wheel2 = car.carDefinition.wheelDefinition2;
-        return carDto;
+    public static CarView create(Car car) {
+        CarView carView = new CarView();
+        carView.score = car.getScore();
+        carView.chassi = Chassi.createFromDefinition(car.carDefinition);
+        carView.wheel1 = car.carDefinition.wheelDefinition1;
+        carView.wheel2 = car.carDefinition.wheelDefinition2;
+        return carView;
     }
 
     public CarDefinition toCarDefintion() {

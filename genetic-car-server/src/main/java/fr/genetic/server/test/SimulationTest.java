@@ -5,9 +5,6 @@ import org.jbox2d.testbed.framework.j2d.TestPanelJ2D;
 
 import javax.swing.*;
 
-/**
- * Created by Sebastien on 27/01/2015.
- */
 public class SimulationTest {
 
     public static void main(String[] args) {
