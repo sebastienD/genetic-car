@@ -10,7 +10,7 @@ angular.module('gen.resources', ['gen.config', 'ngResource'])
             },
             getChampionForTeam: {
                 method: 'GET',
-                params: {team: 'RED'} // TODO a revoir
+                isArray: false
             }
         });
     }])
