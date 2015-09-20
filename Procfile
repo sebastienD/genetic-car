@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/genetic-car-server-1.0-SNAPSHOT-exec.jar
+web: java -Dserver.port=$PORT -jar genetic-car-server/target/genetic-car-server-1.0-SNAPSHOT.war

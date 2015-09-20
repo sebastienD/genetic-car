@@ -295,6 +295,7 @@ module.exports = function (grunt) {
                     dest: '<%= package_path %>',
                     src: [
                         '*.{ico,png,txt}',
+                        'fonts/**',
                         '.htaccess'
                     ]
                 }, {
@@ -364,7 +365,7 @@ module.exports = function (grunt) {
                         removeComments: true,
                         preserveLineBreaks: true
                     },
-                    module: 'ceo',
+                    module: 'gen',
                     existingModule: true,
                     singleModule: true
                 },
@@ -556,8 +557,8 @@ module.exports = function (grunt) {
         'index:dist',
         'uglify',
         'cssmin',
-        'copy:dist',
-        'jshint:all'
+        'copy:dist'
+        //'jshint:all' // me
     ]);
 
     grunt.registerTask('default', [

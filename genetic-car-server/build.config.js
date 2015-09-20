@@ -3,7 +3,7 @@
  */
 module.exports = {
     app_src_path: "src/main/webapp",
-    package_path: "target/grunt-build",
+    package_path: "src/main/webapp/build",
     tmp_dir: '.tmp',
 
     app_files: {
@@ -45,14 +45,9 @@ module.exports = {
             'bower_components/angular-resource/angular-resource.js',
             'bower_components/angular-sanitize/angular-sanitize.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
-            'bower_components/angular-ui-notification/dist/angular-ui-notification.min.js',
-            'bower_components/lodash/lodash.js',
-            'bower_components/google-code-prettify/src/prettify.js'
+            'bower_components/lodash/lodash.js'
         ],
-        css: [
-            'bower_components/angular-ui-notification/dist/angular-ui-notification.min.css',
-            'bower_components/google-code-prettify/src/prettify.css'
-        ],
+        css: [],
         assets: []
     }
 };
