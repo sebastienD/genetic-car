@@ -1,6 +1,6 @@
 # Serveur - genetic car [![Build Status](https://travis-ci.org/sebastienD/genetic-car.svg?branch=master)](https://travis-ci.org/sebastienD/genetic-car)
 
-Ce projet est est un exercice permettant de se falimiariser avec les algorithmes génétiques de manière ludique.
+Ce projet est est un exercice permettant de se familiariser avec les algorithmes génétiques de manière ludique.
 
 Il a été fortement inspiré des projets:
 * http://boxcar2d.com/
