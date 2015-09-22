@@ -42,13 +42,6 @@ module.exports = function (grunt) {
                 files: ['<%= app_src_path %>/styles/{,*/}*.css'],
                 tasks: ['newer:copy:styles', 'autoprefixer']
             },
-            app_assets: {
-                files: [
-                    '<%= app_src_path %>/scripts/app/{,**/}*.{png,jpg,jpeg,gif,webp,svg}',
-                    '<%= app_src_path %>/scripts/common/{,**/}*.{png,jpg,jpeg,gif,webp,svg}'
-                ],
-                tasks: ['copy:app_assets']
-            },
             less: {
                 files: ['<%= app_files.less %>'],
                 tasks: ['less']
@@ -172,8 +165,7 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     '<%= tmp_dir %>/scripts/{,*/}*.js',
-                    '<%= tmp_dir %>/styles/{,*/}*.css',
-                    '<%= tmp_dir %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= tmp_dir %>/styles/{,*/}*.css'
                 ]
             },
             dist_template: {
@@ -261,31 +253,8 @@ module.exports = function (grunt) {
                 cwd: '<%= app_src_path %>',
                 dest: '<%= tmp_dir %>',
                 src: [
-                    'scripts/**/*-tpl.html',
-                    'images/**/*',
-                    'fonts/**/*'
+                    'scripts/**/*-tpl.html'
                 ]
-            },
-            app_assets: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= app_src_path %>/scripts',
-                    dest: '<%= tmp_dir %>/images/',
-                    src: 'app/{,**/}*.{png,jpg,jpeg,gif,webp,svg}'
-                }, {
-                    expand: true,
-                    cwd: '<%= app_src_path %>/scripts',
-                    dest: '<%= tmp_dir %>/images/',
-                    src: 'common/{,**/}*.{png,jpg,jpeg,gif,webp,svg}'
-                }]
-            },
-            vendor_assets: {
-                files: [{
-                    expand: true,
-                    cwd: 'bower_components/bootstrap-css-only',
-                    src: 'fonts/*',
-                    dest: '<%= tmp_dir %>'
-                }]
             },
             dist: {
                 files: [{
@@ -294,9 +263,7 @@ module.exports = function (grunt) {
                     cwd: '<%= app_src_path %>',
                     dest: '<%= package_path %>',
                     src: [
-                        '*.{ico,png,txt}',
-                        'fonts/**',
-                        '.htaccess'
+                        '*.{ico,png,txt}'
                     ]
                 }, {
                     expand: true,
@@ -516,8 +483,6 @@ module.exports = function (grunt) {
                 //'wiredep',
                 'less',
                 'concat:vendor_css',
-                'copy:vendor_assets',
-                'copy:app_assets',
                 //'karmaconfig',
                 //'karma', // me
                 'concurrent:server',
@@ -546,8 +511,6 @@ module.exports = function (grunt) {
         //'karmaconfig',
         //'karma', // me
         'autoprefixer',
-        'copy:vendor_assets',
-        'copy:app_assets',
         'copy:prepare_dist',
         'concurrent:imagemin',
         'filerev:dist',
