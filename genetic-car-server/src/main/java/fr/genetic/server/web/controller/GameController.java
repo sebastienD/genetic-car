@@ -15,22 +15,22 @@ public class GameController {
         return Team.values();
     }
 
-    @RequestMapping(value="/game/clear/{team}", method = RequestMethod.POST)
+    @RequestMapping(value="/game/{team}", method = RequestMethod.DELETE)
     void resetPopulationForTeam(@PathVariable("team") Team team) {
         Game.clear(team);
     }
 
-    @RequestMapping(value="/game/clear", method = RequestMethod.POST)
+    @RequestMapping(value="/game", method = RequestMethod.DELETE)
     void resetAllPopulation() {
         Game.clearAll();
     }
 
-    @RequestMapping(value="/game/createSimulation/{team}", method = RequestMethod.POST)
+    @RequestMapping(value="/game/{team}", method = RequestMethod.POST)
     void createSimulationForTeam(@PathVariable("team") Team team) {
         Game.createSimulation(team);
     }
 
-    @RequestMapping(value="/game/createSimulation", method = RequestMethod.POST)
+    @RequestMapping(value="/game", method = RequestMethod.POST)
     void createSimulation() {
         Game.createAllSimulation();
     }
