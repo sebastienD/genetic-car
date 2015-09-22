@@ -7,11 +7,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.async.DeferredResult;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseMessageBuilder;
 import springfox.documentation.schema.ModelRef;
 import springfox.documentation.schema.WildcardType;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
@@ -48,6 +50,7 @@ public class SwaggerConfiguration {
                 .paths(PathSelectors.any())
                 .build()
                 .pathMapping("/")
+                .apiInfo(apiInfo())
                 .directModelSubstitute(LocalDate.class, String.class)
                 .genericModelSubstitutes(ResponseEntity.class)
                 .alternateTypeRules(
@@ -98,6 +101,18 @@ public class SwaggerConfiguration {
         authorizationScopes[0] = authorizationScope;
         return newArrayList(
                 new SecurityReference("mykey", authorizationScopes));
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .license("GNU General Public License")
+                .licenseUrl("http://www.gnu.org/licenses/gpl.txt")
+                .contact("Sébastien")
+                .description("Lors du développement des algorithmes, ne pas toucher au game controller.")
+                .title("Api documentation for genetic-car-server project")
+                .version("1.0")
+                .termsOfServiceUrl("urn:tos")
+                .build();
     }
 
 }
