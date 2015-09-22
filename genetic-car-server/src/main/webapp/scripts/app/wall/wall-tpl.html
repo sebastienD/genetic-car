@@ -1,0 +1,25 @@
+
+<div class="head">
+    <div class="left">
+        <span ng-class="connected ? 'OK' : 'OK'"><i class="icon icon-bulb"></i></span>
+    </div>
+    <h1>Wall des champions</h1>
+    <div class="right">
+        <button type="button" ng-click="retrieveChampions()"><i class="icon icon-box-add"></i></button>
+        <button type="button" ng-click="connect()"><i class="icon icon-enter"></i></button>
+        <button type="button" ng-click="disconnect()"><i class="icon icon-exit"></i></button>
+    </div>
+</div>
+
+<div class="container-result">
+    <div class="champion" ng-repeat="champion in champions">
+        <canvas width="350" height="250" car champion="champion"></canvas>
+        <div class="stat">
+            <div><span class="icon icon-profile"></span>{{ champion.statistic.team }}</div>
+            <div><span class="icon icon-checkmark2"></span>{{ champion.carScore.score }}</div>
+            <div><span class="icon icon-stack"></span>{{ champion.statistic.nbRunSimulation }}</div>
+        </div>
+    </div>
+</div>
+
+

@@ -2,7 +2,7 @@
     'use strict';
     angular.module('gen', [
         // gen's specifics module
-        'gen.config', 'gen.resources', 'gen.home',
+        'gen.home', 'gen.wall', 'gen.final',
         // Third party's modules
         'ui.router', 'ngSanitize'
     ])

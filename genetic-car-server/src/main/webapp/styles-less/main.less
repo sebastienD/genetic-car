@@ -92,3 +92,59 @@ button {
     box-shadow: 0 9px 20px -5px rgba(0,0,0,0.8);
   }
 }
+
+@font-face {
+  font-family: 'aqua';
+  src:url('../fonts/aqua.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.board {
+  padding: 20px;
+  a {
+    font-family: 'aqua';
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    color: white;
+    text-decoration: none;
+    i {
+      color: white;
+      font-size: 0.7em;
+    }
+  }
+  div {
+    margin: 10px;
+    border: 5px solid white;
+    background-color: darkgray;
+    border-radius: 25px;
+    font-size: 8em;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    float: left;
+    &.ok {
+      a, i {
+        color: @colorGreen;
+      }
+    }
+    &.admin {
+      a, i {
+        color: @colorRed;
+      }
+    }
+    &.info {
+      a, i {
+        color: @colorAmber;
+      }
+    }
+  }
+}

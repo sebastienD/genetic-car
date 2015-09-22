@@ -28,7 +28,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: ['<%= app_files.js %>'],
-                tasks: [/*'karmaconfig', 'karma',*/ 'index:dev', 'newer:jshint:all']
+                tasks: [/*'karmaconfig', 'karma',*/ 'index:dev' /*,'newer:jshint:all'*/]
             },
             index: {
                 files: ['<%= app_files.index %>'],
@@ -36,7 +36,7 @@ module.exports = function (grunt) {
             },
             jsTest: {
                 files: ['<%= app_files.jsunit %>'],
-                tasks: [/*'karmaconfig', 'karma',*/ 'index:dev', 'newer:jshint:test']
+                tasks: [/*'karmaconfig', 'karma',*/ 'index:dev'/*, 'newer:jshint:test'*/]
             },
             styles: {
                 files: ['<%= app_src_path %>/styles/{,*/}*.css'],
@@ -51,10 +51,6 @@ module.exports = function (grunt) {
             },
             templates: {
                 files: ['<%= app_files.tpl %>']
-            },
-            assets: {
-                files: '<%= app_src_path %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-
             }
         },
 

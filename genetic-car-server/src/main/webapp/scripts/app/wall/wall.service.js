@@ -1,5 +1,5 @@
-angular.module("gen.home.service", [])
-    .service("ChampionsService", [ '$q', '$log', function($q, $log) {
+angular.module("gen.wall.service", ['gen.config'])
+    .service("ChampionsService", [ '$q', '$log', 'config', function($q, $log, config) {
 
     var service = {};
     var listener = $q.defer();
@@ -9,10 +9,9 @@ angular.module("gen.home.service", [])
     };
     var messageIds = [];
 
-    var prefixUrl = location.port == 9000 ? '//localhost:8080' : '';
-    service.SOCKET_URL = prefixUrl + "/status/champions";
-    service.CHAMPIONS_TOPIC = "/topic/champions";
-    service.CHAMPIONS_BROKER = "/app/status/champions";
+    service.SOCKET_URL = config.WALL_SOCKET_URL;
+    service.CHAMPIONS_TOPIC = config.WALL_CHAMPIONS_TOPIC;
+    service.CHAMPIONS_BROKER = config.Wall_CHAMPIONS_BROKER;
 
     service.receive = function() {
         return listener.promise;
