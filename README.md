@@ -4,7 +4,7 @@ Ce projet est est un exercice permettant de se falimiariser avec les algorithmes
 
 Il a été fortement inspiré des projets:
 * http://boxcar2d.com/
-* http://rednuht.org/genetic_cars_2/ ([github] (https://github.com/red42/HTML5_Genetic_Cars))
+* fork de http://rednuht.org/genetic_cars_2/ ([github](https://github.com/red42/HTML5_Genetic_Cars))
 
 ## Le déroulement
 

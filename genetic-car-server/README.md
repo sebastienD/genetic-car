@@ -4,11 +4,11 @@ Ce projet est est un exercice permettant de se falimiariser avec les algorithmes
 
 Il a été fortement inspiré des projets:
 * http://boxcar2d.com/
-* http://rednuht.org/genetic_cars_2/ ([github] (https://github.com/red42/HTML5_Genetic_Cars))
+* fork de http://rednuht.org/genetic_cars_2/ ([github](https://github.com/red42/HTML5_Genetic_Cars))
 
 ## L'api
 
-Elle est composée de deux controllers ([swagger] (http://genetic-car.herokuapp.com/swagger-ui.html)):
+Elle est composée de deux controllers ([swagger](http://genetic-car.herokuapp.com/swagger-ui.html)):
 * GameController: permet d'initialiser et de supprimer l'environnement de simulation pour chacune des équipes.
 * SimulationController: contient la fonction d'évaluation et les méthodes pour retourner le champion de chacune des équipes.
 
