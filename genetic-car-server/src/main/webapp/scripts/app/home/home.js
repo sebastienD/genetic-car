@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gen.home', ['ui.router', 'gen.home.service', 'gen.car.directives'])
+angular.module('gen.home', ['ui.router', 'gen.home.service', 'gen.car.directives', 'gen.resources'])
 
     .config(['$stateProvider', function ($stateProvider) {
         $stateProvider.state('home', {
@@ -10,12 +10,20 @@ angular.module('gen.home', ['ui.router', 'gen.home.service', 'gen.car.directives
         });
     }])
 
-    .controller('HomeController', ['$scope', 'ChampionsService', function($scope, ChampionsService) {
+    .controller('HomeController', ['$scope', 'ChampionsService', 'SimulationResource', function($scope, ChampionsService, SimulationResource) {
 
         connect();
 
         $scope.connect = connect;
         $scope.disconnect = disconnect;
+        $scope.retrieveChampions = retrieveChampions;
+        $scope.connected = false;
+
+        function retrieveChampions() {
+            SimulationResource.getAllChampions().$promise.then(function(champions) {
+                $scope.champions = champions;
+            });
+        }
 
         function connect() {
             $scope.champions = [];

@@ -4,13 +4,12 @@
 @colorRed:       #F44336;
 @colorGrayLight: #e4e6e6;
 @colorGrayDark:  #313131;
+@colorYellow:    #FFEB3B;
+@colorAmber:     #FFC107;
+@colorTeal:      #009688;
 
 body {
   background-color: @colorGrayLight;
-}
-
-.icon {
-  font-size: 2em;
 }
 
 .icon-enter {
@@ -28,6 +27,9 @@ body {
 .icon-stack {
   color: #FF6D00;
 }
+.OK .icon-bulb {
+  color: @colorAmber;
+}
 
 .stat {
   margin-top: 10px;
@@ -43,15 +45,30 @@ body {
   }
 }
 
+span {
+  .icon {
+    font-size: 1.4em;
+  }
+}
+
 button {
   border: 0;
   background-color: initial;
   cursor: pointer;
+  .icon {
+    font-size: 2em;
+  }
 }
 
 .right {
   position: absolute;
   right: 20px;
+  top: 20px;
+}
+
+.left {
+  position: absolute;
+  left: 20px;
   top: 20px;
 }
 

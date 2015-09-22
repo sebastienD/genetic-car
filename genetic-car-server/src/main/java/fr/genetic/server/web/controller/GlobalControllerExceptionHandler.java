@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * {@see https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc }
+ */
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
 
@@ -41,10 +43,10 @@ public class GlobalControllerExceptionHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    void handleBadRequests(HttpServletResponse response, IllegalArgumentException e) throws IOException {
-        LOGGER.error("IllegalArgumentException", e);
-        // TODO a revoir
-        response.sendError(HttpStatus.BAD_REQUEST.value());
+    public ResponseEntity<ExceptionData> handleBadRequests(IllegalArgumentException e) throws IOException {
+        ExceptionData data = new ExceptionData("42", e.getMessage());
+        LOGGER.error("Exception " + data.getInstanceId(), e);
+        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
 
     public static class ExceptionData {

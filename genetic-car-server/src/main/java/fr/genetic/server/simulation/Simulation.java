@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by sebastien on 12/01/2015.
- */
 public class Simulation {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Simulation.class);
