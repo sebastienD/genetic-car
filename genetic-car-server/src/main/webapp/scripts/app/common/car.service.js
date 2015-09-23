@@ -97,6 +97,7 @@ angular.module("gen.car.service", [])
                 for (var i = 0; i < car.wheels.length; i++){
                     world.DestroyBody(car.wheels[i]);
                 }
+                car.alive = false;
             }
 
             car.checkDeath = function() {

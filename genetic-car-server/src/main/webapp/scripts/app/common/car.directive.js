@@ -63,7 +63,7 @@ angular.module('gen.car.directives', ['gen.car.service', 'gen.floor.service'])
         ctx.save();
         cw_setCameraPosition(simuCtx);
         // avant 200 - 150 120
-        ctx.translate(200-(simuCtx.camera_x*zoom), 200+(simuCtx.camera_y*zoom));
+        ctx.translate(150-(simuCtx.camera_x*zoom), 120+(simuCtx.camera_y*zoom));
         ctx.scale(zoom, -zoom);
         cw_drawFloor(simuCtx, ctx);
         cw_drawCars(simuCtx, ctx);

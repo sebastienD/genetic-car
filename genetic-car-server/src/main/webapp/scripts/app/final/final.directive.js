@@ -36,10 +36,10 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
              cameraTarget_indexCar: -1,
              last_drawn_tile: 0,
              nbDeadCars: 0,
-             leader: {position:{}, index: null},
+             leader: {position:{ x:0, y:0}, index: null},
              floorTiles: floorTiles
         }
-    }
+    };
 
     function reset(simuCtx) {
         simuCtx.camera_x = 0;
@@ -63,7 +63,6 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
             }
         });
 
-        console.log(simuCtx.nbDeadCars, simuCtx.carFilledList.length);
         if (simuCtx.nbDeadCars == simuCtx.carFilledList.length) {
             //reset(simuCtx);
             return 'stop';
@@ -95,7 +94,7 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
         ctx.save();
         cw_setCameraPosition(simuCtx);
         // avant 200 et 200
-        ctx.translate(150-(simuCtx.camera_x*zoom), 120+(simuCtx.camera_y*zoom));
+        ctx.translate(200-(simuCtx.camera_x*zoom), 200+(simuCtx.camera_y*zoom));
         ctx.scale(zoom, -zoom);
         cw_drawFloor(simuCtx, ctx);
         cw_drawCars(simuCtx, ctx);
@@ -151,15 +150,13 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
     }
 
     function cw_drawCars(simuCtx, ctx) {
-
         simuCtx.carFilledList.filter(function(carFilled) {
             return carFilled.alive;
         }).forEach(function(carFilled, index) {
-
             var myCarPos = carFilled.getPosition();
 
             if (myCarPos.x < (simuCtx.camera_x - 5)) {
-                // too far behind, don't draw
+                console.log("too far behind, don't draw");
                 return;
             }
 
@@ -232,6 +229,9 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
         ctx.stroke();
     }
 
+    /*
+     https://github.com/kripken/box2d.js
+     */
     return {
         restrict: 'A',
         scope: {
@@ -242,11 +242,6 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
             scope.champions.forEach(function(champion) {
                 carDefList.push(CarService.createCarDef(champion.carScore.car, champion.statistic.team));
             });
-
-            /*
-             {"team":"YELLOW","wheelCount":2,"wheel_radius":[0.3132888,0.28024596],"wheel_density":[46.594337,86.05009],"wheel_vertex":[1,6],"chassis_density":227.20547,"vertex_list":[{"x":0.45587727,"y":0},{"x":0.20841739,"y":0.41840616},{"x":0,"y":0.9718805},{"x":-0.6338814,"y":0.90924895},{"x":-0.14117411,"y":0},{"x":-1.0216295,"y":-1.0968173},{"x":0,"y":-0.7995364},{"x":0.95801544,"y":-0.83756405}]}
-             {"team":"GREEN","wheelCount":2,"wheel_radius":[0.38508964,0.2602971],"wheel_density":[53.847446,88.03694],"wheel_vertex":[7,1],"chassis_density":59.570404,"vertex_list":[{"x":0.21390203,"y":0},{"x":0.91141015,"y":0.19213328},{"x":0,"y":0.5951359},{"x":-0.329379,"y":0.5491548},{"x":-0.26029918,"y":0},{"x":-0.36057684,"y":-0.5953901},{"x":0,"y":-0.24638876},{"x":0.43393752,"y":-1.0529757}]}
-             */
 
             var simuCtx = createSimulation(carDefList);
 
@@ -267,7 +262,7 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
                 Math.round(1000/screenfps)
             );
 
-            scope.$watch('stop', function(newValue, oldValue) {
+            scope.$watch('stop', function(newValue) {
                 if (newValue) {
                     $log.info('stop received');
                     $interval.cancel(runningInterval);

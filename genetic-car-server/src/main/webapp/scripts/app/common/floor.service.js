@@ -46,6 +46,7 @@ angular.module("gen.floor.service", [])
             var last_tile = null;
             var tile_position = new b2Vec2(-5,0);
             var cw_floorTiles = [];
+            // TODO est-ce bien utile ?
             Math.seedrandom(floorseed);
             for(var k = 0; k < maxFloorTiles; k++) {
                 // keep old impossible tracks if not using mutable floors
