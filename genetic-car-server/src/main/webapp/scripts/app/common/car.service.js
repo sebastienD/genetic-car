@@ -1,7 +1,6 @@
 angular.module("gen.car.service", [])
     .service("CarService", [ '$q', function($q) {
 
-        var motorSpeed = 0;//20
         var box2dfps = 60;
         var max_car_health = box2dfps * 10;
 
@@ -48,7 +47,7 @@ angular.module("gen.car.service", [])
             car.alive = true;
         }
 
-        service.createCar = function(carDef, gravity, world) {
+        service.createCar = function(carDef, gravity, world, motorSpeed) {
             var car = {};
             car.health = max_car_health;
             car.maxPosition = 0;

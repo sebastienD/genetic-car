@@ -1095,33 +1095,34 @@ call_champions(function(champions) {
 });
 
 function createChampionsCar_def(champion) {
+    var car = champion.carScore.car;
     var car_def = new Object();
 
-    car_def.team = champion.team;
+    car_def.team = champion.statistic.team;
     car_def.wheelCount = 2;
 
     car_def.wheel_radius = [];
     car_def.wheel_density = [];
     car_def.wheel_vertex = [];
 
-    car_def.wheel_radius[0] = champion.wheel1.radius;
-    car_def.wheel_density[0] = champion.wheel1.density;
-    car_def.wheel_vertex[0] = champion.wheel1.vertex;
-    car_def.wheel_radius[1] = champion.wheel2.radius;
-    car_def.wheel_density[1] = champion.wheel2.density;
-    car_def.wheel_vertex[1] = champion.wheel2.vertex;
+    car_def.wheel_radius[0] = car.wheel1.radius;
+    car_def.wheel_density[0] = car.wheel1.density;
+    car_def.wheel_vertex[0] = car.wheel1.vertex;
+    car_def.wheel_radius[1] = car.wheel2.radius;
+    car_def.wheel_density[1] = car.wheel2.density;
+    car_def.wheel_vertex[1] = car.wheel2.vertex;
 
-    car_def.chassis_density = champion.chassi.densite;
+    car_def.chassis_density = car.chassi.densite;
 
     car_def.vertex_list = new Array();
-    car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[0] ,0));
-    car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[2], champion.chassi.vecteurs[3]));
-    car_def.vertex_list.push(new b2Vec2(0, champion.chassi.vecteurs[5]));
-    car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[6], champion.chassi.vecteurs[7]));
-    car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[8],0));
-    car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[10],champion.chassi.vecteurs[11]));
-    car_def.vertex_list.push(new b2Vec2(0,champion.chassi.vecteurs[13]));
-    car_def.vertex_list.push(new b2Vec2(champion.chassi.vecteurs[14],champion.chassi.vecteurs[15]));
+    car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[0] ,0));
+    car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[2], car.chassi.vecteurs[3]));
+    car_def.vertex_list.push(new b2Vec2(0, car.chassi.vecteurs[5]));
+    car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[6], car.chassi.vecteurs[7]));
+    car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[8],0));
+    car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[10],car.chassi.vecteurs[11]));
+    car_def.vertex_list.push(new b2Vec2(0,car.chassi.vecteurs[13]));
+    car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[14],car.chassi.vecteurs[15]));
 
     return car_def;
 }
