@@ -14,11 +14,30 @@ angular.module('gen.final', ['ui.router', 'gen.final.directives', 'gen.resources
 
         retrieveChampions();
 
+        $scope.fullWindow = fullWindow;
+        $scope.wrapperClass = 'final';
+
         function retrieveChampions() {
             SimulationResource.getAllChampions().$promise.then(function(champions) {
                 $scope.champions = champions;
             });
         }
+
+        function fullWindow() {
+            if ($scope.wrapperClass == 'final') {
+                $scope.wrapperClass = 'final-fullscreen';
+                $scope.$broadcast("fullscreen-final", true);
+            } else {
+                $scope.wrapperClass = 'final';
+                $scope.$broadcast("fullscreen-final", false);
+            }
+        }
+
+        angular.element(window).on('resize', function () {
+            if ($scope.wrapperClass == 'final-fullscreen') {
+                $scope.$broadcast("fullscreen-final", true);
+            }
+        })
 
     }])
 

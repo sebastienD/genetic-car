@@ -123,10 +123,12 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
                 for (var f = b.GetFixtureList(); f; f = f.m_next) {
                     var s = f.GetShape();
                     var shapePosition = b.GetWorldPoint(s.m_vertices[0]).x;
-                    if((shapePosition > (simuCtx.camera_x - 5)) && (shapePosition < (simuCtx.camera_x + 10))) {
+                    // avant 10 a la place du 15
+                    if((shapePosition > (simuCtx.camera_x - 5)) && (shapePosition < (simuCtx.camera_x + 15))) {
                         cw_drawVirtualPoly(b, s.m_vertices, s.m_vertexCount, ctx);
                     }
-                    if(shapePosition > simuCtx.camera_x + 10) {
+                    // avant 10 a la place du 15
+                    if(shapePosition > simuCtx.camera_x + 15) {
                         simuCtx.last_drawn_tile = k;
                         break outer_loop;
                     }
@@ -238,6 +240,11 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
             'champions': '=champions'
         },
         link: function (scope, element) {
+            var canvas = element[0];
+            var canvasInitSize = {
+                width: canvas.width,
+                height: canvas.height
+            }
             var carDefList = [];
             scope.champions.forEach(function(champion) {
                 carDefList.push(CarService.createCarDef(champion.carScore.car, champion.statistic.team));
@@ -257,7 +264,7 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
 
             var drawInterval = $interval(
                 function() {
-                    cw_drawScreen(simuCtx, element[0]);
+                    cw_drawScreen(simuCtx, canvas);
                 },
                 Math.round(1000/screenfps)
             );
@@ -267,6 +274,17 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
                     $log.info('stop received');
                     $interval.cancel(runningInterval);
                     $interval.cancel(drawInterval);
+                }
+            });
+
+            scope.$on('fullscreen-final', function(event, arg) {
+                console.log("event received", event, arg);
+                if (arg) {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                } else {
+                    canvas.width = canvasInitSize.width;
+                    canvas.height = canvasInitSize.height;
                 }
             });
 
