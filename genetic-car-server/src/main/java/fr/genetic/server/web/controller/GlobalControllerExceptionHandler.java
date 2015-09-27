@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -19,14 +20,6 @@ import java.util.UUID;
 public class GlobalControllerExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);
-
-    /*
-    @ResponseStatus(HttpStatus.CONFLICT)  // 409
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public void handleConflict() {
-        // Nothing to do
-    }
-    */
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionData> defaultErrorHandler(Exception e) throws Exception {
@@ -44,8 +37,15 @@ public class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ExceptionData> handleBadRequests(IllegalArgumentException e) throws IOException {
-        ExceptionData data = new ExceptionData("42", e.getMessage());
-        LOGGER.error("Exception " + data.getInstanceId(), e);
+        ExceptionData data = new ExceptionData("gen-validation", e.getMessage());
+        LOGGER.warn("Exception {} : {}", data.getInstanceId(), e.getMessage());
+        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ExceptionData> handleBadRequests(MethodArgumentNotValidException e) throws IOException {
+        ExceptionData data = new ExceptionData("spring-validation", e.getMessage());
+        LOGGER.warn("Exception " + data.getInstanceId(), e);
         return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
 
