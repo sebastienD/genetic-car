@@ -23,24 +23,24 @@ public class Validator<T> {
         return new Validator<>(Objects.requireNonNull(object));
     }
 
-    private Validator<T> validate(Predicate<T> validation, Supplier<String> messageSupplier) {
+    private Validator<T> validate(Predicate<T> validation, Function<T, String> message) {
         if (!validation.test(object)) {
-            messages.add(messageSupplier.get());
+            messages.add(message.apply(object));
         }
         return this;
     }
 
     public Validator<T> validate(Predicate<T> validation, String message) {
-        return validate(validation, () -> message);
+        return validate(validation, t -> message);
     }
 
     public <U> Validator<T> validate(Function<T,U> projection, Predicate<U> validation, String message) {
-        return validate(projection.andThen(validation::test)::apply, () -> message);
+        return validate(projection.andThen(validation::test)::apply, t -> message);
     }
 
     public <U> Validator<T> validate(Function<T,List<U>> projection, int index, Predicate<U> validation, String message) {
         return validate(projection.andThen(us -> validation.test(us.get(index)))::apply,
-                () -> message + "(" + projection.andThen(us -> us.get(index)) + ")");
+                projection.andThen(us -> us.get(index)).andThen(coord -> message + " (" + coord + ")"));
     }
 
     public T throwIfAny() throws IllegalStateException {

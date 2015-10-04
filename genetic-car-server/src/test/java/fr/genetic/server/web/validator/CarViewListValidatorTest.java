@@ -1,59 +1,48 @@
 package fr.genetic.server.web.validator;
 
+import fr.genetic.server.DataFactory;
 import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.simulation.Team;
 import fr.genetic.server.web.view.CarView;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class CarViewListValidatorTest {
 
     @Test
     public void should_validate_cars() {
-        CarView carView = new CarView();
-
-        carView.chassi = new CarView.Chassi();
-        carView.chassi.densite = 30F;
-        carView.chassi.vecteurs.add(0.1F);
-        carView.chassi.vecteurs.add(0F);
-        carView.chassi.vecteurs.add(0.8F);
-        carView.chassi.vecteurs.add(0.3F);
-        carView.chassi.vecteurs.add(0F);
-        carView.chassi.vecteurs.add(0.5F);
-        carView.chassi.vecteurs.add(-1F);
-        carView.chassi.vecteurs.add(1.05F);
-        carView.chassi.vecteurs.add(-0.4F);
-        carView.chassi.vecteurs.add(0F);
-        carView.chassi.vecteurs.add(-0.1F);
-        carView.chassi.vecteurs.add(-0.7F);
-        carView.chassi.vecteurs.add(0F);
-        carView.chassi.vecteurs.add(-0.6F);
-        carView.chassi.vecteurs.add(1.09F);
-        carView.chassi.vecteurs.add(-1F);
-
-        carView.wheel1 = new CarDefinition.WheelDefinition();
-        carView.wheel1.radius = 0.2F;
-        carView.wheel1.density = 50F;
-        carView.wheel1.vertex = 0;
-
-        carView.wheel2 = new CarDefinition.WheelDefinition();
-        carView.wheel2.radius = 0.5F;
-        carView.wheel2.density = 100F;
-        carView.wheel2.vertex = 5;
+        CarView carView = DataFactory.carView();
 
         CarViewListValidator validator = new CarViewListValidator();
         validator.validate(Arrays.asList(carView), Team.BLUE);
     }
 
-
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void should_throw_exception_when_list_too_big() {
+        List<CarView> cars = IntStream.range(0, 21)
+                .mapToObj(i -> new CarView())
+                .collect(Collectors.toList());
 
+        CarViewListValidator validator = new CarViewListValidator();
+        validator.validate(cars, Team.BLUE);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void should_throw_exception_when_list_contains_bad_cars() {
+        CarView carView = DataFactory.carView();
+        carView.chassi.vecteurs.set(5, 5.2F);
 
+        List<CarView> cars = IntStream.range(0, 2)
+                .mapToObj(i -> DataFactory.carView())
+                .collect(Collectors.toList());
+
+        cars.add(carView);
+
+        CarViewListValidator validator = new CarViewListValidator();
+        validator.validate(cars, Team.BLUE);
     }
 }

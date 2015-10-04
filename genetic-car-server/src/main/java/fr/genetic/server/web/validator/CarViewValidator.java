@@ -2,7 +2,6 @@ package fr.genetic.server.web.validator;
 
 import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.web.view.CarView;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.function.Function;
@@ -13,31 +12,39 @@ import java.util.stream.Stream;
 public class CarViewValidator {
 
     public List<String> validate(CarView carView) {
+        // TODO améliorer le validator
+        List<String> errors = Validator.of(carView.chassi)
+                .validate(c -> c.vecteurs.size() == 16, "le nombre de coordonnées du chassi est incorrect (!= de 16)")
+                .messagesStream()
+                .collect(Collectors.toList());
+
+        if (!errors.isEmpty()) {
+            return errors;
+        }
+
         return Stream.of(
                 validateWheel(carView.wheel1),
                 validateWheel(carView.wheel2),
                 Validator.of(carView.chassi)
-                        // TODO ce test doit être sorti (terminal)
-                    .validate(c -> c.vecteurs.size() == 16, "le nombre de coordonnées du chassi est incorrect (!= de 16)")
-                    .validate(c -> c.vecteurs, 0, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
-                    .validate(c -> c.vecteurs.get(1), isZero(), "la coordonnée doit avoir la valeur zéro")
-                    .validate(c -> c.vecteurs.get(2), validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
-                    .validate(c -> c.vecteurs.get(3), validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
-                    .validate(c -> c.vecteurs.get(4), isZero(), "la coordonnée doit avoir la valeur zéro")
-                    .validate(c -> c.vecteurs.get(5), validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
-                    .validate(c -> c.vecteurs.get(6), validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
-                    .validate(c -> c.vecteurs.get(7), validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
-                    .validate(c -> c.vecteurs.get(8), validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
-                    .validate(c -> c.vecteurs.get(9), isZero(), "la coordonnée doit avoir la valeur zéro")
-                    .validate(c -> c.vecteurs.get(10), validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
-                    .validate(c -> c.vecteurs.get(11), validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
-                    .validate(c -> c.vecteurs.get(12), isZero(), "la coordonnée doit avoir la valeur zéro")
-                    .validate(c -> c.vecteurs.get(13), validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
-                    .validate(c -> c.vecteurs.get(14), validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
-                    .validate(c -> c.vecteurs.get(15), validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
-                    .validate(c -> c.densite, inBetween(30F, 300F), "la densite du chassi n'est pas comprise entre 30 et 300")
-                    .messagesStream()
-                )
+                        .validate(c -> c.vecteurs, 0, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
+                        .validate(c -> c.vecteurs, 1, isZero(), "la coordonnée doit avoir la valeur zéro")
+                        .validate(c -> c.vecteurs, 2, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
+                        .validate(c -> c.vecteurs, 3, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
+                        .validate(c -> c.vecteurs, 4, isZero(), "la coordonnée doit avoir la valeur zéro")
+                        .validate(c -> c.vecteurs, 5, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
+                        .validate(c -> c.vecteurs, 6, validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
+                        .validate(c -> c.vecteurs, 7, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
+                        .validate(c -> c.vecteurs, 8, validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
+                        .validate(c -> c.vecteurs, 9, isZero(), "la coordonnée doit avoir la valeur zéro")
+                        .validate(c -> c.vecteurs, 10, validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
+                        .validate(c -> c.vecteurs, 11, validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
+                        .validate(c -> c.vecteurs, 12, isZero(), "la coordonnée doit avoir la valeur zéro")
+                        .validate(c -> c.vecteurs, 13, validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
+                        .validate(c -> c.vecteurs, 14, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
+                        .validate(c -> c.vecteurs, 15, validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
+                        .validate(c -> c.densite, inBetween(30F, 300F), "la densite du chassi n'est pas comprise entre 30 et 300")
+                .messagesStream()
+        )
                 .flatMap(Function.identity())
                 .collect(Collectors.toList());
     }
