@@ -1,16 +1,22 @@
 package fr.genetic.client.java;
 
+import fr.genetic.client.java.algo.Car;
+import fr.genetic.client.java.api.CarScoreView;
+import fr.genetic.client.java.api.CarView;
+import fr.genetic.client.java.api.Team;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -19,7 +25,7 @@ public class Launch implements CommandLineRunner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Launch.class);
 
-    @Value("genetic.server.host")
+    @Value("${genetic.server.host}")
     private String host;
 
     private Team team = Team.BLUE;
@@ -33,21 +39,28 @@ public class Launch implements CommandLineRunner {
         return host + "/simulation/evaluate/" + team.name();
     }
 
+    private List<CarScoreView> evaluate(List<CarView> cars) {
+        final RestTemplate restTemplate = new RestTemplate();
+        // TODO error handler trop de coords pour le chassi + game non créé
+        ResponseEntity<List<CarScoreView>> exchange = restTemplate.exchange(evaluationUrl(), HttpMethod.POST, new HttpEntity(cars), new ParameterizedTypeReference<List<CarScoreView>>() {
+        });
+        return exchange.getBody();
+    }
+
     @Override
     public void run(String... args) throws Exception {
-        final RestTemplate restTemplate = new RestTemplate();
 
         List<CarView> cars = IntStream.range(0, 20)
-                .mapToObj(i -> new CarView())
+                .mapToObj(i -> Car.random().toCarView())
                 .collect(Collectors.toList());
 
-        // TODO URL à corriger
-        // TODO init des voitures
-        List<CarScoreView> carScores = restTemplate.postForObject(evaluationUrl(), cars, List.class);
+        List<CarScoreView> carScores = evaluate(cars);
 
-        Optional<CarScoreView> champion = carScores.stream()
-                .max((o1, o2) -> Float.compare(o1.score, o2.score));
+        CarScoreView champion = carScores.stream()
+                .max((carScore1, carScore2) -> Float.compare(carScore1.score, carScore2.score))
+                .get();
 
         LOGGER.info("Mon champion est {}", champion);
     }
+
 }

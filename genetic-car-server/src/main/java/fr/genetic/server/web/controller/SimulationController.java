@@ -33,6 +33,7 @@ public class SimulationController {
                 .collect(Collectors.toList());
 
         Simulation simulation = Game.getSimulation(team);
+        // TODO if simulation null alors pas de partie de creer
         simulation.runSimulation(definitions);
 
         sendChampion(team, simulation);

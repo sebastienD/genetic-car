@@ -1,4 +1,4 @@
-package fr.genetic.client.java;
+package fr.genetic.client.java.api;
 
 public enum Team {
 

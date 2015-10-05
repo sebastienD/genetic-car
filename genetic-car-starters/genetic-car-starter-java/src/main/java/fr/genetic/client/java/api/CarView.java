@@ -1,13 +1,13 @@
-package fr.genetic.client.java;
+package fr.genetic.client.java.api;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarView {
 
-    public Chassi chassi;
-    public Wheel wheel1;
-    public Wheel wheel2;
+    public Chassi chassi = new Chassi();
+    public Wheel wheel1 = new Wheel();
+    public Wheel wheel2 = new Wheel();
 
     public static class Chassi {
         public List<Float> vecteurs = new ArrayList<>();
