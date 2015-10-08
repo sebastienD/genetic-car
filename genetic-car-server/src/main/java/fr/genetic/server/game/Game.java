@@ -43,6 +43,10 @@ public class Game {
     }
 
     public static Simulation getSimulation(Team team) {
-        return players.get(team);
+        Simulation simulation = players.get(team);
+        if (simulation == null) {
+            throw new IllegalArgumentException("Attention, la partie n'est pas créée.");
+        }
+        return simulation;
     }
 }

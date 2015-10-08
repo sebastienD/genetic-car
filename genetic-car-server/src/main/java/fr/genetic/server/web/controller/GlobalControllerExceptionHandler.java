@@ -45,7 +45,7 @@ public class GlobalControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionData> handleBadRequests(MethodArgumentNotValidException e) throws IOException {
         ExceptionData data = new ExceptionData("spring-validation", e.getMessage());
-        LOGGER.warn("Exception " + data.getInstanceId(), e);
+        LOGGER.warn("Exception {} : {}", data.getInstanceId(), e.getMessage());
         return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
 
