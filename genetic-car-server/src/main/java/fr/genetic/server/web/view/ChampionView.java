@@ -1,16 +1,17 @@
 package fr.genetic.server.web.view;
 
+import fr.genetic.server.game.RunBoard;
 import fr.genetic.server.simulation.Simulation;
-import fr.genetic.server.simulation.Team;
+import fr.genetic.server.game.Team;
 
 public class ChampionView {
 
     public CarScoreView carScore;
     public Statistic statistic;
 
-    public ChampionView(Team team, Simulation simulation) {
-        this.carScore = CarScoreView.create(simulation.leader.car);
-        this.statistic = new Statistic(team, simulation.nbRunSimulation);
+    public ChampionView(Team team, RunBoard runBoard) {
+        this.carScore = CarScoreView.create(runBoard.champion);
+        this.statistic = new Statistic(team, runBoard.nbRunSimulation);
     }
 
     public static class Statistic {

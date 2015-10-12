@@ -1,8 +1,7 @@
 package fr.genetic.server.web.validator;
 
 import fr.genetic.server.DataFactory;
-import fr.genetic.server.simulation.CarDefinition;
-import fr.genetic.server.simulation.Team;
+import fr.genetic.server.game.Team;
 import fr.genetic.server.web.view.CarView;
 import org.junit.Test;
 

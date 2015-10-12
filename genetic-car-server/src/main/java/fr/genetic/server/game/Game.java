@@ -1,7 +1,6 @@
 package fr.genetic.server.game;
 
 import fr.genetic.server.simulation.Simulation;
-import fr.genetic.server.simulation.Team;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,40 +12,34 @@ public class Game {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
 
-    private static Map<Team, Simulation> players = new ConcurrentHashMap<>();
+    private static Map<Team, RunBoard> players = new ConcurrentHashMap<>();
 
-    public static void clearAll() {
+    public static void clearGame() {
         LOGGER.info("delete all simulation");
         players.clear();
     }
 
-    public static void clear(Team team) {
-        LOGGER.info("delete simulation for team {}", team);
-        players.remove(team);
-    }
-
-    public static void createAllSimulation() {
-        LOGGER.debug("create all simulations");
-        Arrays.stream(Team.values())
-                .forEach(Game::createSimulation);
-    }
-
-    public static void createSimulation(Team team) {
-        LOGGER.info("create simulation for team {}", team);
+    public static void createGame() {
+        LOGGER.debug("create all run board");
         Simulation simulation = new Simulation();
-        simulation.runSimulation(simulation.buildGenerationZero());
-        players.put(team, simulation);
+        Arrays.stream(Team.values())
+                .forEach(team -> initForTeam(team, simulation));
     }
 
-    public static Map<Team, Simulation> players() {
-        return players;
+    private static void initForTeam(Team team, Simulation simulation) {
+        LOGGER.info("create simulation for team {}", team);
+        players.put(team, new RunBoard(simulation).runSimulation(Simulation.buildGenerationZero()));
     }
 
-    public static Simulation getSimulation(Team team) {
-        Simulation simulation = players.get(team);
-        if (simulation == null) {
+    public static RunBoard getRunBoard(Team team) {
+        RunBoard runBoard = players.get(team);
+        if (runBoard == null) {
             throw new IllegalArgumentException("Attention, la partie n'est pas créée.");
         }
-        return simulation;
+        return runBoard;
+    }
+
+    public static Map<Team, RunBoard> players() {
+        return players;
     }
 }

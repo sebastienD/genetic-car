@@ -1,8 +1,7 @@
 package fr.genetic.server.web.validator;
 
-import fr.genetic.server.simulation.Team;
+import fr.genetic.server.game.Team;
 import fr.genetic.server.web.view.CarView;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;

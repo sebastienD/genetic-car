@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Simulation {
 
@@ -18,10 +19,6 @@ public class Simulation {
 
     private static final float TIME_STEP = 1F / BOX2D_FPS;
     private static final int DEFAULT_GENERATION_SIZE = 20;
-
-    public List<Car> allCars = new ArrayList<>(DEFAULT_GENERATION_SIZE);
-    public Leader leader = new Leader();
-    public int nbRunSimulation = 0;
 
     private World world;
     private int deadCars = 0;
@@ -40,29 +37,24 @@ public class Simulation {
 
     public void runSimulationForTest(List<CarDefinition> carDefinitions) {
         deadCars = 0;
-        leader = new Leader();
         materializeGeneration(carDefinitions);
     }
 
-    public void runSimulation(List<CarDefinition> carDefinitions) {
+    public synchronized List<Car> runSimulation(List<CarDefinition> carDefinitions) {
         deadCars = 0;
-        leader = new Leader();
-        nbRunSimulation++;
-        materializeGeneration(carDefinitions);
+        List<Car> cars = materializeGeneration(carDefinitions);
 
         while (true) {
-            simulationStep();
-            if (deadCars == allCars.size()) {
+            simulationStep(cars);
+            if (deadCars == cars.size()) {
                 break;
             }
         }
+
+        return cars;
     }
 
-    public void showAllScores() {
-        allCars.stream().forEach(car -> LOGGER.info("score car {} : {}", car.getScore(), car));
-    }
-
-    public List<CarDefinition> buildGenerationZero() {
+    public static List<CarDefinition> buildGenerationZero() {
         List<CarDefinition> carDefintions = new ArrayList<>();
         for(int k = 0; k < DEFAULT_GENERATION_SIZE; k++) {
             CarDefinition car_Definition_def = CarDefinition.createRandomCar();
@@ -71,7 +63,7 @@ public class Simulation {
         return carDefintions;
     }
 
-    public List<CarDefinition> buildBestGenerationZero() {
+    public static List<CarDefinition> buildBestGenerationZero() {
         List<CarDefinition> carDefintions = new ArrayList<>();
         for(int k = 0; k < DEFAULT_GENERATION_SIZE; k++) {
             CarDefinition car_Definition_def = CarDefinition.createMyBestCar();
@@ -80,46 +72,30 @@ public class Simulation {
         return carDefintions;
     }
 
-    private void materializeGeneration(List<CarDefinition> carDefinitions) {
-        allCars = new ArrayList<>(carDefinitions.size());
-        carDefinitions.stream().forEach(cardef -> allCars.add(new Car(cardef, world)));
+    private List<Car> materializeGeneration(List<CarDefinition> carDefinitions) {
+        return carDefinitions.stream()
+                .map(carDefinition -> new Car(carDefinition, world))
+                .collect(Collectors.toList());
     }
 
-    private void simulationStep() {
+    private void simulationStep(List<Car> cars) {
         LOGGER.debug("run simulation step");
         world.step(TIME_STEP, 20, 20);
 
-        allCars.stream().filter(car -> car.alive).forEach(car -> {
-            car.frames++;
-            if (car.checkDeath()) {
-                car.kill();
-                deadCars ++;
+        cars.stream()
+                .filter(car -> car.alive)
+                .forEach(car -> {
+                    car.frames++;
+                    if (car.checkDeath()) {
+                        car.kill();
+                        deadCars++;
+                    }
 
-                if (leader.car == car) {
-                    Car leaderCar = findLeader(car);
-                    leader.car = leaderCar;
-                    leader.position = new Vec2(leaderCar.getPosition());
-                }
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("car position {} with score {}", car.getPosition(), car.getScore());
+                    }
+                });
 
-            } else if (car.getPosition().x > leader.position.x) {
-                leader.car = car;
-                leader.position = new Vec2(car.getPosition());
-            }
-
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("car position {} with score {}", car.getPosition(), car.getScore());
-            }
-        });
-
-    }
-
-    private Car findLeader(Car leaderCar) {
-        return allCars.stream().filter(car -> car.alive).max(Comparator.comparing(car -> car.getPosition().x)).orElse(leaderCar);
-    }
-
-    public static class Leader {
-        public Car car;
-        private Vec2 position = new Vec2();
     }
 
 }

@@ -1,4 +1,4 @@
-package fr.genetic.server.simulation;
+package fr.genetic.server.game;
 
 public enum Team {
 
