@@ -17,7 +17,7 @@ public class Random {
     private static final float WHEEL_MAX_RADIUS = 0.5F;
 
     private static final float WHEEL_MIN_DENSITY = 40F;
-    private static final float WHEEL_MAX_DENSITY = 100;
+    private static final float WHEEL_MAX_DENSITY = 100F;
 
     private static final int VERTEX_MAX_VALUE = 7;
 
