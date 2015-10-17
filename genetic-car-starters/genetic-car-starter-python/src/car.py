@@ -21,7 +21,7 @@ class Car(object):
 
     def __init__(self, create_from=None):
         self.coords = [0.0 for i in range(23)]
-        if create_from is CarView:
+        if create_from is not None:
             self._createFrom(create_from)
 
 

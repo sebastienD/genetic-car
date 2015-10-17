@@ -32,7 +32,7 @@ class PyTest(TestCommand):
 
 setup(
     name='genetic-car-starter-python',
-    version='0.0.1',
+    version='0.0.2',
     description='Ce projet est est un exercice permettant de se familiariser avec les algorithmes genetiques de maniere ludique.',
     url='',
     author='rdelassus',
