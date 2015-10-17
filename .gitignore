@@ -1,6 +1,9 @@
 compiled source #
 ###################
 *.class
+*.pyc
+*.egg
+*.egg-info
 
 # IDE #
 ############
