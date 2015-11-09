@@ -39,3 +39,32 @@ node_modules/
 bower_components/
 angular/
 .tmp/
+
+# CSharp developement #
+#######################
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+*.sln.ide
+
+# Build results
+
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
+packages
+
+# NCrunch
+*.ncrunch*
+.*crunch*.local.xml
+_NCrunch_*
