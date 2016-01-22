@@ -3,46 +3,69 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/genetic-car-starter-go/hello"
+	"io/ioutil"
 	"net/http"
 )
 
-const serverUrl = "http://genetic-car.herokuapp.com/"
+const (
+	serverUrl = "http://genetic-car.herokuapp.com"
+	color     = "RED"
+)
 
-type chassi struct {
-	densite  float32
-	vecteurs []float32
+var (
+	urlEvaluation = fmt.Sprintf("%s/simulation/evaluate/%s", serverUrl, color)
+	urlChampion   = fmt.Sprintf("%s/simulation/champions/%s", serverUrl, color)
+)
+
+type Car struct {
+	Chassi struct {
+		Vecteurs []float64 `json:"vecteurs"`
+		Densite  float64   `json:"densite"`
+	} `json:"chassi"`
+	Wheel1 struct {
+		Radius  float64 `json:"radius"`
+		Density float64 `json:"density"`
+		Vertex  int     `json:"vertex"`
+	} `json:"wheel1"`
+	Wheel2 struct {
+		Radius  float64 `json:"radius"`
+		Density float64 `json:"density"`
+		Vertex  int     `json:"vertex"`
+	} `json:"wheel2"`
 }
 
-type wheel struct {
-	density float32
-	radius  float32
-	vertex  int
-}
-
-type car struct {
-	chassi chassi
-	wheel1 wheel
-	wheel2 wheel
-	score  int
+type Wrapper struct {
+	Carscore struct {
+		Car   Car     `json:"car"`
+		Score float64 `json:"score"`
+	} `json:"carScore"`
+	Statistic struct {
+		Team            string `json:"team"`
+		Nbrunsimulation int    `json:"nbRunSimulation"`
+	} `json:"statistic"`
 }
 
 func main() {
-	fmt.Println(hello.BuildHello())
 
-	// Http call
 	resp, err := http.Get(serverUrl + "/")
 	if err != nil {
-		panic("unable to reach server =/")
+		panic(fmt.Sprintf("unable to reach server %s", serverUrl))
 	}
 
-	// Json decoder
-	var c car
-	decoder := json.NewDecoder(resp.Body)
-	err = decoder.Decode(&c)
+	wrapper := &Wrapper{}
+
+	resp, err = http.Get(urlChampion)
 	if err != nil {
-		panic("bad json format =/")
+		panic(fmt.Sprintf("unable to reach server %s", urlChampion))
 	}
-	fmt.Println(c)
+
+	body, _ := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+	err = json.Unmarshal(body, wrapper)
+	if err != nil {
+		panic(fmt.Sprintf("bad json format =/ %s %s", err.Error(), body))
+	}
+	fmt.Println(wrapper)
+	fmt.Println()
 
 }
