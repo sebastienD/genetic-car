@@ -35,8 +35,6 @@ setup(
     version='0.0.2',
     description='Ce projet est est un exercice permettant de se familiariser avec les algorithmes genetiques de maniere ludique.',
     url='',
-    author='rdelassus',
-    author_email='remi.delassus@gmail.com',
     license='',
     packages=setuptools.find_packages(),
     install_requires=[
