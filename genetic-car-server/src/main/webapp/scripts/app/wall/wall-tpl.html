@@ -1,9 +1,9 @@
 
 <div class="head">
     <div class="left">
-        <span ng-class="connected ? 'OK' : 'OK'"><i class="icon icon-bulb"></i></span>
+        <span ng-class="{'OK': connected}"><i class="icon icon-bulb"></i></span>
     </div>
-    <h1>Wall des champions</h1>
+    <h1>Mur des champions</h1>
     <div class="right">
         <button type="button" ng-click="retrieveChampions()"><i class="icon icon-box-add"></i></button>
         <button type="button" ng-click="connect()"><i class="icon icon-enter"></i></button>

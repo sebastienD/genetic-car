@@ -12,12 +12,10 @@ angular.module('gen.wall', ['ui.router', 'gen.wall.service', 'gen.car.directives
 
     .controller('WallController', ['$scope', 'ChampionsService', 'SimulationResource', function($scope, ChampionsService, SimulationResource) {
 
-        connect();
-
+        $scope.connected = false;
         $scope.connect = connect;
         $scope.disconnect = disconnect;
         $scope.retrieveChampions = retrieveChampions;
-        $scope.connected = false;
 
         function retrieveChampions() {
             SimulationResource.getAllChampions().$promise.then(function(champions) {
@@ -28,12 +26,16 @@ angular.module('gen.wall', ['ui.router', 'gen.wall.service', 'gen.car.directives
         function connect() {
             $scope.champions = [];
             ChampionsService.connect();
+            $scope.connected = true;
         };
 
         function disconnect() {
             $scope.champions = [];
             ChampionsService.disconnect();
+            $scope.connected = false;
         }
+
+        connect();
 
         ChampionsService.receive().then(null, null,
             function(message) {

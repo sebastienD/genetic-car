@@ -35,19 +35,22 @@ module.exports = {
      */
     test_files: {
         js: [
-            'bower_components/angular-mocks/angular-mocks.js'
+            'node_modules/angular-mocks/angular-mocks.js'
         ]
     },
 
     vendor_files: {
         js: [
-            'bower_components/angular/angular.js',
-            'bower_components/angular-resource/angular-resource.js',
-            'bower_components/angular-sanitize/angular-sanitize.js',
-            'bower_components/angular-ui-router/release/angular-ui-router.js',
-            'bower_components/lodash/lodash.js'
+            'node_modules/angular/angular.js',
+            'node_modules/angular-resource/angular-resource.js',
+            'node_modules/angular-sanitize/angular-sanitize.js',
+            'node_modules/angular-ui-router/release/angular-ui-router.js',
+            'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
+            'node_modules/lodash/lodash.js'
         ],
-        css: [],
+        css: [
+            'node_modules/bootstrap/dist/css/bootstrap.min.css'
+        ],
         assets: []
     }
 };

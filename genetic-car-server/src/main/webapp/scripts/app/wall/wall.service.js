@@ -13,6 +13,24 @@ angular.module("gen.wall.service", ['gen.config'])
     service.CHAMPIONS_TOPIC = config.WALL_CHAMPIONS_TOPIC;
     service.CHAMPIONS_BROKER = config.Wall_CHAMPIONS_BROKER;
 
+    var getMessage = function(data) {
+        var champion = JSON.parse(data);
+        var message = {
+            champion: champion
+        };
+        if (_.some(messageIds, message.id)) {
+            message.self = true;
+            messageIds = _.remove(messageIds, message.id);
+        }
+        return message;
+    };
+
+    var startListener = function() {
+        socket.stomp.subscribe(service.CHAMPIONS_TOPIC, function(data) {
+            listener.notify(getMessage(data.body));
+        });
+    };
+
     service.receive = function() {
         return listener.promise;
     };
@@ -28,44 +46,19 @@ angular.module("gen.wall.service", ['gen.config'])
         messageIds.push(id);
     };
 
-    var onClose = function() {
-        $log.info("close websocket");
-    };
-
-    var getMessage = function(data) {
-        var champion = JSON.parse(data);
-        var message = {
-            champion: champion
-        };
-        if (_.some(messageIds, message.id)) {
-            message.self = true;
-            messageIds = _.remove(messageIds, message.id);
-        }
-        return message;
-    };
-
-    var startListener = function(frame) {
-        socket.stomp.subscribe(service.CHAMPIONS_TOPIC, function(data) {
-            listener.notify(getMessage(data.body));
-        });
-    };
-
     service.connect = function() {
         if (!socket.client) {
             socket.client = new SockJS(service.SOCKET_URL);
             socket.stomp = Stomp.over(socket.client);
             socket.stomp.connect({}, startListener);
-            socket.stomp.onclose = onClose;
         }
     };
 
     service.disconnect = function() {
         if (socket.stomp) {
             socket.stomp.disconnect();
-            socket = {
-                client: null,
-                stomp: null
-            };
+            socket.client = null;
+            socket.stomp = null;
         }
     };
 
