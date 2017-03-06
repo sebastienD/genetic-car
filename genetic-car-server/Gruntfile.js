@@ -21,11 +21,6 @@ module.exports = function (grunt) {
             options: {
                 livereload: '<%= connect.options.livereload %>'
             },
-
-            bower: {
-                files: ['bower.json'],
-                tasks: ['wiredep']
-            },
             js: {
                 files: ['<%= app_files.js %>'],
                 tasks: [/*'karmaconfig', 'karma',*/ 'index:dev' /*,'newer:jshint:all'*/]
@@ -69,8 +64,8 @@ module.exports = function (grunt) {
                         return [
                             connect.static(grunt.config('tmp_dir')),
                             connect().use(
-                                '/bower_components',
-                                connect.static('./bower_components')
+                                '/node_modules',
+                                connect.static('./node_modules')
                             ),
                             connect.static(grunt.config('app_src_path'))
                         ];
@@ -85,8 +80,8 @@ module.exports = function (grunt) {
                             connect.static(grunt.config('tmp_dir')),
                             connect.static('test'),
                             connect().use(
-                                '/bower_components',
-                                connect.static('./bower_components')
+                                '/node_modules',
+                                connect.static('./node_modules')
                             ),
                             connect.static(grunt.config('app_src_path'))
                         ];
@@ -476,7 +471,6 @@ module.exports = function (grunt) {
         } else {
             grunt.task.run([
                 'clean:server',
-                //'wiredep',
                 'less',
                 'concat:vendor_css',
                 //'karmaconfig',
@@ -491,7 +485,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [
         'clean:server',
-        //'wiredep',
         'less',
         'concat:vendor_css',
         'connect:test',
@@ -501,7 +494,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        //'wiredep',
         'less',
         'concat',
         //'karmaconfig',

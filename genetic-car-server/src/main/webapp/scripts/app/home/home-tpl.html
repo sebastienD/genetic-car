@@ -1,30 +1,114 @@
-
-<div class="head">
-    <h1>DashBoard</h1>
+<div class="home">
+    <div class="row stylish-panel">
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/mur.jpg" alt="Mur des champions" class="img-circle img-thumbnail">
+                <h2>Le mur des champions</h2>
+                <p>Permet d'accéder où tout va se passer, 1 équipe -> 1 champion.
+                </p>
+                <a ui-sref="wall" class="btn btn-primary" title="Go">J'y vais »</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/champion.jpg" alt="Course des champions" class="img-circle img-thumbnail">
+                <h2>Course des Champions</h2>
+                <p>Cette page contient l'étape finale.
+                </p>
+                <a ui-sref="final" class="btn btn-primary" title="Go" >J'y vais »</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/voiture.png" alt="Projet originel" class="img-circle img-thumbnail">
+                <h2>Projet originel</h2>
+                <p>Permet d'accéder à la dernière version du projet originel.
+                </p>
+                <a href="http://rednuht.org/genetic_cars_2/" class="btn btn-primary" title="Go" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+    </div>
+    <div class="row stylish-panel">
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/lector.gif" alt="Projet originel" class="img-circle img-thumbnail">
+                <h2>Projet originel</h2>
+                <p>Permet d'accéder à la version du projet originel sur laquelle tout a commencé.
+                </p>
+                <a href="/origin/index.html" class="btn btn-primary" title="Go" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/swagger.png" alt="Documentation" class="img-circle img-thumbnail">
+                <h2>Documentation de l'api</h2>
+                <p>Permet d'accéder à l'api Rest.
+                </p>
+                <a ng-href="{{swaggerPath}}" class="btn btn-primary" title="Go" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/github.png" alt="Github" class="img-circle img-thumbnail">
+                <h2>Le projet sur Github</h2>
+                <p>Permet d'accéder aux sources du projet.
+                </p>
+                <a href="https://github.com/sebastienD/genetic-car" class="btn btn-primary" title="Go" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+    </div>
+    <div class="row stylish-panel">
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/java.png" alt="Starter Java" class="img-circle img-thumbnail">
+                <h2>Starter Java</h2>
+                <p>Permet d'accéder au projet permettant de débuter avec le langage Java.
+                </p>
+                <a href="https://github.com/sebastienD/genetic-car/tree/master/genetic-car-starters/genetic-car-starter-java" class="btn btn-primary" title="Go" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/js.png" alt="Starter Node" class="img-circle img-thumbnail">
+                <h2>Starter Node</h2>
+                <p>Permet d'accéder au projet permettant de débuter avec le langage Javascript.</p>
+                <a href="https://github.com/sebastienD/genetic-car/tree/master/genetic-car-starters/genetic-car-starter-node" class="btn btn-primary" title="Go" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/gopher.png" alt="Starter Go" class="img-circle img-thumbnail">
+                <h2>Starter Go</h2>
+                <p>Permet d'accéder au projet permettant de débuter avec le langage Go.
+                </p>
+                <a href="https://github.com/sebastienD/genetic-car/tree/master/genetic-car-starters/genetic-car-starter-go" class="btn btn-primary" title="Go" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+    </div>
+    <div class="row stylish-panel">
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/python.png" alt="Starter Python" class="img-circle img-thumbnail">
+                <h2>Starter Python</h2>
+                <p>Permet d'accéder au projet permettant de débuter avec le langage Python.</p>
+                <a href="https://github.com/sebastienD/genetic-car/tree/master/genetic-car-starters/genetic-car-starter-python" class="btn btn-primary" title="Python" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/csharp.png" alt="Starter C#" class="img-circle img-thumbnail">
+                <h2>Starter C#</h2>
+                <p>Permet d'accéder au projet permettant de débuter avec le langage C#.</p>
+                <a href="https://github.com/sebastienD/genetic-car/tree/master/genetic-car-starters/genetic-car-starter-csharp" class="btn btn-primary" title="C#" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <img src="/imgs/kotlin.png" alt="Starter Kotlin" class="img-circle img-thumbnail">
+                <h2>Starter Kotlin</h2>
+                <p>Permet d'accéder au projet permettant de débuter avec le langage Kotlin.</p>
+                <a href="https://github.com/sebastienD/genetic-car/tree/master/genetic-car-starters/genetic-car-starter-kotlin" class="btn btn-primary" title="C#" target="_blank">J'y vais »</a>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="board">
-    <div class="admin" title="Wall des champions">
-        <a ui-sref="wall">W</a>
-    </div>
-    <div class="admin" title="Course des Champions">
-        <a ui-sref="final">F</a>
-    </div>
-    <div class="info" title="Projet original (externe)">
-        <a href="http://rednuht.org/genetic_cars_2/">E</a>
-    </div>
-    <div class="info" title="Projet original (interne)">
-        <a href="/origin/index.html">I</a>
-    </div>
-    <div class="ok" title="La documentation de l'api">
-        <a ng-href="{{swaggerPath}}"><i class="icon icon-file-text"></i></a>
-    </div>
-    <div class="ok" title="Le projet sur Github">
-        <a href="https://github.com/sebastienD/genetic-car">G</a>
-    </div>
-    <div class="ok" title="Le starter Java sur Github">
-        <a href="https://github.com/sebastienD/genetic-car/tree/master/genetic-car-starters/genetic-car-starter-java">J</a>
-    </div>
-</div>
-
-

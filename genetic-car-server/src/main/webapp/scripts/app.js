@@ -4,7 +4,7 @@
         // gen's specifics module
         'gen.home', 'gen.wall', 'gen.final',
         // Third party's modules
-        'ui.router', 'ngSanitize'
+        'ui.router', 'ngSanitize', 'ui.bootstrap'
     ])
 
         .config(['$stateProvider', '$urlRouterProvider',

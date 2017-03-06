@@ -1,7 +1,15 @@
 {
   "name": "gen-car",
   "version": "1.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "angular": "~1.6.2",
+    "angular-resource": "~1.6.2",
+    "angular-sanitize": "~1.6.2",
+    "angular-ui-bootstrap": "^2.5.0",
+    "angular-ui-router": "~0.4.2",
+    "bootstrap": "^3.3.7",
+    "lodash": "~4.1.0"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^0.7.3",
@@ -36,7 +44,8 @@
     "karma-junit-reporter": "~0.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "^0.4.0",
-    "time-grunt": "^0.3.1"
+    "time-grunt": "^0.3.1",
+    "angular-mocks": "~1.6.2"
   },
   "engines": {
     "node": ">=0.10.0"
