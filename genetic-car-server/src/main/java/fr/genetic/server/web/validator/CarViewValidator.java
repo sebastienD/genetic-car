@@ -13,8 +13,8 @@ public class CarViewValidator {
 
     public List<String> validate(CarView carView) {
         // TODO améliorer le validator
-        List<String> errors = Validator.of(carView.chassi)
-                .validate(c -> c.vecteurs.size() == 16, "le nombre de coordonnées du chassi est incorrect (!= de 16)")
+        List<String> errors = Validator.of(carView.chassis)
+                .validate(c -> c.vecteurs.size() == 16, "le nombre de coordonnées du chassis est incorrect (!= de 16)")
                 .messagesStream()
                 .collect(Collectors.toList());
 
@@ -25,7 +25,7 @@ public class CarViewValidator {
         return Stream.of(
                 validateWheel(carView.wheel1),
                 validateWheel(carView.wheel2),
-                Validator.of(carView.chassi)
+                Validator.of(carView.chassis)
                         .validate(c -> c.vecteurs, 0, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
                         .validate(c -> c.vecteurs, 1, isZero(), "la coordonnée doit avoir la valeur zéro")
                         .validate(c -> c.vecteurs, 2, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
@@ -42,7 +42,7 @@ public class CarViewValidator {
                         .validate(c -> c.vecteurs, 13, validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
                         .validate(c -> c.vecteurs, 14, validPositiveCoord(), "la coordonnée n'est pas comprise entre 0.1 et 1.1")
                         .validate(c -> c.vecteurs, 15, validNegativeCoord(), "la coordonnée n'est pas comprise entre -1.1 et -0.1")
-                        .validate(c -> c.densite, inBetween(30F, 300F), "la densite du chassi n'est pas comprise entre 30 et 300")
+                        .validate(c -> c.densite, inBetween(30F, 300F), "la densite du chassis n'est pas comprise entre 30 et 300")
                 .messagesStream()
         )
                 .flatMap(Function.identity())

@@ -6,9 +6,9 @@ class Car(object):
 
     def _createFrom(self, carView):
         for i in range(16):
-            self.coords[i] = carView.chassi.vecteurs[i]
+            self.coords[i] = carView.chassis.vecteurs[i]
 
-        self.coords[16] = carView.chassi.densite
+        self.coords[16] = carView.chassis.densite
 
         self.coords[17] = carView.wheel1.density
         self.coords[18] = carView.wheel1.radius
@@ -30,9 +30,9 @@ class Car(object):
         carView = CarView()
 
         for i in range(16):
-            carView.chassi.vecteurs[i] = self.coords[i]
+            carView.chassis.vecteurs[i] = self.coords[i]
 
-        carView.chassi.densite = self.coords[16]
+        carView.chassis.densite = self.coords[16]
 
         carView.wheel1.density = self.coords[17]
         carView.wheel1.radius = self.coords[18]

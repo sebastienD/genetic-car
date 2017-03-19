@@ -33,7 +33,7 @@ public class CarViewListValidatorTest {
     @Test(expected = IllegalArgumentException.class)
     public void should_throw_exception_when_list_contains_bad_cars() {
         CarView carView = DataFactory.carView();
-        carView.chassi.vecteurs.set(5, 5.2F);
+        carView.chassis.vecteurs.set(5, 5.2F);
 
         List<CarView> cars = IntStream.range(0, 2)
                 .mapToObj(i -> DataFactory.carView())

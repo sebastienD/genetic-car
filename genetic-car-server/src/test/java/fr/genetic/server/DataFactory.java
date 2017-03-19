@@ -8,24 +8,24 @@ public class DataFactory {
     public static CarView carView() {
         CarView carView = new CarView();
 
-        carView.chassi = new CarView.Chassi();
-        carView.chassi.densite = 30F;
-        carView.chassi.vecteurs.add(0.1F);
-        carView.chassi.vecteurs.add(0F);
-        carView.chassi.vecteurs.add(0.8F);
-        carView.chassi.vecteurs.add(0.3F);
-        carView.chassi.vecteurs.add(0F);
-        carView.chassi.vecteurs.add(0.5F);
-        carView.chassi.vecteurs.add(-1F);
-        carView.chassi.vecteurs.add(1.05F);
-        carView.chassi.vecteurs.add(-0.4F);
-        carView.chassi.vecteurs.add(0F);
-        carView.chassi.vecteurs.add(-0.1F);
-        carView.chassi.vecteurs.add(-0.7F);
-        carView.chassi.vecteurs.add(0F);
-        carView.chassi.vecteurs.add(-0.6F);
-        carView.chassi.vecteurs.add(1.09F);
-        carView.chassi.vecteurs.add(-1F);
+        carView.chassis = new CarView.Chassis();
+        carView.chassis.densite = 30F;
+        carView.chassis.vecteurs.add(0.1F);
+        carView.chassis.vecteurs.add(0F);
+        carView.chassis.vecteurs.add(0.8F);
+        carView.chassis.vecteurs.add(0.3F);
+        carView.chassis.vecteurs.add(0F);
+        carView.chassis.vecteurs.add(0.5F);
+        carView.chassis.vecteurs.add(-1F);
+        carView.chassis.vecteurs.add(1.05F);
+        carView.chassis.vecteurs.add(-0.4F);
+        carView.chassis.vecteurs.add(0F);
+        carView.chassis.vecteurs.add(-0.1F);
+        carView.chassis.vecteurs.add(-0.7F);
+        carView.chassis.vecteurs.add(0F);
+        carView.chassis.vecteurs.add(-0.6F);
+        carView.chassis.vecteurs.add(1.09F);
+        carView.chassis.vecteurs.add(-1F);
 
         carView.wheel1 = new CarDefinition.WheelDefinition();
         carView.wheel1.radius = 0.2F;
