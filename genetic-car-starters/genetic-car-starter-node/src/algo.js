@@ -1,4 +1,7 @@
 var http = require('http');
+var lodash = require('lodash')
+var async = require('asyncawait/async');
+var await = require('asyncawait/await');
 var rand = require('./random.js');
 
 var team = 'RED'; //RED, YELLOW, BLUE, GREEN, ORANGE, PURPLE
@@ -9,7 +12,7 @@ var port = 80;
 
 var randomCar = function() {
     return {
-        chassi: {
+        chassis: {
             vecteurs: [
                 rand.randomChassisAxis(),
                 0,
