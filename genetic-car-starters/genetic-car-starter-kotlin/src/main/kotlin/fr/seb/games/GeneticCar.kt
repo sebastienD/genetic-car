@@ -56,13 +56,13 @@ class Car(val coords: FloatArray) {
     }
 }
 
-class CarView constructor(val chassi: Frame, val wheel1: Wheel, val wheel2: Wheel) {
-    fun toCar(): Car = Car(chassi.vecteurs.plus(chassi.densite)
+class CarView constructor(val chassis: Frame, val wheel1: Wheel, val wheel2: Wheel) {
+    fun toCar(): Car = Car(chassis.vecteurs.plus(chassis.densite)
             .plus(wheel1.radius).plus(wheel1.density).plus(wheel1.vertex.toFloat())
             .plus(wheel2.radius).plus(wheel2.density).plus(wheel2.vertex.toFloat()))
 
     override fun toString(): String {
-        return "CarView{chassi=$chassi, wheel1=$wheel1, wheel2= $wheel2}"
+        return "CarView{chassis=$chassis, wheel1=$wheel1, wheel2= $wheel2}"
     }
 
     class Frame(val vecteurs: FloatArray, val densite: Float) {
