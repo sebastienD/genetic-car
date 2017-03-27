@@ -23,17 +23,17 @@ angular.module("gen.car.service", [])
             car_def.wheel_density[1] = car.wheel2.density;
             car_def.wheel_vertex[1] = car.wheel2.vertex;
 
-            car_def.chassis_density = car.chassi.densite;
+            car_def.chassis_density = car.chassis.densite;
 
             car_def.vertex_list = [];
-            car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[0] ,0));
-            car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[2], car.chassi.vecteurs[3]));
-            car_def.vertex_list.push(new b2Vec2(0, car.chassi.vecteurs[5]));
-            car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[6], car.chassi.vecteurs[7]));
-            car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[8],0));
-            car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[10],car.chassi.vecteurs[11]));
-            car_def.vertex_list.push(new b2Vec2(0,car.chassi.vecteurs[13]));
-            car_def.vertex_list.push(new b2Vec2(car.chassi.vecteurs[14],car.chassi.vecteurs[15]));
+            car_def.vertex_list.push(new b2Vec2(car.chassis.vecteurs[0] ,0));
+            car_def.vertex_list.push(new b2Vec2(car.chassis.vecteurs[2], car.chassis.vecteurs[3]));
+            car_def.vertex_list.push(new b2Vec2(0, car.chassis.vecteurs[5]));
+            car_def.vertex_list.push(new b2Vec2(car.chassis.vecteurs[6], car.chassis.vecteurs[7]));
+            car_def.vertex_list.push(new b2Vec2(car.chassis.vecteurs[8],0));
+            car_def.vertex_list.push(new b2Vec2(car.chassis.vecteurs[10],car.chassis.vecteurs[11]));
+            car_def.vertex_list.push(new b2Vec2(0,car.chassis.vecteurs[13]));
+            car_def.vertex_list.push(new b2Vec2(car.chassis.vecteurs[14],car.chassis.vecteurs[15]));
 
             return car_def;
         }
