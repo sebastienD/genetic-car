@@ -9,7 +9,7 @@ namespace GeneticAlgorithm.Api
 
         public override string ToString()
         {
-            return "Chassi{" +
+            return "Chassis{" +
                    "vecteurs=" + Vecteurs +
                    ", Densite=" + Densite +
                    '}';

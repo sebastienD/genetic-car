@@ -9,13 +9,13 @@ import java.util.List;
 
 public class CarView {
 
-    public Chassi chassi;
+    public Chassis chassis;
     public CarDefinition.WheelDefinition wheel1;
     public CarDefinition.WheelDefinition wheel2;
 
     public static CarView create(Car car) {
         CarView carView = new CarView();
-        carView.chassi = Chassi.createFromDefinition(car.carDefinition);
+        carView.chassis = Chassis.createFromDefinition(car.carDefinition);
         carView.wheel1 = car.carDefinition.wheelDefinition1;
         carView.wheel2 = car.carDefinition.wheelDefinition2;
         return carView;
@@ -25,23 +25,23 @@ public class CarView {
         CarDefinition carDefinition = new CarDefinition();
         carDefinition.wheelDefinition1 = wheel1;
         carDefinition.wheelDefinition2 = wheel2;
-        carDefinition.chassisDensity = chassi.densite;
-        carDefinition.vertexList = chassi.toVecteurs();
+        carDefinition.chassisDensity = chassis.densite;
+        carDefinition.vertexList = chassis.toVecteurs();
         return carDefinition;
     }
 
-    public static class Chassi {
+    public static class Chassis {
         public List<Float> vecteurs = new ArrayList<>();
         public float densite;
 
-        public static Chassi createFromDefinition(CarDefinition defintion) {
-            Chassi chassi = new Chassi();
-            defintion.vertexList.stream().forEach(chassi::addVecteur);
-            chassi.densite = defintion.chassisDensity;
-            return chassi;
+        public static Chassis createFromDefinition(CarDefinition defintion) {
+            Chassis chassis = new Chassis();
+            defintion.vertexList.stream().forEach(chassis::addVecteur);
+            chassis.densite = defintion.chassisDensity;
+            return chassis;
         }
 
-        public Chassi addVecteur(Vec2 vec) {
+        public Chassis addVecteur(Vec2 vec) {
             vecteurs.add(vec.x);
             vecteurs.add(vec.y);
             return this;

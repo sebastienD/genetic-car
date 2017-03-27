@@ -29,13 +29,13 @@ class Wheel(object):
 class CarView(object):
 
     def __init__(self):
-        self.chassi = Chassi()
+        self.chassis = Chassi()
         self.wheel1 = Wheel()
         self.wheel2 = Wheel()
 
     def __str__(self):
-        return "{{chassi:{chassi}, wheel1:{wheel1},wheel2:{wheel2}}}".format(
-            chassi=str(self.chassi),
+        return "{{chassis:{chassis}, wheel1:{wheel1},wheel2:{wheel2}}}".format(
+            chassis=str(self.chassis),
             wheel1=str(self.wheel1),
             wheel2=str(self. wheel2)
         )
