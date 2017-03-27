@@ -42,3 +42,8 @@ node_modules/
 bower_components/
 angular/
 .tmp/
+
+# Gradle #
+##########
+.gradle/
+build/
