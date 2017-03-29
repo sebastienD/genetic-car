@@ -1,4 +1,4 @@
-class Chassi(object):
+class Chassis(object):
 
     def __init__(self):
         self.vecteurs = [0.0 for i in range(16)]
@@ -29,7 +29,7 @@ class Wheel(object):
 class CarView(object):
 
     def __init__(self):
-        self.chassis = Chassi()
+        self.chassis = Chassis()
         self.wheel1 = Wheel()
         self.wheel2 = Wheel()
 
