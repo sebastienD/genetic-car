@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GeneticAlgorithm.algo;
+using System.Threading.Tasks;
+using GeneticAlgorithm.Algo;
 using GeneticAlgorithm.Api;
-using GeneticAlgorithm.Properties;
-using RestSharp;
+//using GeneticAlgorithm.Properties;
+using GeneticAlgorithm.RestClient;
 
 namespace GeneticAlgorithm
 {
     class Program
     {
-        private static RestClient _client;
+        private static GeneticAlgorithm.RestClient.RestClient _client;
 
         private static Team _maTeam = Team.RED; //to change with your actual team color
 
@@ -18,9 +19,10 @@ namespace GeneticAlgorithm
         {
             Console.WriteLine("starting");
 
-            _client = new RestClient
+            _client = new GeneticAlgorithm.RestClient.RestClient
             {
-                BaseUrl = new Uri(Settings.Default.host),
+                URL = "http://genetic-car.herokuapp.com",
+                MyTeam = _maTeam.ToString()
             };
 
             DoMyAlgo();
@@ -45,10 +47,7 @@ namespace GeneticAlgorithm
 
         private static IEnumerable<CarScoreView> Evaluate(IReadOnlyCollection<CarView> cars)
         {
-            var request = new RestRequest("simulation/evaluate/" + _maTeam, Method.POST) {RequestFormat = DataFormat.Json};
-            request.AddBody(cars);
-            
-            return _client.Execute<List<CarScoreView>>(request).Data;
+            return _client.Submit(cars).Result;
         }
     }
 }

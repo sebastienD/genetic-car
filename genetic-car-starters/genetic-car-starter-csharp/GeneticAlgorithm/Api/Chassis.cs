@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GeneticAlgorithm.Api
 {
-    public class Chassi
+    public class Chassis
     {
         public readonly List<float> Vecteurs = new List<float>();
         public float Densite;

@@ -1,6 +1,6 @@
 ﻿using GeneticAlgorithm.Api;
 
-namespace GeneticAlgorithm.algo
+namespace GeneticAlgorithm.Algo
 {
     public class Car
     {

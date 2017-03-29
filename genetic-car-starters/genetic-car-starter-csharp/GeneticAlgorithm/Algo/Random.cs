@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GeneticAlgorithm.algo
+namespace GeneticAlgorithm.Algo
 {
     public class CustomRandom
     {
