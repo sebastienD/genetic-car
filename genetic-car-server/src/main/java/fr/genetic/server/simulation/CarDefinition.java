@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * Created by sebastien on 12/01/2015.
- */
 public class CarDefinition {
 
     public static final float MOTOR_SPEED = 20F;

@@ -61,7 +61,7 @@ public class SwaggerConfiguration {
                 .globalResponseMessage(RequestMethod.GET,
                         newArrayList(new ResponseMessageBuilder()
                                 .code(500)
-                                .message("500 message")
+                                .message("Mmmm c'est embarrassant.")
                                 .responseModel(new ModelRef("Error"))
                                 .build()))
                 .securitySchemes(newArrayList(apiKey()))

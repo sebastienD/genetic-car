@@ -20,6 +20,7 @@ angular.module('gen.wall', ['ui.router', 'gen.wall.service', 'gen.car.directives
         function retrieveChampions() {
             SimulationResource.getAllChampions().$promise.then(function(champions) {
                 $scope.champions = champions;
+                $scope.champions.sort(byScore);
             });
         }
 
@@ -43,11 +44,17 @@ angular.module('gen.wall', ['ui.router', 'gen.wall.service', 'gen.car.directives
                     return champion.statistic.team == message.champion.statistic.team;
                 });
                 $scope.champions.push(message.champion);
+                $scope.champions.sort(byScore);
         });
 
         $scope.$on("$destroy", function(){
             ChampionsService.disconnect();
         });
+
+        function byScore(c1, c2) {
+            return c2.carScore.score - c1.carScore.score;
+        }
+
     }])
 
 ;
