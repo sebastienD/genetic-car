@@ -1,9 +1,17 @@
-﻿namespace GeneticAlgorithm.Api
+﻿using System.Runtime.Serialization;
+
+namespace GeneticAlgorithm.Api
 {
+    [DataContract]
     public class CarView
     {
-        public readonly Chassis Chassi = new Chassis();
+        [DataMember]
+        public readonly Chassis Chassis = new Chassis();
+
+        [DataMember]
         public readonly Wheel Wheel1 = new Wheel();
+
+        [DataMember]
         public readonly Wheel Wheel2 = new Wheel();
     }
 }

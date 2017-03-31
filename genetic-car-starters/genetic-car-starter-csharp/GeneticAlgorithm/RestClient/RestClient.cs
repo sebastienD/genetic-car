@@ -29,8 +29,12 @@ namespace GeneticAlgorithm.RestClient
             var body = new StringContent(bodyContent);
             System.Diagnostics.Debug.WriteLine(bodyContent);
             client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
-            var postTask = client.PostAsync(URL + "simulation/evaluate/" + MyTeam, body);
-            var carScoreViews = carScoreViewSerializer.ReadObject((await postTask).Content.ReadAsStreamAsync().Result) as List<CarScoreView>;
+            var postTask = client.PostAsync(URL + "/simulation/evaluate/" + MyTeam, body);
+            var result = (await postTask).Content.ReadAsStreamAsync().Result;
+            var memStream2 = new MemoryStream();
+            result.CopyTo(memStream2);
+            System.Diagnostics.Debug.WriteLine(Encoding.UTF8.GetString(memStream2.ToArray()));
+            var carScoreViews = carScoreViewSerializer.ReadObject(result) as List<CarScoreView>;
 
             return carScoreViews;
         }

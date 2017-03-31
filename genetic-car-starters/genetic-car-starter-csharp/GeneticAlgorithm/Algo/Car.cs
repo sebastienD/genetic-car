@@ -12,10 +12,10 @@ namespace GeneticAlgorithm.Algo
 
             for (var i = 0; i < 16; i++)
             {
-                car._coords[i] = carView.Chassi.Vecteurs[i];
+                car._coords[i] = carView.Chassis.Vecteurs[i];
             }
 
-            car._coords[16] = carView.Chassi.Densite;
+            car._coords[16] = carView.Chassis.Densite;
 
             car._coords[17] = carView.Wheel1.Density;
             car._coords[18] = carView.Wheel1.Radius;
@@ -62,9 +62,9 @@ namespace GeneticAlgorithm.Algo
             CarView carView = new CarView();
             for (var i = 0; i < 16; i++)
             {
-                carView.Chassi.Vecteurs.Add(_coords[i]);
+                carView.Chassis.Vecteurs.Add(_coords[i]);
             }
-            carView.Chassi.Densite = _coords[16];
+            carView.Chassis.Densite = _coords[16];
 
             carView.Wheel1.Density = _coords[17];
             carView.Wheel1.Radius = _coords[18];
