@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using GeneticAlgorithm.Algo;
 using GeneticAlgorithm.Api;
-//using GeneticAlgorithm.Properties;
-using GeneticAlgorithm.RestClient;
 
 namespace GeneticAlgorithm
 {
     class Program
     {
-        private static GeneticAlgorithm.RestClient.RestClient _client;
-
+        // /!\ Change your team /!\
         private static Team _maTeam = Team.RED; //to change with your actual team color
+
+        private static GeneticAlgorithm.RestClient.RestClient _client;
 
         static void Main(string[] args)
         {
@@ -40,6 +38,10 @@ namespace GeneticAlgorithm
 
             IEnumerable<CarScoreView> carScores = Evaluate(cars);
 
+            // Here comes your algo
+            //******************** */
+
+            //******************** */
             CarScoreView champion = carScores.OrderByDescending(c => c.Score).First();
 
             Console.WriteLine("Mon champion est {0}", champion);

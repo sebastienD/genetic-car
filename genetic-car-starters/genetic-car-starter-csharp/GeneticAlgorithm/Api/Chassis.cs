@@ -3,21 +3,20 @@ using System.Collections.Generic;
 
 namespace GeneticAlgorithm.Api
 {
-
     [DataContract]    
     public class Chassis
     {
-        [DataMember]
+        [DataMember(Name="vecteurs")]
         public readonly List<float> Vecteurs = new List<float>();
 
-        [DataMember]
+        [DataMember(Name="densite")]
         public float Densite;
 
         public override string ToString()
         {
             return "Chassis{" +
-                   "vecteurs=" + Vecteurs +
-                   ", Densite=" + Densite +
+                   "vecteurs=" + string.Join(",", Vecteurs) +
+                   ", densite=" + Densite +
                    '}';
         }
     }
