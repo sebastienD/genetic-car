@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Security.Cryptography;
 
-namespace GeneticAlgorithm.algo
+namespace GeneticAlgorithm.Algo
 {
     public class CustomRandom
     {
+        private static RandomNumberGenerator RNG = RandomNumberGenerator.Create();
+
         private const float CHASSIS_MIN_AXIS = 0.1F;
         private const float CHASSIS_MAX_AXIS = 1.1F;
 
@@ -22,9 +25,16 @@ namespace GeneticAlgorithm.algo
         {
         }
 
+        private static double NextDouble()
+        {
+            byte[] b = new byte[4];
+            RNG.GetBytes(b);
+            return (double)BitConverter.ToUInt32(b, 0) / UInt32.MaxValue;
+        }
+
         private static float Next(float minValue, float maxValue)
         {
-            return (float) (new Random().NextDouble() * (maxValue - minValue) + minValue);
+            return (float) (NextDouble() * (maxValue - minValue) + minValue);
         }
 
         public static float NextChassisAxis()
@@ -49,7 +59,7 @@ namespace GeneticAlgorithm.algo
 
         public static int NextVertex()
         {
-            return new Random().Next(VERTEX_MAX_VALUE + 1);
+            return (int) Next(0, VERTEX_MAX_VALUE + 1);
         }
     }
 }

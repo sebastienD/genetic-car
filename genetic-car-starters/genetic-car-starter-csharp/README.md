@@ -1,4 +1,4 @@
-# Starter Python - genetic car [![Build Status](https://travis-ci.org/sebastienD/genetic-car.svg?branch=master)](https://travis-ci.org/sebastienD/genetic-car)
+# Starter C# - genetic car [![Build Status](https://travis-ci.org/sebastienD/genetic-car.svg?branch=master)](https://travis-ci.org/sebastienD/genetic-car)
 
 Ce projet est est un exercice permettant de se familiariser avec les algorithmes génétiques de manière ludique.
 
@@ -41,5 +41,16 @@ Si le champion de la dernière évaluation est moins bon que le champion de la s
 
 Le plus simple est d'aller voir sur [swagger](http://genetic-car.herokuapp.com/swagger-ui.html).
 
+## Pré-requis
+
+* Framework .NET Core 1.1 ([suivre les instructions ici](https://www.microsoft.com/net/core))
+* Charger les dépendances:
+```
+dotnet restore
+```
+* Lancer le programme:
+```
+dotnet run
+```
 
 Happy coding !
