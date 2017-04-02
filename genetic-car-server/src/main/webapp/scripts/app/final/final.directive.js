@@ -41,30 +41,22 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
         }
     };
 
-    function reset(simuCtx) {
-        simuCtx.camera_x = 0;
-        simuCtx.camera_y = 0;
-        simuCtx.carFilled = CarService.createCar(simuCtx.carFilled.car_def, gravity, simuCtx.world);
-    }
-
     function simulationStep(simuCtx) {
         simuCtx.world.Step(1/box2dfps, 20, 20);
 
-        simuCtx.carFilledList.filter(function(carFilled) {
-            return carFilled.alive;
-        }).forEach(function(carFilled, index) {
-            carFilled.frames++;
-            if(carFilled.checkDeath()) {
-                carFilled.kill();
+        simuCtx.carFilledList.filter(function(car) {
+            return car.alive;
+        }).forEach(function(car, index) {
+            car.frames++;
+            if(car.checkDeath()) {
                 simuCtx.nbDeadCars++;
-                if (simuCtx.cameraTarget_indexCar == index) {
-                    simuCtx.cameraTarget_indexCar = -1;
+                if (simuCtx.nbDeadCars != simuCtx.carFilledList.length) {
+                    car.kill();
                 }
             }
         });
 
         if (simuCtx.nbDeadCars == simuCtx.carFilledList.length) {
-            //reset(simuCtx);
             return 'stop';
         }
 
@@ -152,13 +144,13 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
     }
 
     function cw_drawCars(simuCtx, ctx) {
-        simuCtx.carFilledList.filter(function(carFilled) {
-            return carFilled.alive;
-        }).forEach(function(carFilled, index) {
+        simuCtx.carFilledList.filter(function(car, index) {
+            return car.alive || index === simuCtx.leader.index;
+        }).forEach(function(carFilled) {
             var myCarPos = carFilled.getPosition();
 
             if (myCarPos.x < (simuCtx.camera_x - 5)) {
-                console.log("too far behind, don't draw");
+                console.debug("too far behind, don't draw");
                 return;
             }
 
@@ -286,9 +278,11 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
                     canvas.width = canvasInitSize.width;
                     canvas.height = canvasInitSize.height;
                 }
+                cw_drawScreen(simuCtx, canvas);
             });
 
             element.on('$destroy', function() {
+                console.log("destroy received", event, arg);
                 $interval.cancel(runningInterval);
                 $interval.cancel(drawInterval);
                 simuCtx.carFilledList.forEach(function(carFilled) {

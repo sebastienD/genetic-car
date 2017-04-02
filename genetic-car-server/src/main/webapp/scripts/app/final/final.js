@@ -37,6 +37,7 @@ angular.module('gen.final', ['ui.router', 'gen.final.directives', 'gen.resources
             if ($scope.wrapperClass == 'final-fullscreen') {
                 $scope.$broadcast("fullscreen-final", true);
             }
+
         })
 
     }])
