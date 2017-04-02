@@ -20,6 +20,33 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
     var chassisMaxDensity = 300;
     var chassisMinDensity = 30;
 
+    var colors = {
+        BLUE: {
+            hue: 207,
+            saturation: "90%"
+        },
+        RED: {
+            hue: 4,
+            saturation: "90%"
+        },
+        GREEN: {
+            hue: 122,
+            saturation: "39%"
+        },
+        ORANGE: {
+            hue: 36,
+            saturation: "100%"
+        },
+        YELLOW: {
+            hue: 54,
+            saturation: "100%"
+        },
+        PURPLE: {
+            hue: 291,
+            saturation: "64%"
+        }
+    };
+
     function createSimulation(carDefList) {
         var world = new b2World(gravity, doSleep);
         var floorTiles = FloorService.createFloor(floorseed, world);
@@ -37,6 +64,7 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
              last_drawn_tile: 0,
              nbDeadCars: 0,
              leader: {position:{ x:0, y:0}, index: null},
+             winner: {position:{ x:0, y:0}, index: null},
              floorTiles: floorTiles
         }
     };
@@ -46,28 +74,42 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
 
         simuCtx.carFilledList.filter(function(car) {
             return car.alive;
-        }).forEach(function(car, index) {
+        }).forEach(function(car) {
             car.frames++;
             if(car.checkDeath()) {
                 simuCtx.nbDeadCars++;
-                if (simuCtx.nbDeadCars != simuCtx.carFilledList.length) {
+                if (!isRunFinished(simuCtx)) {
                     car.kill();
+                    console.log(car.car_def.team+" team is dead");
                 }
             }
         });
 
-        if (simuCtx.nbDeadCars == simuCtx.carFilledList.length) {
+        updateLeader(simuCtx);
+        updateWinner(simuCtx);
+
+        if (isRunFinished(simuCtx)) {
             return 'stop';
         }
 
-        updateLeader(simuCtx);
+    }
+
+    function updateWinner(simuCtx) {
+        if (simuCtx.leader.position.x > simuCtx.winner.position.x) {
+            simuCtx.winner = simuCtx.leader;
+            console.log("team winner is ", simuCtx.carFilledList[simuCtx.winner.index].car_def.team);
+        }
+    }
+
+    function isRunFinished(simuCtx) {
+        return simuCtx.nbDeadCars === simuCtx.carFilledList.length;
     }
 
     function updateLeader(simuCtx) {
         var leadDistance = 0;
 
-        simuCtx.carFilledList.filter(function(carFilled) {
-            return carFilled.alive;
+        simuCtx.carFilledList.filter(function(car) {
+            return car.alive;
         }).forEach(function(carFilled, index) {
             var position = carFilled.getPosition();
             if(position.x > leadDistance) {
@@ -84,13 +126,26 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
         var ctx = canvas.getContext('2d');
         ctx.clearRect(0,0,canvas.width,canvas.height);
         ctx.save();
+
+        if (isRunFinished(simuCtx)) {
+            cw_showWinner(simuCtx, ctx);
+        }
+
         cw_setCameraPosition(simuCtx);
         // avant 200 et 200
         ctx.translate(200-(simuCtx.camera_x*zoom), 200+(simuCtx.camera_y*zoom));
         ctx.scale(zoom, -zoom);
         cw_drawFloor(simuCtx, ctx);
         cw_drawCars(simuCtx, ctx);
+
         ctx.restore();
+    }
+
+    function cw_showWinner(simuCtx, ctx) {
+        var winner = simuCtx.carFilledList[simuCtx.winner.index];
+        ctx.font = '50px serif';
+        ctx.fillStyle = getColor(winner.car_def.team, "50%");
+        ctx.fillText(winner.car_def.team+' team win !', 40, 80);
     }
 
     function cw_setCameraPosition(simuCtx) {
@@ -115,12 +170,12 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
                 for (var f = b.GetFixtureList(); f; f = f.m_next) {
                     var s = f.GetShape();
                     var shapePosition = b.GetWorldPoint(s.m_vertices[0]).x;
-                    // avant 10 a la place du 15
-                    if((shapePosition > (simuCtx.camera_x - 5)) && (shapePosition < (simuCtx.camera_x + 15))) {
+                    // avant 10 a la place du 20
+                    if((shapePosition > (simuCtx.camera_x - 5)) && (shapePosition < (simuCtx.camera_x + 20))) {
                         cw_drawVirtualPoly(b, s.m_vertices, s.m_vertexCount, ctx);
                     }
-                    // avant 10 a la place du 15
-                    if(shapePosition > simuCtx.camera_x + 15) {
+                    // avant 10 a la place du 20
+                    if(shapePosition > simuCtx.camera_x + 20) {
                         simuCtx.last_drawn_tile = k;
                         break outer_loop;
                     }
@@ -170,12 +225,8 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
             var densitycolor = Math.round(100 - (70 * ((carFilled.car_def.chassis_density - chassisMinDensity) / chassisMaxDensity))).toString() + "%";
 
             ctx.strokeStyle = "#c44";
-            //ctx.fillStyle = "#fdd";
-            //ctx.fillStyle = "hsl(0,50%,"+densitycolor+")";
-
             //override fillStyle
-            var team = carFilled.car_def.team;
-            ctx.fillStyle = chooseColorCar(team, densitycolor);
+            ctx.fillStyle = getColor(carFilled.car_def.team, densitycolor);
 
             ctx.beginPath();
             var b = carFilled.chassis;
@@ -189,24 +240,8 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
     };
 
     // http://hslpicker.com/#ffec3d
-    function chooseColorCar(team, densitycolor) {
-        var hslColor;
-        if (team == "BLUE") {
-            hslColor = "hsl(207,90%,"+densitycolor+")";
-        } else if (team == "RED") {
-            hslColor = "hsl(4,90%,"+densitycolor+")";
-        } else if (team == "GREEN") {
-            hslColor = "hsl(122,39%,"+densitycolor+")";
-        } else if (team == "ORANGE") {
-            hslColor = "hsl(36,100%,"+densitycolor+")";
-        } else if (team == "YELLOW") {
-            hslColor = "hsl(54,100%,"+densitycolor+")";
-        } else if (team == "PURPLE") {
-            hslColor = "hsl(291,64%,"+densitycolor+")";
-        } else {
-            hslColor = "hsl(0,50%,"+densitycolor+")";
-        }
-        return hslColor;
+    function getColor(team, density) {
+        return "hsl("+colors[team].hue+","+colors[team].saturation+","+density+")";
     };
 
     function cw_drawCircle(body, center, radius, angle, color, ctx) {
@@ -266,6 +301,7 @@ angular.module('gen.final.directives', ['gen.car.service', 'gen.floor.service'])
                     $log.info('stop received');
                     $interval.cancel(runningInterval);
                     $interval.cancel(drawInterval);
+                    cw_drawScreen(simuCtx, canvas);
                 }
             });
 
