@@ -31,20 +31,6 @@ body {
   color: @colorAmber;
 }
 
-.stat {
-  margin-top: 10px;
-  div {
-    height: 25px;
-    line-height: 25px;
-    vertical-align: middle;
-    margin-left: 40px;
-    .icon {
-      font-size: 1em;
-      margin-right: 10px;
-    }
-  }
-}
-
 span {
   .icon {
     font-size: 1.4em;
@@ -81,123 +67,9 @@ button {
   }
 }
 
-.champion {
-  width: 350px;
-  height: 320px;
-  float: left;
-  margin: 20px;
-  canvas {
-    background-color: white;
-    border-bottom: 2px solid rgba(0,0,0,0.3);
-    box-shadow: 0 9px 20px -5px rgba(0,0,0,0.8);
-  }
-}
-
-.final {
-  width: 800px;
-  height: 400px;
-  margin: auto;
-  canvas {
-    background-color: white;
-    border-bottom: 2px solid rgba(0,0,0,0.3);
-    box-shadow: 0 9px 20px -5px rgba(0,0,0,0.8);
-  }
-}
-
-.final-fullscreen {
-  canvas {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-color: white;
-  }
-}
-
 @font-face {
   font-family: 'aqua';
   src:url('../fonts/aqua.ttf');
   font-weight: normal;
   font-style: normal;
-}
-
-.board {
-  padding: 20px;
-  a {
-    font-family: 'aqua';
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    color: white;
-    text-decoration: none;
-    i {
-      color: white;
-      font-size: 0.7em;
-    }
-  }
-  div {
-    margin: 10px;
-    border: 5px solid white;
-    background-color: darkgray;
-    border-radius: 25px;
-    font-size: 8em;
-    text-align: center;
-    width: 150px;
-    height: 150px;
-    float: left;
-    &.ok {
-      a, i {
-        color: @colorGreen;
-      }
-    }
-    &.admin {
-      a, i {
-        color: @colorRed;
-      }
-    }
-    &.info {
-      a, i {
-        color: @colorAmber;
-      }
-    }
-  }
-}
-
-.home {
-  img {
-    height: 210px;
-    width: 210px;
-  }
-  .stylish-panel {
-    padding: 20px 0;
-    text-align: center;
-  }
-  .stylish-panel > div > div{
-    padding: 10px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    transition: 0.2s;
-  }
-  .stylish-panel > div:hover > div{
-    margin-top: -10px;
-    border: 1px solid rgb(200, 200, 200);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 5px 2px;
-    background: rgba(200, 200, 200, 0.1);
-    transition: 0.5s;
-  }
-
-  .stylish-panel > div:hover img {
-    border-radius: 50%;
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
 }
