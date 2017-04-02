@@ -27,7 +27,7 @@ public class DistFilter implements Filter {
         String requestURI = httpServletRequest.getRequestURI();
         if (requestURI.startsWith("/index.html") || requestURI.startsWith("/scripts") || requestURI.startsWith("/styles")) {
             LOGGER.info("forward {}", httpServletRequest.getRequestURI());
-            request.getRequestDispatcher("/build" + requestURI).forward(request, response);
+            request.getRequestDispatcher("/build-gui" + requestURI).forward(request, response);
         } else {
             LOGGER.debug("no redirect for {}", httpServletRequest.getRequestURI());
             chain.doFilter(request, response);

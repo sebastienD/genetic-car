@@ -97,7 +97,7 @@
                     <webResources>
                         <resource>
                             <!-- this is relative to the pom.xml directory -->
-                            <directory>src/main/webapp/build</directory>
+                            <directory>src/main/webapp/build-gui</directory>
                         </resource>
                     </webResources>
                 </configuration>

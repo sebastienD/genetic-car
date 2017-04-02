@@ -3,7 +3,7 @@
  */
 module.exports = {
     app_src_path: "src/main/webapp",
-    package_path: "src/main/webapp/build",
+    package_path: "src/main/webapp/build-gui",
     tmp_dir: '.tmp',
 
     app_files: {

@@ -1,6 +1,7 @@
 {
   "name": "gen-car",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "license": "MIT",
   "dependencies": {
     "angular": "~1.6.2",
     "angular-resource": "~1.6.2",
@@ -48,9 +49,11 @@
     "time-grunt": "^0.3.1"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=7.5.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "start": "grunt serve",
+    "test": "grunt test",
+    "build": "grunt build"
   }
 }
