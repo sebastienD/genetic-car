@@ -1,5 +1,5 @@
-from src.carView import CarView
-from src.random_utils import Random
+from carView import CarView
+from random_utils import Random
 
 
 class Car(object):
@@ -18,13 +18,10 @@ class Car(object):
         self.coords[21] = carView.wheel2.radius
         self.coords[22] = carView.wheel2.vertex
 
-
     def __init__(self, create_from=None):
         self.coords = [0.0 for i in range(23)]
         if create_from is not None:
             self._createFrom(create_from)
-
-
 
     def to_carView(self):
         carView = CarView()

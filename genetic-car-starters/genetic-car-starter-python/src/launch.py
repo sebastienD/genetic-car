@@ -1,15 +1,15 @@
 """Main file of the python starter, code and send your solution in this module
 """
 
-from src.car import RandomCar
-from src.carScoreView import CarScoreView
+from car import RandomCar
+from carScoreView import CarScoreView
 
 import ujson
 import httplib2
 
+# /!\ Change team value below /!\
 team = 'BLUE'  # RED, YELLOW, BLUE, GREEN, ORANGE, PURPLE
 host = "http://genetic-car.herokuapp.com"
-#host = "http://localhost:9000"
 
 
 def run():
@@ -29,9 +29,16 @@ def evaluate(cars):
         ujson.dumps(cars),
         headers={'content-type': 'application/json'}
     )
-    result = ujson.decode(content)
-    return [CarScoreView(car_view, res["score"])
-            for car_view, res in zip(cars, result)]
+    response = ujson.decode(content)
+
+    result = []
+    try:
+        result = [CarScoreView(car_view, res["score"])
+                  for car_view, res in zip(cars, response)]
+    except TypeError:
+        print("Cannot parse response [%s]" % response)
+
+    return result
 
 
 def doMyAlgo():
@@ -40,17 +47,14 @@ def doMyAlgo():
 
     # Here comes your algo
     ##########################################################################
+    #
 
-
-
-
-
-
-
+    #
     ##########################################################################
 
     champion = max(carScores, key=lambda carScore: carScore.score)
-    print "Mon champion est {}".format(champion)
+    print("Mon champion est %s" % format(champion))
+
 
 if __name__ == '__main__':
     run()
