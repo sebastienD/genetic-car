@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import fetch from 'node-fetch';
-import randomCar from './car';
+import { randomCar } from './car';
 
 const host = 'http://genetic-car.herokuapp.com';
 // const host = 'http://localhost:8080';
