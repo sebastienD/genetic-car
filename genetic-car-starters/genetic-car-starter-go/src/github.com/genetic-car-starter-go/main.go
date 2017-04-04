@@ -94,7 +94,7 @@ type CarView struct {
 	Chassis struct {
 		Vecteurs []float64 `json:"vecteurs"`
 		Density  float64   `json:"densite"`
-	} `json:"chassi"`
+	} `json:"chassis"`
 	Wheel1 struct {
 		Radius  float64 `json:"radius"`
 		Density float64 `json:"density"`
@@ -119,7 +119,8 @@ func (a CarScoreViewByScore) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a CarScoreViewByScore) Less(i, j int) bool { return a[i].Score < a[j].Score }
 
 const (
-	BASE_URL = "http://genetic-car.herokuapp.com"
+	//BASE_URL = "http://genetic-car.herokuapp.com"
+	BASE_URL = "http://localhost:8080"
 
 	CHASSIS_MIN_AXIS    float64 = 0.1
 	CHASSIS_MAX_AXIS    float64 = 1.1
