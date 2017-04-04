@@ -14,8 +14,8 @@ public class Car {
 
         Car car = new Car();
         IntStream.range(0, 16)
-                .forEach(i -> car.coords[i] = carView.chassi.vecteurs.get(i));
-        car.coords[16] = carView.chassi.densite;
+                .forEach(i -> car.coords[i] = carView.chassis.vecteurs.get(i));
+        car.coords[16] = carView.chassis.densite;
 
         car.coords[17] = carView.wheel1.density;
         car.coords[18] = carView.wheel1.radius;
@@ -60,8 +60,8 @@ public class Car {
         CarView carView = new CarView();
 
         IntStream.range(0, 16)
-                .forEach(i -> carView.chassi.vecteurs.add(coords[i]));
-        carView.chassi.densite = coords[16];
+                .forEach(i -> carView.chassis.vecteurs.add(coords[i]));
+        carView.chassis.densite = coords[16];
 
         carView.wheel1.density = coords[17];
         carView.wheel1.radius = coords[18];

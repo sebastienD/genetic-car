@@ -5,17 +5,17 @@ import java.util.List;
 
 public class CarView {
 
-    public Chassi chassi = new Chassi();
+    public Chassis chassis = new Chassis();
     public Wheel wheel1 = new Wheel();
     public Wheel wheel2 = new Wheel();
 
-    public static class Chassi {
+    public static class Chassis {
         public List<Float> vecteurs = new ArrayList<>();
         public float densite;
 
         @Override
         public String toString() {
-            return "Chassi{" +
+            return "Chassis{" +
                     "vecteurs=" + vecteurs +
                     ", densite=" + densite +
                     '}';
@@ -40,7 +40,7 @@ public class CarView {
     @Override
     public String toString() {
         return "CarView{" +
-                "chassi=" + chassi +
+                "chassis=" + chassis +
                 ", wheel1=" + wheel1 +
                 ", wheel2=" + wheel2 +
                 '}';
