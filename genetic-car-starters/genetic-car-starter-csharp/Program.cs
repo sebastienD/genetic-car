@@ -25,7 +25,6 @@ namespace GeneticAlgorithm
 
             DoMyAlgo();
 
-            Console.ReadLine();
         }
 
         private static void DoMyAlgo()
@@ -49,7 +48,7 @@ namespace GeneticAlgorithm
 
         private static IEnumerable<CarScoreView> Evaluate(IReadOnlyCollection<CarView> cars)
         {
-            return _client.Submit(cars).Result;
+            return (_client.Submit(cars).Result);
         }
     }
 }
