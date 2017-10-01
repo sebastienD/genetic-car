@@ -23,7 +23,7 @@
         <start-class>fr.genetic.server.ServeurWeb</start-class>
 
         <jbox2d.version>2.2.1.1</jbox2d.version>
-        <swagger.version>2.2.2</swagger.version>
+        <swagger.version>2.7.0</swagger.version>
         <janino.version>2.7.8</janino.version>
     </properties>
 
