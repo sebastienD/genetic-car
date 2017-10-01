@@ -5,10 +5,10 @@ import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.simulation.Simulation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.Assert;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class RunBoard {
 
@@ -21,7 +21,7 @@ public class RunBoard {
     public int nbRunSimulation = 0;
 
     public RunBoard(Simulation simulation) {
-        Assert.notNull(simulation);
+        Objects.requireNonNull(simulation);
         this.simulation = simulation;
     }
 

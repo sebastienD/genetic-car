@@ -2,8 +2,7 @@ package fr.genetic.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 
 /**
  * http://localhost:8080/swagger-ui.html
