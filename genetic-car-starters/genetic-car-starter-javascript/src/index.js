@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import fetch from 'node-fetch';
-import { randomCar } from './car';
+import { randomCar, toView, fromView } from './car';
 
 const host = 'http://genetic-car.herokuapp.com';
 // const host = 'http://localhost:8080';
@@ -32,7 +32,7 @@ async function evaluate(cars) {
 
 const cars = [];
 for (let i = 0; i < 20; i += 1) {
-  cars.push(randomCar());
+  cars.push(toView(randomCar()));
 }
 
 evaluate(cars);
