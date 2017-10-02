@@ -61,6 +61,12 @@ Un web hook est présent sur Heroku.
 
 Un fichier app.yaml est disponible dans le répertoire src/main/appengine
 
+### Deploy
+
+```
+    mvn appengine:deploy
+```
+
 ### Les logs
 
 ```
