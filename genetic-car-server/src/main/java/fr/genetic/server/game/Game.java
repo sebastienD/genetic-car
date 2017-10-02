@@ -6,8 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static fr.genetic.server.simulation.Simulation.DEFAULT_GENERATION_SIZE;
 
 public class Game {
 
@@ -16,28 +21,29 @@ public class Game {
     private static Map<Team, RunBoard> players = new ConcurrentHashMap<>();
 
     public static void clearGame() {
-        LOGGER.info("delete all simulation");
+        LOGGER.info("Delete all simulation");
         players.clear();
     }
 
     public static void createGame() {
-        LOGGER.debug("create all run board");
+        LOGGER.info("Create all run board");
         Simulation simulation = new Simulation();
         Arrays.stream(Team.values())
                 .forEach(team -> initForTeam(team, simulation));
+        LOGGER.info("Run board created");
     }
 
     private static void initForTeam(Team team, Simulation simulation) {
-        LOGGER.info("create simulation for team {}", team);
-        players.put(team, new RunBoard(simulation).runSimulation(CarDefinition.createRandomCar()));
+        List<CarDefinition> cars = IntStream.range(0, DEFAULT_GENERATION_SIZE / 2)
+                .mapToObj(i -> CarDefinition.createRandomCar())
+                .collect(Collectors.toList());
+        RunBoard runBoard = new RunBoard(simulation).runSimulation(cars);
+        LOGGER.info("Simulation created for team {} ({})", team, runBoard.champion.getScore());
+        players.put(team, runBoard);
     }
 
     public static RunBoard getRunBoard(Team team) {
-        RunBoard runBoard = players.get(team);
-        if (runBoard == null) {
-            throw new IllegalArgumentException("Attention, la partie n'est pas créée.");
-        }
-        return runBoard;
+        return players.get(team);
     }
 
     public static Map<Team, RunBoard> players() {

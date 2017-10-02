@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class SimulationTest {
 
@@ -46,11 +47,10 @@ public class SimulationTest {
         CarScoreView val2 = mapper.readValue(def2, CarScoreView.class);
         Car car2 = simulation.run(Arrays.asList(val2.car.toCarDefintion())).get(0);
 
-        System.out.println(car1);
-        System.out.println(car1.getScore());
+        IntStream.range(0, 50)
+                .mapToObj(i -> simulation.run(Arrays.asList(val2.car.toCarDefintion())).get(0).getScore())
+                .forEach(score -> System.out.println("score: "+score));
 
-        System.out.println(car2);
-        System.out.println(car2.getScore());
 
         Assertions.assertThat(car1.getScore()).isEqualTo(val1.score);
         Assertions.assertThat(car2.getScore()).isEqualTo(val2.score);

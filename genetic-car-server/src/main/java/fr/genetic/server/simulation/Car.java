@@ -9,9 +9,6 @@ import org.jbox2d.dynamics.joints.RevoluteJointDef;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sebastien on 17/01/2015.
- */
 public class Car {
 
     private static final int MAX_CAR_HEALTH = Simulation.BOX2D_FPS * 10;

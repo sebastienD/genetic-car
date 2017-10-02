@@ -2,21 +2,22 @@ package fr.genetic.server.simulation;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jbox2d.dynamics.Body;
+import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.World;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Ground {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Ground.class);
 
     private float groundPieceWidth = 1.5F;
     private float groundPieceHeight = 0.15F;
 
-    private float maxFloorTiles = 200;
+    private float maxFloorTiles = 200F;
 
     private World world;
 
@@ -30,7 +31,7 @@ public class Ground {
         Body lastTile;
         Vec2 tilePosition = new Vec2(-5F,0F);
         for(int k = 0; k < maxFloorTiles; k++) {
-            lastTile = createFloorTile(tilePosition, (Random.next(-1.5F, 3F) * 1.5F * k / maxFloorTiles));
+            lastTile = createFloorTile(tilePosition, ((Random.next()*3F-1.5F) * 1.8F * (float)k / maxFloorTiles));
             tilePosition = lastTile.getWorldPoint(newcoords.get(3));
         }
     }
@@ -64,14 +65,14 @@ public class Ground {
     }
 
     private List<Vec2> cw_rotateFloorTile(Vec2[] coords, Vec2 center, float angle) {
-        List<Vec2> newcoords = new ArrayList<>();
-        for(int k = 0; k < coords.length; k++) {
-            Vec2 nc = new Vec2();
-            nc.x = new Float(Math.cos(angle)*(coords[k].x - center.x) - Math.sin(angle)*(coords[k].y - center.y) + center.x);
-            nc.y = new Float(Math.sin(angle)*(coords[k].x - center.x) + Math.cos(angle)*(coords[k].y - center.y) + center.y);
-            newcoords.add(nc);
-        }
-        return newcoords;
+        return Arrays.stream(coords)
+                .map(coord -> {
+                    Vec2 nc = new Vec2();
+                    nc.x = new BigDecimal(Math.cos(angle)*(coord.x - center.x) - Math.sin(angle)*(coord.y - center.y) + center.x).floatValue();
+                    nc.y = new BigDecimal(Math.sin(angle)*(coord.x - center.x) + Math.cos(angle)*(coord.y - center.y) + center.y).floatValue();
+                    return nc;
+                })
+                .collect(Collectors.toList());
     }
 
 }

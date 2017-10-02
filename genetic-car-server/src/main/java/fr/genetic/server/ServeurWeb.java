@@ -1,5 +1,6 @@
 package fr.genetic.server;
 
+import fr.genetic.server.game.Game;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
@@ -12,6 +13,7 @@ public class ServeurWeb {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(ServeurWeb.class, args);
+        Game.createGame();
     }
 
 }

@@ -4,7 +4,6 @@ import fr.genetic.server.simulation.Car;
 import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.simulation.Simulation;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -28,10 +27,6 @@ public class RunBoard {
         this.cars = cars;
         this.nbRunSimulation ++;
         return this;
-    }
-
-    public RunBoard runSimulation(CarDefinition definition) {
-        return runSimulation(Arrays.asList(definition));
     }
 
     private Car findChampion(List<Car> cars) {

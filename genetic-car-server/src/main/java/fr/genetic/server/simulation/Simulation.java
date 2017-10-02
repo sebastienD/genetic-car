@@ -33,20 +33,17 @@ public class Simulation {
         ground.createFloor();
     }
 
-    public void runForTest(List<CarDefinition> carDefinitions) {
+    public List<Car> runForTest(List<CarDefinition> carDefinitions) {
         deadCars = 0;
-        materializeGeneration(carDefinitions);
+        return materializeGeneration(carDefinitions);
     }
 
     public synchronized List<Car> run(List<CarDefinition> carDefinitions) {
         deadCars = 0;
         List<Car> cars = materializeGeneration(carDefinitions);
 
-        while (true) {
+        while (!allCarsDead(cars)) {
             simulationStep(cars);
-            if (deadCars == cars.size()) {
-                break;
-            }
         }
 
         return cars;
@@ -58,7 +55,11 @@ public class Simulation {
                 .collect(Collectors.toList());
     }
 
-    private void simulationStep(List<Car> cars) {
+    public boolean allCarsDead(List<Car> cars) {
+        return deadCars == cars.size();
+    }
+
+    public void simulationStep(List<Car> cars) {
         LOGGER.debug("run simulation step");
         world.step(TIME_STEP, 20, 20);
 
