@@ -24,7 +24,6 @@
 
         <jbox2d.version>2.2.1.1</jbox2d.version>
         <swagger.version>2.7.0</swagger.version>
-        <janino.version>2.7.8</janino.version>
     </properties>
 
     <dependencies>
@@ -55,11 +54,6 @@
             <groupId>org.jbox2d</groupId>
             <artifactId>jbox2d-library</artifactId>
             <version>${jbox2d.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.janino</groupId>
-            <artifactId>janino</artifactId>
-            <version>${janino.version}</version>
         </dependency>
 
         <dependency>

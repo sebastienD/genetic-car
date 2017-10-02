@@ -17,6 +17,46 @@ Une présentation des algorithmes génétiques est disponible [ici](https://gith
 3. développer l'algorithme génétique
 4. confronter les résultats
 
+## En local
+
+Aller dans le répertoire ```genetic-car-server``` 
+
+### Build Gui
+
+```
+    grunt build
+```
+
+### Run Gui
+
+```
+    grunt serve
+```
+
+### Run server
+
+```
+    mvn
+```
+
+## Heroku
+
+Un procfile est disponible à la racine du projet.
+
+## Deploy
+
+Un web hook est présent sur Heroku.
+
+```
+    git push
+```
+
+### Les logs
+
+```
+    heroku logs --app genetic-car
+```
+
 
 Happy coding !
 
