@@ -39,11 +39,11 @@ Aller dans le répertoire ```genetic-car-server```
     mvn
 ```
 
-## Heroku
+## Heroku - http://genetic-car.herokuapp.com/
 
 Un procfile est disponible à la racine du projet.
 
-## Deploy
+### Deploy
 
 Un web hook est présent sur Heroku.
 
@@ -57,6 +57,21 @@ Un web hook est présent sur Heroku.
     heroku logs --app genetic-car
 ```
 
+## Google AppEngine - https://genetic-car-181718.appspot.com
+
+Un fichier app.yaml est disponible dans le répertoire src/main/appengine
+
+### Les logs
+
+```
+    gcloud app logs tail -s default
+```
+
+### To view the application in the web browser
+
+```
+    gcloud app browse
+```
 
 Happy coding !
 
