@@ -72,19 +72,6 @@ public class SwaggerConfiguration {
     }
 
     @Bean
-    public SecurityConfiguration security() {
-        return new SecurityConfiguration(
-                "test-app-client-id",
-                "secret",
-                "app-realm",
-                "genetic-car",
-                "apiKey-AZ123",
-                ApiKeyVehicle.HEADER,
-                "api_key",
-                ",");
-    }
-
-    @Bean
     public UiConfiguration uiConfig() {
         return new UiConfiguration("validatorUrl");
     }
@@ -112,7 +99,6 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .license("GNU General Public License")
                 .licenseUrl("http://www.gnu.org/licenses/gpl.txt")
-                .contact("Sébastien")
                 .description("Lors du développement des algorithmes, ne pas toucher au game controller.")
                 .title("Api documentation for genetic-car-server project")
                 .version("1.0")
