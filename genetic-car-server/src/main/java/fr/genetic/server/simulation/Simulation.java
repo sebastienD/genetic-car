@@ -5,8 +5,6 @@ import org.jbox2d.dynamics.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,11 +12,11 @@ public class Simulation {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Simulation.class);
 
+    public static final int DEFAULT_GENERATION_SIZE = 20;
     public static final int BOX2D_FPS = 60;
     public static final Vec2 GRAVITY = new Vec2(0.0F, -9.81F);
 
     private static final float TIME_STEP = 1F / BOX2D_FPS;
-    private static final int DEFAULT_GENERATION_SIZE = 20;
 
     private World world;
     private int deadCars = 0;
@@ -52,24 +50,6 @@ public class Simulation {
         }
 
         return cars;
-    }
-
-    public static List<CarDefinition> buildGenerationZero() {
-        List<CarDefinition> carDefintions = new ArrayList<>();
-        for(int k = 0; k < DEFAULT_GENERATION_SIZE; k++) {
-            CarDefinition car_Definition_def = CarDefinition.createRandomCar();
-            carDefintions.add(car_Definition_def);
-        }
-        return carDefintions;
-    }
-
-    public static List<CarDefinition> buildBestGenerationZero() {
-        List<CarDefinition> carDefintions = new ArrayList<>();
-        for(int k = 0; k < DEFAULT_GENERATION_SIZE; k++) {
-            CarDefinition car_Definition_def = CarDefinition.createMyBestCar();
-            carDefintions.add(car_Definition_def);
-        }
-        return carDefintions;
     }
 
     private List<Car> materializeGeneration(List<CarDefinition> carDefinitions) {

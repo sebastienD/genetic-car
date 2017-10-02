@@ -1,5 +1,6 @@
 package fr.genetic.server.game;
 
+import fr.genetic.server.simulation.CarDefinition;
 import fr.genetic.server.simulation.Simulation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class Game {
 
     private static void initForTeam(Team team, Simulation simulation) {
         LOGGER.info("create simulation for team {}", team);
-        players.put(team, new RunBoard(simulation).runSimulation(Simulation.buildGenerationZero()));
+        players.put(team, new RunBoard(simulation).runSimulation(CarDefinition.createRandomCar()));
     }
 
     public static RunBoard getRunBoard(Team team) {

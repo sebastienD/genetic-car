@@ -6,6 +6,7 @@ import fr.genetic.server.simulation.Simulation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +32,10 @@ public class RunBoard {
         this.cars = cars;
         this.nbRunSimulation ++;
         return this;
+    }
+
+    public RunBoard runSimulation(CarDefinition definition) {
+        return runSimulation(Arrays.asList(definition));
     }
 
     public void showAllScores() {

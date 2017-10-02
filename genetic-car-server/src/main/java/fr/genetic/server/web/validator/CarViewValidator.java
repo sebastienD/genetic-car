@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 public class CarViewValidator {
 
     public List<String> validate(CarView carView) {
-        // TODO améliorer le validator
         List<String> errors = Validator.of(carView.chassis)
                 .validate(c -> c.vecteurs.size() == 16, "le nombre de coordonnées du chassis est incorrect (!= de 16)")
                 .messagesStream()

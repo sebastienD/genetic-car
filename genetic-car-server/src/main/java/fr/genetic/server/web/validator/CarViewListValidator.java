@@ -9,6 +9,8 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static fr.genetic.server.simulation.Simulation.DEFAULT_GENERATION_SIZE;
+
 @Component
 public class CarViewListValidator {
 
@@ -38,8 +40,9 @@ public class CarViewListValidator {
 
     private void validateSize(List<CarView> carViewList, Team team) {
         long count = carViewList.stream().count();
-        if (count > 20) {
-            throw new IllegalArgumentException(team + " - La liste ne doit pas contenir plus de 20 voitures ("+count+")");
+        if (count > DEFAULT_GENERATION_SIZE) {
+            String message = String.format("%s - la liste ne doit pas contenir plus de %s voitures (%s)", team, DEFAULT_GENERATION_SIZE, count);
+            throw new IllegalArgumentException(message);
         }
     }
 
