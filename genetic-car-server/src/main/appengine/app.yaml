@@ -1,7 +1,5 @@
 runtime: java
 env: flex
-runtime_config:
-  server: tomcat8
 
 handlers:
 - url: /.*
