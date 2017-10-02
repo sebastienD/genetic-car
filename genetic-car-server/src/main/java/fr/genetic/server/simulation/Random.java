@@ -2,29 +2,28 @@ package fr.genetic.server.simulation;
 
 import java.security.SecureRandom;
 
-/**
- * Created by sebastien on 18/01/2015.
- */
 public class Random {
+
+    private static final SecureRandom RAND = new SecureRandom();
 
     private Random() {
 
     }
 
     public static float next() {
-        return new SecureRandom().nextFloat();
+        return RAND.nextFloat();
     }
 
     public static float next(float maxValue) {
-        return new SecureRandom().nextFloat() * maxValue;
+        return RAND.nextFloat() * maxValue;
     }
 
     public static float next(float minValue, float maxValue) {
-        return (new SecureRandom().nextFloat() * (maxValue - minValue)) + minValue;
+        return (RAND.nextFloat() * (maxValue - minValue)) + minValue;
     }
 
     public static int nextInt(int maxValue) {
-        return new SecureRandom().nextInt(maxValue);
+        return RAND.nextInt(maxValue);
     }
 
 }

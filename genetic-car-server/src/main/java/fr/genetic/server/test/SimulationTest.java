@@ -12,7 +12,7 @@ public class SimulationTest {
 
         TestList.populateModel(model);
         model.addCategory("Algo Genetic");
-        model.addTest(new LaunchSimulationTest());
+        model.addTest(new SimulationTestbedTest());
 
         model.getSettings().addSetting(new TestbedSetting("My Range Setting", TestbedSetting.SettingType.ENGINE, 10, 0, 20));
 

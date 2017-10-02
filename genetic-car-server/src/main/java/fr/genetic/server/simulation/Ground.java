@@ -9,9 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by sebastien on 12/01/2015.
- */
 public class Ground {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Ground.class);

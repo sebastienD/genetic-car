@@ -33,12 +33,12 @@ public class Simulation {
         ground.createFloor();
     }
 
-    public void runSimulationForTest(List<CarDefinition> carDefinitions) {
+    public void runForTest(List<CarDefinition> carDefinitions) {
         deadCars = 0;
         materializeGeneration(carDefinitions);
     }
 
-    public synchronized List<Car> runSimulation(List<CarDefinition> carDefinitions) {
+    public synchronized List<Car> run(List<CarDefinition> carDefinitions) {
         deadCars = 0;
         List<Car> cars = materializeGeneration(carDefinitions);
 

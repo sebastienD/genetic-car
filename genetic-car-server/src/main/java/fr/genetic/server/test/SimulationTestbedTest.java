@@ -9,12 +9,12 @@ import java.util.stream.IntStream;
 
 import static fr.genetic.server.simulation.Simulation.DEFAULT_GENERATION_SIZE;
 
-public class LaunchSimulationTest extends TestbedTest {
+public class SimulationTestbedTest extends TestbedTest {
 
     @Override
     public void initTest(boolean b) {
         Simulation simulation = new Simulation(getWorld());
-        simulation.runSimulationForTest(
+        simulation.runForTest(
                 IntStream.range(0, DEFAULT_GENERATION_SIZE)
                 .mapToObj(i -> CarDefinition.createRandomCar())
                 .collect(Collectors.toList()));
