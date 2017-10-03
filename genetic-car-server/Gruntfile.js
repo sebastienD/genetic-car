@@ -248,20 +248,27 @@ module.exports = function (grunt) {
                 ]
             },
             dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= app_src_path %>',
-                    dest: '<%= package_path %>',
-                    src: [
-                        '*.{ico,png,txt}'
-                    ]
-                }, {
-                    expand: true,
-                    cwd: '<%= tmp_dir %>',
-                    src: ['scripts/*.js', 'styles/*.css', 'index.html', 'images/**/*'],
-                    dest: '<%= package_path %>'
-                }]
+                files: [
+                    {
+                        expand: true,
+                        dot: true,
+                        cwd: '<%= app_src_path %>',
+                        src: [ '*.{ico,png,txt}' ],
+                        dest: '<%= package_path %>'
+                    },
+                    {
+                        expand: true,
+                        dot: false,
+                        cwd: '<%= app_src_path %>',
+                        src: '<%= asset_files %>',
+                        dest: '<%= package_path %>'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= tmp_dir %>',
+                        src: ['scripts/*.js', 'styles/*.css', 'index.html', 'images/**/*'],
+                        dest: '<%= package_path %>'
+                    }]
             },
             styles: {
                 expand: true,

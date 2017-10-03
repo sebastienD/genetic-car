@@ -15,20 +15,29 @@ module.exports = {
         ],
         jsunit: [
             'src/main/webapp/scripts/app/**/*_test.js',
-            'src/main/webapp/scripts/common/**/*_test.js'],
-
+            'src/main/webapp/scripts/common/**/*_test.js'
+        ],
         tpl: [
             'src/main/webapp/scripts/app/**/*-tpl.html',
             'src/main/webapp/scripts/common/**/*-tpl.html'
         ],
-
-        index: ['src/main/webapp/index.html'],
+        index: [
+            'src/main/webapp/index.html'
+        ],
         less: [
             'src/main/webapp/styles-less/**/*.less',
             'src/main/webapp/scripts/common/**/*.less',
             'src/main/webapp/scripts/app/**/*.less'
         ]
     },
+
+    asset_files: [
+        'fonts/**',
+        'images/**',
+        'lib/**',
+        'origin/**',
+        '404.html'
+    ],
 
     /**
      * This is a collection of files used during testing only.
