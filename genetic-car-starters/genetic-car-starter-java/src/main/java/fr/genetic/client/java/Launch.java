@@ -51,7 +51,7 @@ public class Launch implements CommandLineRunner {
     private List<CarScoreView> evaluate(List<CarView> cars) {
         String url = host + "/simulation/evaluate/" + team.name();
         return restTemplate.exchange(url, HttpMethod.POST,
-                new HttpEntity(cars), new ParameterizedTypeReference<List<CarScoreView>>() {}).getBody();
+                new HttpEntity<>(cars), new ParameterizedTypeReference<List<CarScoreView>>() {}).getBody();
     }
 
     protected void doMyAlgo() {
