@@ -47,3 +47,6 @@ angular/
 ##########
 .gradle/
 build
+
+genetic-car-starters/genetic-car-starter-python/genetic-car/
+
