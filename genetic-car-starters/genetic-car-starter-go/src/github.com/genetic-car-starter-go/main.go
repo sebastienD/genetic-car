@@ -119,7 +119,7 @@ func (a CarScoreViewByScore) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 func (a CarScoreViewByScore) Less(i, j int) bool { return a[i].Score < a[j].Score }
 
 const (
-	BASE_URL = "http://genetic-car.herokuapp.com"
+	BASE_URL = "https://gen-car-3.cleverapps.io"
 	//BASE_URL = "http://localhost:8080"
 
 	CHASSIS_MIN_AXIS    float64 = 0.1

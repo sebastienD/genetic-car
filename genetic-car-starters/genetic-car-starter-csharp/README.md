@@ -39,7 +39,7 @@ Si le champion de la dernière évaluation est moins bon que le champion de la s
 
 ## L'api
 
-Le plus simple est d'aller voir sur [swagger](http://genetic-car.herokuapp.com/swagger-ui.html).
+Le plus simple est d'aller voir sur [swagger](https://gen-car-1.cleverapps.io/swagger-ui.html).
 
 ## Pré-requis
 

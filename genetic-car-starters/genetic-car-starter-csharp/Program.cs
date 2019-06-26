@@ -19,7 +19,7 @@ namespace GeneticAlgorithm
 
             _client = new GeneticAlgorithm.RestClient.RestClient
             {
-                URL = "http://genetic-car.herokuapp.com",
+                URL = "https://gen-car-1.cleverapps.io",
                 MyTeam = _maTeam.ToString()
             };
 

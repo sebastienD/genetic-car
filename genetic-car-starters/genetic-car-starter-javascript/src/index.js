@@ -3,7 +3,7 @@
 import fetch from 'node-fetch';
 import { randomCar, toView, fromView } from './car';
 
-const host = 'http://genetic-car.herokuapp.com';
+const host = 'https://gen-car-2.cleverapps.io/';
 // const host = 'http://localhost:8080';
 const team = 'RED'; // RED, YELLOW, BLUE, GREEN, ORANGE, PURPLE
 const url = `${host}/simulation/evaluate/${team}`;

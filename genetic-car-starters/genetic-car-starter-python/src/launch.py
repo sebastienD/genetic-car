@@ -9,7 +9,7 @@ import httplib2
 
 # /!\ Change team value below /!\
 team = 'BLUE'  # RED, YELLOW, BLUE, GREEN, ORANGE, PURPLE
-host = "http://genetic-car.herokuapp.com"
+host = "https://gen-car-3.cleverapps.io"
 
 
 def run():
