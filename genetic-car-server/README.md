@@ -8,7 +8,7 @@ Il a été fortement inspiré des projets:
 
 ## L'api
 
-Elle est composée de deux controllers ([swagger](http://genetic-car.herokuapp.com/swagger-ui.html)):
+Elle est composée de deux controllers ([swagger](https://gen-car-1.cleverapps.io/swagger-ui.html)):
 * GameController: permet d'initialiser et de supprimer l'environnement de simulation pour chacune des équipes.
 * SimulationController: contient la fonction d'évaluation et les méthodes pour retourner le champion de chacune des équipes.
 
