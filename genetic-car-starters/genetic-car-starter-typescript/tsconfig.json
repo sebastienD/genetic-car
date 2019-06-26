@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": "src",
+    "module": "commonjs",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "target": "es6",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "lib": [
+      "es2016",
+      "dom"
+    ]
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
