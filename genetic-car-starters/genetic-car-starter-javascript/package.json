@@ -16,6 +16,6 @@
     "eslint-plugin-react": "^6.9.0"
   },
   "dependencies": {
-    "node-fetch": "^1.6.3"
+    "node-fetch": "^2.6.1"
   }
 }
